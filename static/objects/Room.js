@@ -32,12 +32,34 @@ class Room {
         //set starting tile to walkable
         this.walkableMap[startY][startX] = true
 
+        this.printWalkableMap()
+
     }
 
 
     //logs walkable map 
     printWalkableMap() {
+        console.log("Room: printing room")
         
+        let output = ""
+        for(var i = 0; i < this.height; i++) {
+
+            let row = ""
+            for(var j = 0; j < this.width; j++) {
+                if(this.walkableMap[i][j]) {
+                    row += "1 "
+                }
+                else {
+                    row += "0 "
+                }
+            }
+
+            output += row 
+            output += '\n'
+        }
+
+        console.log(output)
+
     }
 
 
