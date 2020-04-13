@@ -22,12 +22,15 @@ function loadSheet(pixiRef, sheetFile, tileW, tileH, numTiles, tileKey, callBack
         //create sprites from png file
         for(var i = 0; i < numTiles; i++) {
 
+            //get texture from sheet
             let texture = new PIXI.Texture(sheet, new PIXI.Rectangle(i * tileW, 0, tileW, tileH))
 
+            //create unique key for subsprite
             let key = tileKey + "_" + i
-            console.log(key)
 
+            //create sprite from subtexture
             let sprite = new PIXI.Sprite(texture)
+
 
             addSpriteToMap(key, sprite)
         }
