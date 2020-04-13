@@ -1,8 +1,8 @@
 
 
-//returns PIXI sprite given the provied file link
-function getSprite(imgFile) {
+//loads sprite and saves it to map
+function loadSprite(key, imgFile) {
 
-    return new PIXI.Sprite.from(imgFile)
-
+    let newSprite = new PIXI.Sprite.from(imgFile)
+    addSpriteToMap(key, newSprite)
 }

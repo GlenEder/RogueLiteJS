@@ -8,7 +8,10 @@ window.addEventListener("load", () => {
     document.body.appendChild(app.view);
 
 
-    app.stage.addChild(getSprite("sprites/GrassCoveredDirt.png"))
+    //load grass tile
+    loadSprite("grassMap", "sprites/GrassCoveredDirt.png")
+
+    app.stage.addChild(getSprite("grassMap"))
 
 })
 
