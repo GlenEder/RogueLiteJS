@@ -12,7 +12,9 @@ window.addEventListener("load", () => {
     loadSprite("grassMap", "sprites/GrassCoveredDirt.png")
 
     loadSheet(app, "sprites/dirtGrass.png", 16, 16, 9, "dirt", () => {
-        app.stage.addChild(getSprite("dirt_1"))
+        let dirt = getSprite("dirt_1")
+        dirt.scale.set(10)
+        app.stage.addChild(dirt)
     })
 
 
