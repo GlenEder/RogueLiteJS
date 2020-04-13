@@ -7,11 +7,11 @@ function loadSprite(key, imgFile) {
     addSpriteToMap(key, newSprite)
 }
 
-function loadSheet(pixiRef, sheetFile) {
 
-    pixiRef.loader.add(sheetFile)
-    .load( () => {
-        console.log("ImageLoader: loaded sheet")
-    })
+//loads sprites from sprite sheet and stores in sprite map
+//maps with key: <tileKey>_<tileNumber>
+function loadSheet(pixiRef, sheetFile, tileW, tileH, numTiles, tileKey) {
+
+    
 
 }
