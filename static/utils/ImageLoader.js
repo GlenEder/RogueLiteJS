@@ -1,6 +1,6 @@
 
 
-
+//Loads images linked in add section to PIXI texture array
 function loadImgs() {
 
     PIXI.loader
@@ -11,6 +11,7 @@ function loadImgs() {
 
 }
 
+//Called when loadImgs has finsihed making textures
 function doneLoading() {
 
     console.log("ImageLoader: finished loading sprites.")
