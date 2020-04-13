@@ -11,6 +11,8 @@ window.addEventListener("load", () => {
     //load grass tile
     loadSprite("grassMap", "sprites/GrassCoveredDirt.png")
 
+    loadSheet(app, "sprites/dirtGrass.json")
+
     app.stage.addChild(getSprite("grassMap"))
 
 })
