@@ -49,15 +49,21 @@ class Room {
     //returns tile number for sprite sheet
     getTileType(tilePos) {
 
+        if(this.walkableMap[tilePos.y][tilePos.x]) { return 0}
+
         let top = false
         let bot = false
         let left = false
         let right = false
 
+
         if(tilePos.x + 1 < this.width - 1 && this.walkableMap[tilePos.y][tilePos.x + 1]) right = true
         if(tilePos.x - 1 > 0 && this.walkableMap[tilePos.y][tilePos.x - 1]) left = true
         if(tilePos.y + 1 < this.height - 1 && this.walkableMap[tilePos.y + 1][tilePos.x]) bot = true
         if(tilePos.y - 1 > 0 && this.walkableMap[tilePos.y - 1][tilePos.x]) top = true
+
+        
+
 
         
 
