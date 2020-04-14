@@ -12,14 +12,14 @@ window.addEventListener("load", () => {
     //load grass tile
     loadSprite("grassMap", "sprites/GrassCoveredDirt.png")
 
-    loadSheet(app, "sprites/dirtGrass.png", 16, 16, 9, "dirt", initGame)
+    loadSheet(app, "sprites/dirtGrass.png", 16, 16, 9, 1, "dirt", initGame)
 })
 
 function initGame() {
     let scale = 3
 
     for(var i = 0; i < 9; i++) {
-        let key = "dirt_" + i
+        let key = "dirt_" + (i + 1)
         let dirt = getSprite(key)
         dirt.scale.set(scale)
         dirt.x = i * 20 * scale
