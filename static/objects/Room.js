@@ -32,7 +32,10 @@ class Room {
             for(var j = 0; j < this.width; j++) {
 
                 let tileType = this.getTileType(new Vec2d(j, i))
-               // console.log("Tile Type: " + tileType + ", x: " + j + ", y: " + i)
+                // console.log("Tile Type: " + tileType + ", x: " + j + ", y: " + i)
+
+                //dont draw tiles we cant walk on
+                if(tileType < 0) continue
 
                 const sprite = getSprite(this.tileset + "_" + tileType)
                 sprite.scale.set(this.scale)
@@ -49,7 +52,7 @@ class Room {
     //returns tile number for sprite sheet
     getTileType(tilePos) {
 
-        if(this.walkableMap[tilePos.y][tilePos.x]) { return 0}
+        if(!this.walkableMap[tilePos.y][tilePos.x]) { return -1}
 
         let top = false
         let bot = false
@@ -64,7 +67,6 @@ class Room {
 
         
         if(top && bot && left && right) return 0
-        if(top && bot && left && !right) return 1
 
         
 
