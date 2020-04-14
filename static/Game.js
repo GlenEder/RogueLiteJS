@@ -24,6 +24,15 @@ function initGame() {
         dirt.scale.set(scale)
         dirt.x = i * 20 * scale
 
+        const textStyle = new PIXI.TextStyle({
+            fill: "white",
+            fontSize: 12
+        })
+        const text = new PIXI.Text(key, textStyle)
+        text.x = i * 20 * scale
+        text.y = 60
+
+        app.stage.addChild(text)
         app.stage.addChild(dirt)
     }
 
