@@ -10,7 +10,7 @@ function loadSprite(key, imgFile) {
 
 //loads sprites from sprite sheet and stores in sprite map
 //maps with key: <tileKey>_<tileNumber>
-function loadSheet(pixiRef, sheetFile, tileW, tileH, numTiles, tileKey, callBack) {
+function loadSheet(pixiRef, sheetFile, tileW, tileH, numTilesPerRow, numRows, tileKey, callBack) {
 
     //load sheet file into cache 
     pixiRef.loader.add(tileKey, sheetFile)
@@ -20,16 +20,20 @@ function loadSheet(pixiRef, sheetFile, tileW, tileH, numTiles, tileKey, callBack
         let sheet = new PIXI.BaseTexture.from(pixiRef.loader.resources[tileKey].url)
 
         //create sprites from png file
-        for(var i = 0; i < numTiles; i++) {
+        for(var j = 0; j < numRows; j++) {
+            for(var i = 0; i < numTilesPerRow; i++) {
 
-            //get texture from sheet
-            let texture = new PIXI.Texture(sheet, new PIXI.Rectangle(i * tileW, 0, tileW, tileH))
-
-            //create unique key for subsprite
-            let key = tileKey + "_" + i
-
-            addSpriteToMap(key, texture)
+                //get texture from sheet
+                let texture = new PIXI.Texture(sheet, new PIXI.Rectangle(i * tileW, j * tileH, tileW, tileH))
+    
+                //create unique key for subsprite
+                let tileNumber = (i + 1) * (j + 1)
+                let key = tileKey + "_" + tileNumber
+    
+                addSpriteToMap(key, texture)
+            }
         }
+        
 
 
         console.log("ImageLoader: Done adding sprites from - " + sheetFile)
