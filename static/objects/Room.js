@@ -26,14 +26,62 @@ class Room {
         console.log("Room: Generating room")
 
         //pick random starting tile
-        let startX = Math.floor(Math.random() * this.width)
-        let startY = Math.floor(Math.random() * this.height)
+        let x = Math.floor(Math.random() * this.width)
+        let y = Math.floor(Math.random() * this.height)
 
         //set starting tile to walkable
-        this.walkableMap[startY][startX] = true
+        this.walkableMap[y][x] = true
+
+        let numSet = 1
+
+        while(numSet < this.numWalkable) {
+
+            //pick direction to walk
+            let dir = Math.floor(Math.random() * 4)
+            
+            switch(dir) {
+                case 0:
+                    y--
+                    break
+                case 1:
+                    x++
+                    break
+                case 2:
+                    y++
+                    break
+                case 3:
+                    x--
+                    break
+            }
+
+            //check x y bounds
+            this.clampValueToMap(x, y)
+
+            console.log("X: " + x +", Y: " + y)
+
+        }
 
         this.printWalkableMap()
 
+    }
+
+
+    //clamps x to 0 - (width - 1)
+    //clamps y to 0 - (height - 1) 
+    clampValueToMap(x, y) {
+        if(x < 0) {
+            x = 0
+        }
+        else if(x > this.width - 1) {
+            x = this.width - 1
+        }
+
+        if(y < 0) {
+            y = 0
+        }
+        else if(y > this.height - 1) {
+            y = this.height - 1
+        }
     }
 
 
