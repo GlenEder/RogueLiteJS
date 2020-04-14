@@ -13,23 +13,21 @@ window.addEventListener("load", () => {
 
     loadSheet(app, "sprites/dirtGrass.png", 16, 16, 9, "dirt", () => {
 
-        let scale = 3
-
-        let dirtTiles = []
-
-        for(var i = 0; i < 9; i++) {
-            let key = "dirt_" + i
-            let dirt = getSprite(key)
-            dirt.scale.set(scale)
-            dirt.x = i * 20 * scale
-
-            app.stage.addChild(dirt)
-
-            dirtTiles.push(dirt)
-        }
+        // let scale = 3
 
 
-        let currRoom = new Room(10, 10, 50, dirtTiles)
+        // for(var i = 0; i < 9; i++) {
+        //     let key = "dirt_" + i
+        //     let dirt = getSprite(key)
+        //     dirt.scale.set(scale)
+        //     dirt.x = i * 20 * scale
+
+        //     app.stage.addChild(dirt)
+        // }
+
+
+        let currRoom = new Room(10, 10, 50, "dirt")
+        app.stage.addChild(currRoom.room)
     })
 
    
