@@ -55,9 +55,16 @@ class Room {
             }
 
             //check x y bounds
-            this.clampValueToMap(x, y)
+            x = clamp(x, 0, this.width - 1)
+            y = clamp(y, 0, this.height - 1)
 
-            console.log("X: " + x +", Y: " + y)
+            console.log("X: " + x + ", Y: " + y)
+
+            //set position to true
+            if(!this.walkableMap[y][x]) {
+                this.walkableMap[y][x] = true
+                numSet++
+            }
 
         }
 
@@ -65,24 +72,6 @@ class Room {
 
     }
 
-
-    //clamps x to 0 - (width - 1)
-    //clamps y to 0 - (height - 1) 
-    clampValueToMap(x, y) {
-        if(x < 0) {
-            x = 0
-        }
-        else if(x > this.width - 1) {
-            x = this.width - 1
-        }
-
-        if(y < 0) {
-            y = 0
-        }
-        else if(y > this.height - 1) {
-            y = this.height - 1
-        }
-    }
 
 
     //logs walkable map 
