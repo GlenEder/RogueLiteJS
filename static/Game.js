@@ -12,9 +12,17 @@ window.addEventListener("load", () => {
     loadSprite("grassMap", "sprites/GrassCoveredDirt.png")
 
     loadSheet(app, "sprites/dirtGrass.png", 16, 16, 9, "dirt", () => {
-        let dirt = getSprite("dirt_1")
-        dirt.scale.set(10)
-        app.stage.addChild(dirt)
+
+        let scale = 3
+
+        for(var i = 0; i < 9; i++) {
+            let key = "dirt_" + i
+            let dirt = getSprite(key)
+            dirt.scale.set(scale)
+            dirt.x = i * 20 * scale
+
+            app.stage.addChild(dirt)
+        }
     })
 
     let currRoom = new Room(10, 10, 50)

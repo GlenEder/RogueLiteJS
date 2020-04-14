@@ -20,6 +20,37 @@ class Room {
         this.generateRoom()
     }
 
+    //Renders room using tile array provided
+
+    render(tiles, tileSize) {
+
+        let room = PIXI.Container()
+
+        for(var i = 0; i < this.height; i++) {
+            for(var j = 0; j < this.width; j++) {
+
+                let tileType = this.getTileType(new Vec2d(j, i))
+                console.log("Tile Type: " + tileType + ", x: " + j + ", y: " + i)
+
+            }
+        }
+
+
+
+    }
+
+    //returns tile number for sprite sheet
+    getTileType(tilsPos) {
+
+        let top = false
+        let bot = false
+        let left = false
+        let right = false
+
+        
+
+    }
+
 
     //creates a random layout for the walkable map
     generateRoom() {
