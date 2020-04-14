@@ -2,10 +2,12 @@
 
 class Room {
 
-    constructor(width, height, numWalkable) {
+    constructor(width, height, numWalkable, tileset) {
         this.width = width
         this.height = height
         this.numWalkable = numWalkable
+        this.tiles = tileset
+        this.tileSize = 16
 
         //create two dimension map
         this.walkableMap = []
@@ -18,11 +20,12 @@ class Room {
         }
 
         this.generateRoom()
+        this.render(this.tileSize)
     }
 
     //Renders room using tile array provided
 
-    render(tiles, tileSize) {
+    render(tileSize) {
 
         let room = PIXI.Container()
 
@@ -40,15 +43,15 @@ class Room {
     }
 
     //returns tile number for sprite sheet
-    getTileType(tilsPos) {
+    getTileType(tilePos) {
 
         let top = false
         let bot = false
         let left = false
         let right = false
 
-        if(tilsPos.x + 1 < this.width - 1 && this.walkableMap[tilePos.y][tilsPos.x + 1]) right = true
-        if(tilsPos.x - 1 > 0 && this.walkableMap[tilePos.y][tilsPos.x - 1]) left = true
+        if(tilePos.x + 1 < this.width - 1 && this.walkableMap[tilePos.y][tilePos.x + 1]) right = true
+        if(tilePos.x - 1 > 0 && this.walkableMap[tilePos.y][tilePos.x - 1]) left = true
         if(tilePos.y + 1 < this.height - 1 && this.walkableMap[tilePos.y + 1][tilePos.x]) bot = true
         if(tilePos.y - 1 > 0 && this.walkableMap[tilePos.y - 1][tilePos.x]) top = true
 
