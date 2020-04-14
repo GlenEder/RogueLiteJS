@@ -47,7 +47,17 @@ class Room {
         let left = false
         let right = false
 
+        if(tilsPos.x + 1 < this.width - 1 && this.walkableMap[tilePos.y][tilsPos.x + 1]) right = true
+        if(tilsPos.x - 1 > 0 && this.walkableMap[tilePos.y][tilsPos.x - 1]) left = true
+        if(tilePos.y + 1 < this.height - 1 && this.walkableMap[tilePos.y + 1][tilePos.x]) bot = true
+        if(tilePos.y - 1 > 0 && this.walkableMap[tilePos.y - 1][tilePos.x]) top = true
+
         
+
+        //return something that isnt clean tile if something goes wrong 
+        return 1
+
+
 
     }
 
