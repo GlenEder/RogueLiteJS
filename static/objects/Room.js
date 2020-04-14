@@ -32,45 +32,83 @@ class Room {
         //set starting tile to walkable
         this.walkableMap[y][x] = true
 
-        let numSet = 1
+        //create array of tiles able to visit 
+        let availTiles = new Map()
+    
 
-        while(numSet < this.numWalkable) {
+        //add starting location to array 
+        let first = new Vec2d(x, y)
+        let key = first.x + "-" + first.y
+        
+        availTiles.set(key, first)
 
-            //pick direction to walk
-            let dir = Math.floor(Math.random() * 4)
+    
+
+
+        for(var i = 0; i < this.numWalkable; i++) {
             
-            switch(dir) {
-                case 0:
-                    y--
-                    break
-                case 1:
-                    x++
-                    break
-                case 2:
-                    y++
-                    break
-                case 3:
-                    x--
-                    break
-            }
 
-            //check x y bounds
-            x = clamp(x, 0, this.width - 1)
-            y = clamp(y, 0, this.height - 1)
+            //get random from avail list
+            let toSetKey = this.getRandomKey(availTiles)
+            let toSet = availTiles.get(toSetKey)
 
-            console.log("X: " + x + ", Y: " + y)
+            //set random spot
+            this.walkableMap[toSet.y][toSet.x] = true
 
-            //set position to true
-            if(!this.walkableMap[y][x]) {
-                this.walkableMap[y][x] = true
-                numSet++
-            }
+            //get surrounding tiles that have yet to be visited 
+            this.getAvailTilesAround(toSetKey, availTiles)
 
+            //remove from avail list
+            availTiles.delete(toSetKey)
+
+            //this.printMap(availTiles)
+          
+            
         }
+
+
 
         this.printWalkableMap()
 
+        this.printNumTilesWalkable()
     }
+
+    // returns random key from map
+    getRandomKey(collection) {
+        let keys = Array.from(collection.keys())
+        return keys[Math.floor(Math.random() * keys.length)]
+    }
+
+    getAvailTilesAround(tileKey, availMap) {
+
+        //get cords of provied tile 
+        let tile = availMap.get(tileKey)
+        let x = tile.x
+        let y = tile.y
+
+        for(var i = -1; i < 2; i++) {
+            for(var j = -1; j < 2; j++) {
+
+                if(Math.abs(i) === Math.abs(j)) continue
+            
+                let deltX = x + i
+                let deltY = y + j
+
+                if(deltX < 0 || deltX > this.width - 1 || deltY < 0 || deltY > this.height - 1) {
+                    continue
+                }
+
+                if(!this.walkableMap[deltY][deltX]) {
+                    //create key and add to map
+                    let key = deltX + "-" + deltY
+                    if(!availMap.has(key)) {
+                        availMap.set(key, new Vec2d(deltX, deltY))
+                    }
+                }
+            }
+        }
+
+     }
 
 
 
@@ -97,6 +135,47 @@ class Room {
 
         console.log(output)
 
+    }
+
+    printMap(map) {
+
+        let output = ""
+        for(var i = 0; i < this.height; i++) {
+
+            let row = ""
+            for(var j = 0; j < this.width; j++) {
+
+                if(map.has(j + "-" + i)) {
+                    row += "A "
+                }
+                else if(this.walkableMap[i][j]) {
+                    row += "1 "
+                }
+                else {
+                    row += "0 "
+                }
+
+            }
+
+            output += row
+            output += "\n"
+        }
+
+
+        console.log(output)
+
+    }
+
+
+    printNumTilesWalkable() {
+        let count = 0
+        this.walkableMap.forEach(item => {
+            item.forEach(item => {
+                if(item) count++
+            })
+        })
+
+        console.log("Room: Num tiles assigned: " + count)
     }
 
 

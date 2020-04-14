@@ -17,7 +17,7 @@ window.addEventListener("load", () => {
         app.stage.addChild(dirt)
     })
 
-    let currRoom = new Room(10, 10, 20)
+    let currRoom = new Room(10, 10, 50)
 
 
 })
