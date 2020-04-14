@@ -19,6 +19,9 @@ function loadSheet(pixiRef, sheetFile, tileW, tileH, numTilesPerRow, numRows, ti
         //get ref to sheet in cache
         let sheet = new PIXI.BaseTexture.from(pixiRef.loader.resources[tileKey].url)
 
+        //number for key in map
+        let tileNumber = 0
+
         //create sprites from png file
         for(var j = 0; j < numRows; j++) {
             for(var i = 0; i < numTilesPerRow; i++) {
@@ -27,9 +30,11 @@ function loadSheet(pixiRef, sheetFile, tileW, tileH, numTilesPerRow, numRows, ti
                 let texture = new PIXI.Texture(sheet, new PIXI.Rectangle(i * tileW, j * tileH, tileW, tileH))
     
                 //create unique key for subsprite
-                let tileNumber = (i + 1) * (j + 1)
                 let key = tileKey + "_" + tileNumber
-    
+                
+                //create new key
+                tileNumber++
+
                 addSpriteToMap(key, texture)
             }
         }
