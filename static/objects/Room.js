@@ -9,6 +9,7 @@ class Room {
 
         //create container
         this.container = new PIXI.Container()
+        
 
         //create two dimension map
         this.walkableMap = []
@@ -22,6 +23,8 @@ class Room {
 
         this.generateRoom()
         this.render()
+        this.container.pivot.x = this.container.width / 2
+        this.container.pivot.y = this.container.height / 2
     }
 
     //Renders room using tile array provided
@@ -60,10 +63,10 @@ class Room {
         let right = false
 
 
-        if(tilePos.x + 1 < this.width - 1 && !this.walkableMap[tilePos.y][tilePos.x + 1]) right = true
-        if(tilePos.x - 1 > 0 && !this.walkableMap[tilePos.y][tilePos.x - 1]) left = true
-        if(tilePos.y + 1 < this.height - 1 && !this.walkableMap[tilePos.y + 1][tilePos.x]) bot = true
-        if(tilePos.y - 1 > 0 && !this.walkableMap[tilePos.y - 1][tilePos.x]) top = true
+        if(tilePos.x + 1 < this.width - 1 && this.walkableMap[tilePos.y][tilePos.x + 1]) right = true
+        if(tilePos.x - 1 > 0 && this.walkableMap[tilePos.y][tilePos.x - 1]) left = true
+        if(tilePos.y + 1 < this.height - 1 && this.walkableMap[tilePos.y + 1][tilePos.x]) bot = true
+        if(tilePos.y - 1 > 0 && this.walkableMap[tilePos.y - 1][tilePos.x]) top = true
 
         
         if(top && bot && left && right) return 0
