@@ -1,15 +1,13 @@
-
-
 class Room {
-
     constructor(width, height, numWalkable, tileset) {
-
-
         this.width = width
         this.height = height
         this.numWalkable = numWalkable
         this.tileset = tileset
         this.tileSize = 16
+        this.scale = 3
+
+        //create container
         this.container = new PIXI.Container()
 
         //create two dimension map
@@ -23,25 +21,26 @@ class Room {
         }
 
         this.generateRoom()
-        this.render(this.tileSize)
+        this.render()
     }
 
     //Renders room using tile array provided
 
-    render(tileSize) {
+    render() {
 
         for(var i = 0; i < this.height; i++) {
             for(var j = 0; j < this.width; j++) {
 
                 let tileType = this.getTileType(new Vec2d(j, i))
-                //console.log("Tile Type: " + tileType + ", x: " + j + ", y: " + i)
+               // console.log("Tile Type: " + tileType + ", x: " + j + ", y: " + i)
 
-                let sprite = getSprite(this.tileset + "_" + tileType)
-                sprite.x = j * tileSize
-                sprite.y = i * tileSize
+                const sprite = getSprite(this.tileset + "_" + tileType)
+                sprite.scale.set(this.scale)
+                sprite.x = j * this.tileSize * this.scale
+                sprite.y = i * this.tileSize * this.scale
+
 
                 this.container.addChild(sprite)
-
             }
         }
 
@@ -64,9 +63,6 @@ class Room {
 
         //return something that isnt clean tile if something goes wrong 
         return 1
-
-
-
     }
 
 
@@ -84,7 +80,6 @@ class Room {
         //create array of tiles able to visit 
         let availTiles = new Map()
     
-
         //add starting location to array 
         let first = new Vec2d(x, y)
         let key = first.x + "-" + first.y
@@ -92,8 +87,6 @@ class Room {
         availTiles.set(key, first)
 
         for(var i = 0; i < this.numWalkable; i++) {
-            
-
             //get random from avail list
             let toSetKey = this.getRandomKey(availTiles)
             let toSet = availTiles.get(toSetKey)
@@ -108,8 +101,6 @@ class Room {
             availTiles.delete(toSetKey)      
             
         }
-
-
 
         this.printWalkableMap()
     }

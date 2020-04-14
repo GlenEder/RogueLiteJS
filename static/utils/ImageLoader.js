@@ -3,7 +3,7 @@
 //loads sprite and saves it to map
 function loadSprite(key, imgFile) {
 
-    let newSprite = new PIXI.Sprite.from(imgFile)
+    let newSprite = new PIXI.Texture.from(imgFile)
     addSpriteToMap(key, newSprite)
 }
 
@@ -28,11 +28,7 @@ function loadSheet(pixiRef, sheetFile, tileW, tileH, numTiles, tileKey, callBack
             //create unique key for subsprite
             let key = tileKey + "_" + i
 
-            //create sprite from subtexture
-            let sprite = new PIXI.Sprite(texture)
-
-
-            addSpriteToMap(key, sprite)
+            addSpriteToMap(key, texture)
         }
 
 
