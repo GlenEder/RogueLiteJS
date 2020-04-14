@@ -67,11 +67,26 @@ class Room {
 
         
         if(top && bot && left && right) return 0
+        if(top && bot && left && !right) return 7
+        if(top && bot && !left && right) return 1
+        if(top && bot && !left && !right) return 10
+        if(top && !bot && left && right) return 8
+        if(top && !bot && left && !right) return 5
+        if(top && !bot && !left && right) return 6
+        if(top && !bot && !left && !right) return 13
 
-        
+        if(!top && bot && left && right) return 3
+        if(!top && bot && left && !right) return 4
+        if(!top && bot && !left && right) return 2
+        if(!top && bot && !left && !right) return 12
+        if(!top && !bot && left && right) return 9
+        if(!top && !bot && left && !right) return 15
+        if(!top && !bot && !left && right) return 14
+        if(!top && !bot && !left && !right) return 11
+
 
         //return something that isnt clean tile if something goes wrong 
-        return 1
+        return -1
     }
 
 

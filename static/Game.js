@@ -16,31 +16,32 @@ window.addEventListener("load", () => {
 })
 
 function initGame() {
-    let scale = 5
-    let keyValue = 0
-    for(var j = 0; j < 2; j++) {
-        for(var i = 0; i < 8; i++) {
-            let key = "dirt_" + keyValue
-            keyValue++
-            let dirt = getSprite(key)
-            dirt.scale.set(scale)
-            dirt.x = (i * 20 * scale)
-            dirt.y = (j * 30 * scale)
+    // let scale = 5
+    // let keyValue = 0
+    // for(var j = 0; j < 2; j++) {
+    //     for(var i = 0; i < 8; i++) {
+    //         let key = "dirt_" + keyValue
+    //         keyValue++
+    //         let dirt = getSprite(key)
+    //         dirt.scale.set(scale)
+    //         dirt.x = (i * 20 * scale)
+    //         dirt.y = (j * 30 * scale)
 
-            let ftsz = 3 * scale
-            const textStyle = new PIXI.TextStyle({
-                fill: "white",
-                fontSize: ftsz
-            })
-            const text = new PIXI.Text(key, textStyle)
-            text.x = i * 20 * scale
-            text.y = (j * 30 * scale) + (16 * scale) + 10
+    //         let ftsz = 3 * scale
+    //         const textStyle = new PIXI.TextStyle({
+    //             fill: "white",
+    //             fontSize: ftsz
+    //         })
+    //         const text = new PIXI.Text(key, textStyle)
+    //         text.x = i * 20 * scale
+    //         text.y = (j * 30 * scale) + (16 * scale) + 10
 
-            app.stage.addChild(text)
-            app.stage.addChild(dirt)
-        }
+    //         app.stage.addChild(text)
+    //         app.stage.addChild(dirt)
+    //     }
 
-    }
-    // let currRoom = new Room(10, 10, 50, "dirt")
-    // app.stage.addChild(currRoom.container)
+    // }
+    
+    let currRoom = new Room(10, 10, 50, "dirt")
+    app.stage.addChild(currRoom.container)
 }
