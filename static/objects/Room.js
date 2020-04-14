@@ -42,9 +42,6 @@ class Room {
         
         availTiles.set(key, first)
 
-    
-
-
         for(var i = 0; i < this.numWalkable; i++) {
             
 
@@ -59,18 +56,13 @@ class Room {
             this.getAvailTilesAround(toSetKey, availTiles)
 
             //remove from avail list
-            availTiles.delete(toSetKey)
-
-            //this.printMap(availTiles)
-          
+            availTiles.delete(toSetKey)      
             
         }
 
 
 
         this.printWalkableMap()
-
-        this.printNumTilesWalkable()
     }
 
     // returns random key from map
