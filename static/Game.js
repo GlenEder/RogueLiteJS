@@ -42,7 +42,7 @@ function initGame() {
 
     // }
 
-    let currRoom = new Room(10, 10, 50, "dirt")
+    let currRoom = new Room(15, 15, 100, "dirt")
     currRoom.container.x = app.screen.width / 2
     currRoom.container.y = app.screen.height / 2
     app.stage.addChild(currRoom.container)
