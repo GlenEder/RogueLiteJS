@@ -10,6 +10,7 @@ class Room {
         //create container
         this.container = new PIXI.Container()
         
+        
 
         //create two dimension map
         this.walkableMap = []
@@ -23,6 +24,10 @@ class Room {
 
         this.generateRoom()
         this.render()
+
+        //center tiles
+        this.container.pivot.x = this.container.width / 2
+        this.container.pivot.y = this.container.height / 2
         
     }
 
