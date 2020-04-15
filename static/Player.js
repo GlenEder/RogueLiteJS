@@ -15,6 +15,8 @@ class Player {
         this.movement = [false, false, false, false]
         this.facingRight = true
         this.moveSpeed = 1.5
+
+        this.boxCollider = new Rect(this.x, this.y, this.sprite.width, this.sprite.height)
     }
 
     //sets the x and y position of the player to the provided vector
@@ -37,6 +39,8 @@ class Player {
         this.sprite.x = Math.floor(this.x)
         this.sprite.y = Math.floor(this.y)
 
+        //update collider 
+        this.boxCollider.updatePos(this.x, this.y)
     }
 
 
