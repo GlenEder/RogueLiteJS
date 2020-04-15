@@ -13,7 +13,7 @@ window.addEventListener("load", () => {
     loadSprite("grassMap", "sprites/GrassCoveredDirt.png")
 
     loadSheet(app, "sprites/dirt.png", 16, 16, 8, 2, "dirt", () => {
-        loadSheet(app, "sprites/knights.png", 16, 32, 1, 1, "knight", initGame)
+        loadSheet(app, "sprites/knights.png", 16, 32, 3, 1, "knight", initGame)
     })
     
 })
@@ -30,4 +30,8 @@ function initGame() {
     let player = new Player()
     player.spawn(currRoom.getRandomWalkableTilePos())
     currRoom.container.addChild(player.sprite)
+
+    app.ticker.add((delta) => {
+        player.update()
+    })
 }
