@@ -35,7 +35,47 @@ function initGame() {
     //Event listeners for moment and what not
     document.addEventListener("keydown", (event) => {
 
-        console.log(event.keyCode)
+        switch(event.keyCode) {
+            //d
+            case 68:
+                player.setMoving(0, true)
+                break
+            //a
+            case 65:
+                player.setMoving(1, true)
+                break
+            //w
+            case 87:
+                player.setMoving(2, true)
+                break
+            //s
+            case 83:
+                player.setMoving(3, true)
+                break
+        }
+
+    })
+
+    document.addEventListener("keyup", (event) => {
+
+        switch(event.keyCode) {
+            //d
+            case 68:
+                player.setMoving(0, false)
+                break
+            //a
+            case 65:
+                player.setMoving(1, false)
+                break
+            //w
+            case 87:
+                player.setMoving(2, false)
+                break
+            //s
+            case 83:
+                player.setMoving(3, false)
+                break
+        }
 
     })
 
@@ -44,8 +84,7 @@ function initGame() {
 
 
 
-
     app.ticker.add((delta) => {
-        player.update()
+        player.update(delta)
     })
 }

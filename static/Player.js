@@ -11,8 +11,8 @@ class Player {
         this.sprite = getSprite("knight_2")
         this.sprite.scale.set(this.scale)
 
-        this.isMoving = false
-        this.dir = 1
+        this.movement = [false, false, false, false]
+        this.facingRight = true
         this.moveSpeed = 1
 
     }
@@ -28,38 +28,48 @@ class Player {
         this.update()
     }
 
-    update() {
-    
-        if(this.isMoving) {
+    update(delta) {
 
-            switch(this.dir){
-                case 1:
-                    //Right
-                    this.x += this.moveSpeed
-                    break
-                case 2:
-                    //Left
-                    this.x -= this.moveSpeed
-                    break
-                case 3:
-                    //Up
-                    this.y -= this.moveSpeed
-                    break
-                case 4:
-                    //Down 
-                    this.y += this.moveSpeed
-                    break
-            } 
-
-        }
-
+        //move player 
+        this.move(delta)
 
         //set player location 
-        this.sprite.x = this.x
-        this.sprite.y = this.y
+        this.sprite.x = Math.floor(this.x)
+        this.sprite.y = Math.floor(this.y)
 
-       
+    }
 
+
+    //Updates player position based on movment array
+    move(delta) {
+
+        //right
+        if(this.movement[0]) {
+            this.x += this.moveSpeed * delta
+        }
+
+        //left 
+        if(this.movement[1]) {
+            this.x -= this.moveSpeed * delta
+        }
+
+        //up
+        if(this.movement[2]) {
+            this.y -= this.moveSpeed * delta
+        }
+
+        //down
+        if(this.movement[3]) {
+            this.y += this.moveSpeed * delta
+        }
+    }
+
+    //sets player dir to value provdied
+    //Assigns facing of player
+    setMoving(dir, b) {     
+        if(dir === 0 && b) this.facingRight = true
+        if(dir === 1 && b) this.facingRight = false
+        this.movement[dir] = b
     }
 
 
