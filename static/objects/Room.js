@@ -28,7 +28,6 @@ class Room {
     }
 
     //Renders room using tile array provided
-
     render() {
 
         for(var i = 0; i < this.height; i++) {
@@ -97,6 +96,7 @@ class Room {
     getRandomWalkableTilePos() {
 
         let randtile = Math.floor(Math.random() * this.numWalkable)
+
         let count = 0
 
         for(var i = 0; i < this.height; i++) {

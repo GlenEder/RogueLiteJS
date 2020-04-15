@@ -12,40 +12,20 @@ window.addEventListener("load", () => {
     //load grass tile
     loadSprite("grassMap", "sprites/GrassCoveredDirt.png")
 
-    loadSheet(app, "sprites/dirt.png", 16, 16, 8, 2, "dirt", initGame)
+    loadSheet(app, "sprites/dirt.png", 16, 16, 8, 2, "dirt", () => {
+        loadSheet(app, "sprites/knights.png", 16, 32, 1, 1, "knight", initGame)
+    })
+    
 })
 
 function initGame() {
-    // let scale = 5
-    // let keyValue = 0
-    // for(var j = 0; j < 2; j++) {
-    //     for(var i = 0; i < 8; i++) {
-    //         let key = "dirt_" + keyValue
-    //         keyValue++
-    //         let dirt = getSprite(key)
-    //         dirt.scale.set(scale)
-    //         dirt.x = (i * 20 * scale)
-    //         dirt.y = (j * 30 * scale)
 
-    //         let ftsz = 3 * scale
-    //         const textStyle = new PIXI.TextStyle({
-    //             fill: "white",
-    //             fontSize: ftsz
-    //         })
-    //         const text = new PIXI.Text(key, textStyle)
-    //         text.x = i * 20 * scale
-    //         text.y = (j * 30 * scale) + (16 * scale) + 10
-
-    //         app.stage.addChild(text)
-    //         app.stage.addChild(dirt)
-    //     }
-
-    // }
-
-    let currRoom = new Room(15, 15, 100, "dirt")
+    let currRoom = new Room(8, 8, 50, "dirt")
     currRoom.container.x = app.screen.width / 2
     currRoom.container.y = app.screen.height / 2
     app.stage.addChild(currRoom.container)
 
     let player = new Player()
+    player.spawn(currRoom.getRandomWalkableTilePos())
+    app.stage.addChild(player.sprite)
 }
