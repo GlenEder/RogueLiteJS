@@ -20,16 +20,30 @@ window.addEventListener("load", () => {
 
 function initGame() {
 
+    //Create Room
     let currRoom = new Room(8, 8, 50, "dirt")
     currRoom.container.x = app.screen.width / 2
     currRoom.container.y = app.screen.height /2
     app.stage.addChild(currRoom.container)
 
-    
-
+    //Create plyaer
     let player = new Player()
     player.spawn(currRoom.getRandomWalkableTilePos())
     currRoom.container.addChild(player.sprite)
+
+
+    //Event listeners for moment and what not
+    document.addEventListener("keydown", (event) => {
+
+        console.log(event.keyCode)
+
+    })
+
+
+
+
+
+
 
     app.ticker.add((delta) => {
         player.update()
