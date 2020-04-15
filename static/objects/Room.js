@@ -23,8 +23,7 @@ class Room {
 
         this.generateRoom()
         this.render()
-        this.container.pivot.x = this.container.width / 2
-        this.container.pivot.y = this.container.height / 2
+        
     }
 
     //Renders room using tile array provided
@@ -96,20 +95,20 @@ class Room {
     getRandomWalkableTilePos() {
 
         let randtile = Math.floor(Math.random() * this.numWalkable)
-
         let count = 0
 
         for(var i = 0; i < this.height; i++) {
             for(var j = 0; j < this.width; j++) {
 
-                if(count === randtile) {
-                    let x = j * this.tileSize * this.scale
-                    let y = i * this.tileSize * this.scale
-                    return new Vec2d(x, y)
+                if(this.walkableMap[i][j]) {
+                    if(count === randtile) {
+                        let x = j * this.tileSize * this.scale
+                        let y = i * this.tileSize * this.scale
+                        return new Vec2d(x, y)
+                    }
+    
+                    count++
                 }
-
-                count++
-
             }
         }
 

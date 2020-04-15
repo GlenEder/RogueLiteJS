@@ -21,8 +21,6 @@ window.addEventListener("load", () => {
 function initGame() {
 
     let currRoom = new Room(8, 8, 50, "dirt")
-    currRoom.container.x = app.screen.width / 2
-    currRoom.container.y = app.screen.height / 2
     app.stage.addChild(currRoom.container)
 
     let player = new Player()
