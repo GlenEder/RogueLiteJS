@@ -10,4 +10,18 @@ class Player {
 
     }
 
+    spawn() {
+        let spawnLoc = getRandomWalkableTile()
+        if(spawnLoc !== null) {
+            this.x = spawnLoc.x
+            this.y = spawnLoc.y
+        }
+    }
+
+    render() {
+
+
+
+    }
+
 }

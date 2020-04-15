@@ -93,6 +93,31 @@ class Room {
     }
 
 
+    //returns vector of position of tile in screen space
+    getRandomWalkableTilePos() {
+
+        let randtile = Math.floor(Math.random() * this.numWalkable)
+        let count = 0
+
+        for(var i = 0; i < this.height; i++) {
+            for(var j = 0; j < this.width; j++) {
+
+                if(count === randtile) {
+                    let x = j * this.tileSize * this.scale
+                    let y = i * this.tileSize * this.scale
+                    return new Vec2d(x, y)
+                }
+
+                count++
+
+            }
+        }
+
+        return null
+
+    }
+
+
     //creates a random layout for the walkable map
     generateRoom() {
         console.log("Room: Generating room")
