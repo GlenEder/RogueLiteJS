@@ -14,8 +14,7 @@ class Player {
 
         this.movement = [false, false, false, false]
         this.facingRight = true
-        this.moveSpeed = 1
-
+        this.moveSpeed = 1.5
     }
 
     //sets the x and y position of the player to the provided vector

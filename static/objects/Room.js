@@ -158,7 +158,7 @@ class Room {
             
         }
 
-        this.printWalkableMap()
+        //this.printWalkableMap()
     }
 
     // returns random key from map
