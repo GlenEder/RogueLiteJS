@@ -55,9 +55,9 @@ class Player {
 
     }
 
+    //returns true if collider lands on unwalkable tile
     isCollideWithWall() {
-
-        
+    
         if(
         //top left
         (!this.currRoom.isWalkable(this.boxCollider.left, this.boxCollider.top)) ||
