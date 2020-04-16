@@ -15,11 +15,14 @@ class Player {
         this.facingRight = true
         this.moveSpeed = 1.5
 
+        //cut off value for top of sprite
+        this.spriteCutOff = 18
+
         //ref to current room object
         this.currRoom = currRoom
 
         //TODO: Remove const minus after getting own player sprites
-        this.boxCollider = new PIXI.Rectangle(this.x, this.y, this.sprite.width, this.sprite.height -16)
+        this.boxCollider = new PIXI.Rectangle(this.x, this.y, this.sprite.width, this.sprite.height - this.spriteCutOff)
     }
 
     //sets the x and y position of the player to the provided vector
@@ -127,7 +130,7 @@ class Player {
     //Sets collider pos with respect to the params
     setColliderPos(x, y) {
         this.boxCollider.x = x - (this.sprite.width / 2)
-        this.boxCollider.y = y - (this.sprite.height / 2) + 16     //TODO: Remove const with new player sprite 
+        this.boxCollider.y = y - (this.sprite.height / 2) + this.spriteCutOff    //TODO: Remove const with new player sprite 
     }
 
     //sets player dir to value provdied
