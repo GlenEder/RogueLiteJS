@@ -9,8 +9,8 @@ class Player {
         this.dir = 1;
         this.scale = 2
         this.sprite = getSprite("knight_2")
-        this.sprite.scale.set(this.scale)
         this.sprite.anchor.set(0.5)
+        this.sprite.scale.set(this.scale)
         this.movement = [false, false, false, false]
         this.facingRight = true
         this.moveSpeed = 1.5
@@ -18,7 +18,8 @@ class Player {
         //ref to current room object
         this.currRoom = currRoom
 
-        this.boxCollider = new PIXI.Rectangle(this.x, this.y, this.sprite.width, this.sprite.height)
+        //TODO: Remove const minus after getting own player sprites
+        this.boxCollider = new PIXI.Rectangle(this.x, this.y, this.sprite.width, this.sprite.height -16)
     }
 
     //sets the x and y position of the player to the provided vector
@@ -40,16 +41,20 @@ class Player {
         this.move(delta)
 
         //check collisions
-        this.handleCollisions()
+        //this.handleCollisions()
 
+        this.x = 16
+        this.y = 16
 
         //set player location 
         this.sprite.x = this.x
         this.sprite.y = this.y
 
-        //update collider 
-        this.boxCollider.x = this.x
-        this.boxCollider.y = this.y
+        //update collider acconting for sprite half width/height
+        this.boxCollider.x = this.x - (this.sprite.width / 2)
+        this.boxCollider.y = this.y - (this.sprite.height / 2) + 16     //TODO: Remove const with new player sprite 
+
+        this.printInfo()
     }
 
     handleCollisions() {
