@@ -39,6 +39,9 @@ class Player {
         //move player 
         this.move(delta)
 
+        //check collisions
+        this.handleCollisions()
+
 
         //set player location 
         this.sprite.x = this.x
@@ -50,6 +53,7 @@ class Player {
     }
 
     handleCollisions() {
+
 
         //top left
         if(!this.currRoom.isWalkable(this.boxCollider.left, this.boxCollider.top)) {
