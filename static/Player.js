@@ -41,7 +41,6 @@ class Player {
 
         //update collider 
         this.boxCollider.updatePos(this.x, this.y)
-        this.boxCollider.printInfo()
     }
 
 

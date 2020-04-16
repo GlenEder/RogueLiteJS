@@ -10,7 +10,7 @@ class Rect {
         this.height = h
 
         this.box = new PIXI.Graphics()
-        this.box.render()
+        this.render()
     }
 
     updatePos(x, y) {
