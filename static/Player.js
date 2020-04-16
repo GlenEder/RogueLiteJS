@@ -39,8 +39,6 @@ class Player {
         //move player 
         this.move(delta)
 
-        //check for tile collisons
-        console.log(this.currRoom.isWalkable(new Vec2d(this.x, this.y)))
 
         //set player location 
         this.sprite.x = this.x
@@ -49,6 +47,15 @@ class Player {
         //update collider 
         this.boxCollider.x = this.x
         this.boxCollider.y = this.y
+    }
+
+    handleCollisions() {
+
+        //top left
+        if(!this.currRoom.isWalkable(this.boxCollider.left, this.boxCollider.top)) {
+            console.log("Colliding top left")
+        }
+
     }
 
 

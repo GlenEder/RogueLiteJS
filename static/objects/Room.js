@@ -57,10 +57,10 @@ class Room {
 
 
     //returns tile value given screen coords
-    isWalkable(pos) {
+    isWalkable(posX, posY) {
 
-        let tileX = Math.floor(pos.x / (this.tileSize * this.scale))
-        let tileY = Math.floor(pos.y / (this.tileSize * this.scale))
+        let tileX = Math.floor(posX / (this.tileSize * this.scale))
+        let tileY = Math.floor(posY / (this.tileSize * this.scale))
 
         //console.log("Room: Checking x: " + tileX + ", y: " + tileY)
 
