@@ -59,16 +59,15 @@ class Room {
     //returns tile value given screen coords
     isWalkable(posX, posY) {
 
+        //get pos in array
         let tileX = Math.floor(posX / (this.tileSize * this.scale))
         let tileY = Math.floor(posY / (this.tileSize * this.scale))
 
+        //saftey check
         if(tileX < 0 || tileX > this.width - 1) return false
-        if(tileY < 0 || tileY > this.height - 1) return false
-
-        //console.log("Room: Checking x: " + tileX + ", y: " + tileY)
+        if(tileY < 0 || tileY > this.height - 1) return false 
 
         return this.walkableMap[tileY][tileX]
-
     }
 
 
