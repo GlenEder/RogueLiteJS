@@ -82,28 +82,36 @@ class Player {
     //Updates player position based on movment array
     move(delta) {
 
+        let tempX = this.x
+        let tempY = this.y
+
          //right
         if(this.movement[0]) {
-            this.x += this.moveSpeed * delta
+            tempX += this.moveSpeed * delta
         }
 
         //left 
         if(this.movement[1]) {
-            this.x -= this.moveSpeed * delta
+            tempX -= this.moveSpeed * delta
         }
 
         //up
         if(this.movement[2]) {
-            this.y -= this.moveSpeed * delta
+            tempY -= this.moveSpeed * delta
         }
 
         //down
         if(this.movement[3]) {
-            this.y += this.moveSpeed * delta
+            tempY += this.moveSpeed * delta
         }
 
-        this.x = Math.floor(this.x)
-        this.y = Math.floor(this.y)
+        //Convert back to ints
+        tempX = Math.floor(tempX)
+        tempY = Math.floor(tempY)
+
+        //Assign temp positions to real x and y
+        this.x = tempX
+        this.y = tempY
     }
 
     //sets player dir to value provdied
