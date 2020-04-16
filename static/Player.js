@@ -2,7 +2,7 @@
 
 class Player {
 
-    constructor() {
+    constructor(currRoom) {
 
         this.x = 0.0;
         this.y = 0.0;
@@ -11,16 +11,20 @@ class Player {
         this.sprite = getSprite("knight_2")
         this.sprite.scale.set(this.scale)
         this.sprite.anchor.set(0.5)
-
         this.movement = [false, false, false, false]
         this.facingRight = true
         this.moveSpeed = 1.5
+
+        //ref to current room object
+        this.currRoom = currRoom
 
         this.boxCollider = new PIXI.Rectangle(this.x, this.y, this.sprite.width, this.sprite.height)
     }
 
     //sets the x and y position of the player to the provided vector
-    spawn(spawnLoc) {
+    spawn() {
+
+        let spawnLoc = this.currRoom.getRandomWalkableTilePos()
 
         if(spawnLoc !== null && spawnLoc !== undefined) {
             this.x = spawnLoc.x
@@ -34,6 +38,9 @@ class Player {
 
         //move player 
         this.move(delta)
+
+        //check for tile collisons
+        console.log(this.currRoom.isWalkable(new Vec2d(this.x, this.y)))
 
         //set player location 
         this.sprite.x = this.x

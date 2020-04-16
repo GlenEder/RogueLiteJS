@@ -27,8 +27,8 @@ function initGame() {
     app.stage.addChild(currRoom.container)
 
     //Create plyaer
-    let player = new Player()
-    player.spawn(currRoom.getRandomWalkableTilePos())
+    let player = new Player(currRoom)
+    player.spawn()
     currRoom.container.addChild(player.sprite)
 
 
