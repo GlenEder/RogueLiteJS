@@ -38,14 +38,7 @@ class Player {
     update(delta) {
 
         //move player 
-        this.move(delta)
-
-
-        //set player location 
-        this.sprite.x = this.x
-        this.sprite.y = this.y
-
-        
+        this.move(delta)        
 
     }
 
@@ -115,8 +108,14 @@ class Player {
             //Assign temp positions to real x and y
             this.x = tempX
             this.y = tempY
+
+            //set player sprite pos 
+            this.sprite.x = this.x
+            this.sprite.y = this.y
         }
 
+
+          
 
         
     }
