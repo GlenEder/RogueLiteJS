@@ -40,9 +40,8 @@ class Player {
         this.move(delta)
 
         //check collisions
-        //this.handleCollisions()
+        this.handleCollisions()
 
-        this.printInfo()
 
         //set player location 
         this.sprite.x = this.x
@@ -54,8 +53,6 @@ class Player {
     }
 
     handleCollisions() {
-
-        console.log("Checking collisions")
 
         //top left
         if(!this.currRoom.isWalkable(this.boxCollider.left, this.boxCollider.top)) {
@@ -69,6 +66,7 @@ class Player {
 
         //bottom left
         if(!this.currRoom.isWalkable(this.boxCollider.left, this.boxCollider.bottom)) {
+            console.log("Checking collisions")
             console.log("Colliding bottom left")
         }
      
