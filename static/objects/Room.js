@@ -55,6 +55,18 @@ class Room {
 
     }
 
+
+    //returns tile value given screen coords
+    isWalkable(pos) {
+
+        let tileX = Math.floor(pos.x / this.tileSize)
+        let tileY = Math.floor(pos.y / this.tileSize)
+
+        return this.walkableMap[tileY][tileX]
+
+    }
+
+
     //returns tile number for sprite sheet
     getTileType(tilePos) {
 
