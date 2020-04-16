@@ -26,4 +26,8 @@ class Rect {
         this.box.endFill()
     }
 
+    printInfo() {
+        console.log("Rect.js: x: " + this.x + ", y: " + this.y )
+    }
+
 }

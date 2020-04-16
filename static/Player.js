@@ -36,11 +36,12 @@ class Player {
         this.move(delta)
 
         //set player location 
-        this.sprite.x = Math.floor(this.x)
-        this.sprite.y = Math.floor(this.y)
+        this.sprite.x = this.x
+        this.sprite.y = this.y
 
         //update collider 
         this.boxCollider.updatePos(this.x, this.y)
+        this.boxCollider.printInfo()
     }
 
 
@@ -66,6 +67,9 @@ class Player {
         if(this.movement[3]) {
             this.y += this.moveSpeed * delta
         }
+
+        this.x = Math.floor(this.x)
+        this.y = Math.floor(this.y)
     }
 
     //sets player dir to value provdied
