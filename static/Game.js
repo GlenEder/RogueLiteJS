@@ -31,9 +31,6 @@ function initGame() {
     player.spawn(currRoom.getRandomWalkableTilePos())
     currRoom.container.addChild(player.sprite)
 
-    //add player collider to container for debugging
-    currRoom.container.addChild(player.boxCollider.box)
-
 
     //Event listeners for moment and what not
     document.addEventListener("keydown", (event) => {

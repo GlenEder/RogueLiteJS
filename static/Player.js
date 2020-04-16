@@ -16,7 +16,7 @@ class Player {
         this.facingRight = true
         this.moveSpeed = 1.5
 
-        this.boxCollider = new Rect(this.x, this.y, this.sprite.width, this.sprite.height)
+        this.boxCollider = new PIXI.Rectangle(this.x, this.y, this.sprite.width, this.sprite.height)
     }
 
     //sets the x and y position of the player to the provided vector
@@ -40,7 +40,8 @@ class Player {
         this.sprite.y = this.y
 
         //update collider 
-        this.boxCollider.updatePos(this.x, this.y)
+        this.boxCollider.x = this.x
+        this.boxCollider.y = this.y
     }
 
 
