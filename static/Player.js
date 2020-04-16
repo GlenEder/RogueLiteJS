@@ -40,9 +40,6 @@ class Player {
         //move player 
         this.move(delta)
 
-        //check collisions
-        this.handleCollisions()
-
 
         //set player location 
         this.sprite.x = this.x
@@ -54,27 +51,23 @@ class Player {
 
     }
 
-    handleCollisions() {
+    isCollideWithWall() {
 
+        
+        if(
         //top left
-        if(!this.currRoom.isWalkable(this.boxCollider.left, this.boxCollider.top)) {
-            console.log("Colliding top left")
-        }
-
+        (!this.currRoom.isWalkable(this.boxCollider.left, this.boxCollider.top)) ||
         //top right
-        if(!this.currRoom.isWalkable(this.boxCollider.right, this.boxCollider.top)) {
-            console.log("Colliding top right")
+        (!this.currRoom.isWalkable(this.boxCollider.right, this.boxCollider.top)) ||
+        //bottom left
+        (!this.currRoom.isWalkable(this.boxCollider.left, this.boxCollider.bottom)) ||
+        //bottom right
+        (!this.currRoom.isWalkable(this.boxCollider.right, this.boxCollider.bottom))) 
+        {
+            return true
         }
 
-        //bottom left
-        if(!this.currRoom.isWalkable(this.boxCollider.left, this.boxCollider.bottom)) {
-            console.log("Colliding bottom left")
-        }
-     
-        //bottom right
-        if(!this.currRoom.isWalkable(this.boxCollider.right, this.boxCollider.bottom)) {
-            console.log("Colliding bottom right")
-        }
+        return false
 
     }
 
