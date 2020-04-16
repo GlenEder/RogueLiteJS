@@ -25,14 +25,24 @@ class Player {
     //sets the x and y position of the player to the provided vector
     spawn() {
 
-        let spawnLoc = this.currRoom.getRandomWalkableTilePos()
+        let success = false
 
-        if(spawnLoc !== null && spawnLoc !== undefined) {
-            this.x = spawnLoc.x
-            this.y = spawnLoc.y
-        }
+        do {
+            //get random map position
+            let spawnLoc = this.currRoom.getRandomWalkableTilePos()
 
-        this.update()
+            if(spawnLoc !== null && spawnLoc !== undefined) {
+                this.x = spawnLoc.x
+                this.y = spawnLoc.y
+
+                this.setColliderPos(this.x, this.y)
+                if(!this.isCollideWithWall()) {
+                    success = true
+                }
+            }
+
+        }while(!success)
+        
     }
 
     update(delta) {
@@ -94,15 +104,13 @@ class Player {
         tempY = Math.floor(tempY)
 
         //update collider acconting for sprite half width/height
-        this.boxCollider.x = tempX - (this.sprite.width / 2)
-        this.boxCollider.y = tempY - (this.sprite.height / 2) + 16     //TODO: Remove const with new player sprite 
+        this.setColliderPos(tempX, tempY)
 
 
         //Check for room bounds
         if(this.isCollideWithWall()) {
             //reset box collider
-            this.boxCollider.x = this.x - (this.sprite.width / 2)
-            this.boxCollider.y = this.y - (this.sprite.height / 2) + 16     //TODO: Remove const with new player sprite 
+            this.setColliderPos(this.x, this.y)
         }
         else {
             //Assign temp positions to real x and y
@@ -113,11 +121,13 @@ class Player {
             this.sprite.x = this.x
             this.sprite.y = this.y
         }
+    }
 
 
-          
-
-        
+    //Sets collider pos with respect to the params
+    setColliderPos(x, y) {
+        this.boxCollider.x = x - (this.sprite.width / 2)
+        this.boxCollider.y = y - (this.sprite.height / 2) + 16     //TODO: Remove const with new player sprite 
     }
 
     //sets player dir to value provdied
