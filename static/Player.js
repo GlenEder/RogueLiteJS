@@ -45,9 +45,7 @@ class Player {
         this.sprite.x = this.x
         this.sprite.y = this.y
 
-        //update collider acconting for sprite half width/height
-        this.boxCollider.x = this.x - (this.sprite.width / 2)
-        this.boxCollider.y = this.y - (this.sprite.height / 2) + 16     //TODO: Remove const with new player sprite 
+        
 
     }
 
@@ -102,9 +100,25 @@ class Player {
         tempX = Math.floor(tempX)
         tempY = Math.floor(tempY)
 
-        //Assign temp positions to real x and y
-        this.x = tempX
-        this.y = tempY
+        //update collider acconting for sprite half width/height
+        this.boxCollider.x = tempX - (this.sprite.width / 2)
+        this.boxCollider.y = tempY - (this.sprite.height / 2) + 16     //TODO: Remove const with new player sprite 
+
+
+        //Check for room bounds
+        if(this.isCollideWithWall()) {
+            //reset box collider
+            this.boxCollider.x = this.x - (this.sprite.width / 2)
+            this.boxCollider.y = this.y - (this.sprite.height / 2) + 16     //TODO: Remove const with new player sprite 
+        }
+        else {
+            //Assign temp positions to real x and y
+            this.x = tempX
+            this.y = tempY
+        }
+
+
+        
     }
 
     //sets player dir to value provdied
