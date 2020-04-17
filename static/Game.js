@@ -56,9 +56,7 @@ function initGame() {
                 break
             //space bar
             case 32:
-                room.loadNewRoom()
-                player.spawn()
-                room.container.addChild(player.sprite)
+                goToNewLevel()
                 break
             default:
                 console.log(event.keyCode)
@@ -97,5 +95,15 @@ function initGame() {
     app.ticker.add((delta) => {
         player.update(delta)
     })
+}
+
+
+//Handles everything dealing with going to next level
+function goToNewLevel() {
+
+    room.loadNewRoom()
+    player.spawn()
+    room.container.addChild(player.sprite)
+
 }
 
