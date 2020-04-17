@@ -15,35 +15,34 @@ class Player {
         this.facingRight = true
         this.moveSpeed = 1.5
 
-        //cut off value for top of sprite
-        this.spriteCutOff = 18
+        //Buffer Values for hit box 
+        this.colliderBufferTop = 22
+        this.colliderBufferSide = 4
 
         //ref to current room object
         this.currRoom = currRoom
 
         //TODO: Remove const minus after getting own player sprites
-        this.boxCollider = new PIXI.Rectangle(this.x, this.y, this.sprite.width, this.sprite.height - this.spriteCutOff)
+        this.boxCollider = new PIXI.Rectangle(this.x, this.y, this.sprite.width - this.colliderBufferSide, this.sprite.height - this.colliderBufferTop)
     }
 
     //sets the x and y position of the player to the provided vector
     spawn() {
-
+        //if found valid spawn location
         let success = false
-
         do {
             //get random map position
             let spawnLoc = this.currRoom.getRandomWalkableTilePos()
-
             if(spawnLoc !== null && spawnLoc !== undefined) {
                 this.x = spawnLoc.x
                 this.y = spawnLoc.y
 
+                //update collider pos and check for collisions with wall
                 this.setColliderPos(this.x, this.y)
                 if(!this.isCollideWithWall()) {
                     success = true
                 }
             }
-
         }while(!success)
         
     }
@@ -51,7 +50,8 @@ class Player {
     update(delta) {
 
         //move player 
-        this.move(delta)        
+        this.move(delta)      
+    
 
     }
 
@@ -129,8 +129,8 @@ class Player {
 
     //Sets collider pos with respect to the params
     setColliderPos(x, y) {
-        this.boxCollider.x = x - (this.sprite.width / 2)
-        this.boxCollider.y = y - (this.sprite.height / 2) + this.spriteCutOff    //TODO: Remove const with new player sprite 
+        this.boxCollider.x = x - (this.sprite.width / 2)  + this.colliderBufferSide
+        this.boxCollider.y = y - (this.sprite.height / 2) + this.colliderBufferTop 
     }
 
     //sets player dir to value provdied
