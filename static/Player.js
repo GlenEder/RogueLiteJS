@@ -6,14 +6,13 @@ class Player {
 
         this.x = 0.0;
         this.y = 0.0;
-        this.dir = 1;
         this.scale = 2
         this.sprite = getSprite("knight_2")
         this.sprite.anchor.set(0.5)
         this.sprite.scale.set(this.scale)
         this.movement = [false, false, false, false]
         this.facingRight = true
-        this.moveSpeed = 1.5
+        this.moveSpeed = 2.5
 
         //Buffer Values for hit box 
         this.colliderBufferTop = 22
