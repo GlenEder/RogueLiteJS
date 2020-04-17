@@ -1,4 +1,6 @@
 let app;
+let room;
+let player;
 
 window.addEventListener("load", () => {
     //Create a Pixi Application
@@ -21,15 +23,15 @@ window.addEventListener("load", () => {
 function initGame() {
 
     //Create Room
-    let currRoom = new Room(8, 8, 50, "dirt")
-    currRoom.container.x = app.screen.width / 2
-    currRoom.container.y = app.screen.height /2
-    app.stage.addChild(currRoom.container)
+    room = new Room(8, 8, 50, "dirt")
+    room.container.x = app.screen.width / 2
+    room.container.y = app.screen.height /2
+    app.stage.addChild(room.container)
 
     //Create plyaer
-    let player = new Player(currRoom)
+    player = new Player(room)
     player.spawn()
-    currRoom.container.addChild(player.sprite)
+    room.container.addChild(player.sprite)
 
 
     //Event listeners for moment and what not
@@ -54,9 +56,9 @@ function initGame() {
                 break
             //space bar
             case 32:
-                currRoom.loadNewRoom()
+                room.loadNewRoom()
                 player.spawn()
-                currRoom.container.addChild(player.sprite)
+                room.container.addChild(player.sprite)
                 break
             default:
                 console.log(event.keyCode)
@@ -96,3 +98,4 @@ function initGame() {
         player.update(delta)
     })
 }
+
