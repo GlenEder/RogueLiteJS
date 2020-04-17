@@ -31,6 +31,17 @@ class Room {
         
     }
 
+    //removes sprites from container so new ones can be addes
+    //resets walkable map to falses
+    reset() {
+        this.container.removeChildern()
+        this.walkableMap.forEach(item => {
+            item.forEach(smallerItem => {
+                smallerItem = false
+            })
+        })
+    }
+
 
     //creates new room using same assets 
     loadNewRoom() {
