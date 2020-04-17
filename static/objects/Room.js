@@ -31,6 +31,13 @@ class Room {
         
     }
 
+
+    //creates new room using same assets 
+    loadNewRoom() {
+        this.generateRoom()
+        this.render()
+    }
+
     //Renders room using tile array provided
     render() {
 
