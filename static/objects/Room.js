@@ -34,7 +34,7 @@ class Room {
     //removes sprites from container so new ones can be addes
     //resets walkable map to falses
     reset() {
-        this.container.removeChildern()
+        while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
         this.walkableMap.forEach(item => {
             item.forEach(smallerItem => {
                 smallerItem = false
@@ -45,6 +45,7 @@ class Room {
 
     //creates new room using same assets 
     loadNewRoom() {
+        this.reset()
         this.generateRoom()
         this.render()
     }
