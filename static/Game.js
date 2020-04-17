@@ -52,6 +52,12 @@ function initGame() {
             case 83:
                 player.setMoving(3, true)
                 break
+            //space bar
+            case 32:
+                currRoom.loadNewRoom()
+                break
+            default:
+                console.log(event.keyCode)
         }
 
     })
