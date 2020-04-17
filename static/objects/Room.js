@@ -31,6 +31,25 @@ class Room {
         
     }
 
+    //removes sprites from container so new ones can be addes
+    //resets walkable map to falses
+    reset() {
+        while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
+        for(var i = 0; i < this.height; i++){
+            for(var j = 0; j < this.width; j++) {
+                this.walkableMap[i][j] = false
+            }
+        }
+    }
+
+
+    //creates new room using same assets 
+    loadNewRoom() {
+        this.reset()
+        this.generateRoom()
+        this.render()
+    }
+
     //Renders room using tile array provided
     render() {
 
@@ -161,6 +180,7 @@ class Room {
         for(var i = 0; i < this.numWalkable; i++) {
             //get random from avail list
             let toSetKey = this.getRandomKey(availTiles)
+
             let toSet = availTiles.get(toSetKey)
 
             //set random spot
