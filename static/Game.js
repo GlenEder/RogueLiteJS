@@ -55,6 +55,8 @@ function initGame() {
             //space bar
             case 32:
                 currRoom.loadNewRoom()
+                player.spawn()
+                currRoom.container.addChild(player.sprite)
                 break
             default:
                 console.log(event.keyCode)
