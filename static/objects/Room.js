@@ -1,10 +1,10 @@
 class Room {
-    constructor(width, height, numWalkable, tileset) {
+    constructor(width, height, numWalkable, tileset, tilesize) {
         this.width = width
         this.height = height
         this.numWalkable = numWalkable
         this.tileset = tileset
-        this.tileSize = 16
+        this.tileSize = tilesize
         this.scale = 3
 
         //create container
@@ -53,24 +53,30 @@ class Room {
     //Renders room using tile array provided
     render() {
 
-        for(var i = 0; i < this.height; i++) {
-            for(var j = 0; j < this.width; j++) {
-
-                let tileType = this.getTileType(new Vec2d(j, i))
-                // console.log("Tile Type: " + tileType + ", x: " + j + ", y: " + i)
-
-                //dont draw tiles we cant walk on
-                if(tileType < 0) continue
-
-                const sprite = getSprite(this.tileset + "_" + tileType)
-                sprite.scale.set(this.scale)
-                sprite.x = j * this.tileSize * this.scale
-                sprite.y = i * this.tileSize * this.scale
-
-
-                this.container.addChild(sprite)
-            }
+        for(var i = 0; i < 4; i++) {
+            const sprite = getSprite(this.tileset + "_" + i)
+            sprite.x = i * this.tileSize
+            this.container.addChild(sprite)
         }
+
+        // for(var i = 0; i < this.height; i++) {
+        //     for(var j = 0; j < this.width; j++) {
+
+        //         let tileType = this.getTileType(new Vec2d(j, i))
+        //         // console.log("Tile Type: " + tileType + ", x: " + j + ", y: " + i)
+
+        //         //dont draw tiles we cant walk on
+        //         if(tileType < 0) continue
+
+        //         const sprite = getSprite(this.tileset + "_" + tileType)
+        //         sprite.scale.set(this.scale)
+        //         sprite.x = j * this.tileSize * this.scale
+        //         sprite.y = i * this.tileSize * this.scale
+
+
+        //         this.container.addChild(sprite)
+        //     }
+        // }
 
     }
 
