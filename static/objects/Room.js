@@ -162,6 +162,7 @@ class Room {
         let first = new Vec2d(x, y)
         let key = first.x + "-" + first.y
         
+        //add first avail tile to map
         availTiles.set(key, first)
 
         for(var i = 0; i < this.numWalkable; i++) {
@@ -171,7 +172,7 @@ class Room {
             let toSet = availTiles.get(toSetKey)
 
             //set random spot
-            this.walkableMap[toSet.y][toSet.x] = true
+            this.walkableMap[toSet.y][toSet.x].isWalkable = true
 
             //get surrounding tiles that have yet to be visited 
             this.getAvailTilesAround(toSetKey, availTiles)
@@ -209,7 +210,7 @@ class Room {
                     continue
                 }
 
-                if(!this.walkableMap[deltY][deltX]) {
+                if(!this.walkableMap[deltY][deltX].isWalkable) {
                     //create key and add to map
                     let key = deltX + "-" + deltY
                     if(!availMap.has(key)) {
