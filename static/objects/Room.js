@@ -233,7 +233,7 @@ class Room {
 
             let row = ""
             for(var j = 0; j < this.width; j++) {
-                if(this.walkableMap[i][j]) {
+                if(this.walkableMap[i][j].isWalkable) {
                     row += "1 "
                 }
                 else {
@@ -260,7 +260,7 @@ class Room {
                 if(map.has(j + "-" + i)) {
                     row += "A "
                 }
-                else if(this.walkableMap[i][j]) {
+                else if(this.walkableMap[i][j].isWalkable) {
                     row += "1 "
                 }
                 else {
@@ -283,7 +283,7 @@ class Room {
         let count = 0
         this.walkableMap.forEach(item => {
             item.forEach(item => {
-                if(item) count++
+                if(item.isWalkable) count++
             })
         })
 
