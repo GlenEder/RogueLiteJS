@@ -153,7 +153,7 @@ class Room {
         let y = Math.floor(Math.random() * this.height)
 
         //set starting tile to walkable
-        this.walkableMap[y][x] = true
+        this.walkableMap[y][x].isWalkable = true
 
         //create array of tiles able to visit 
         let availTiles = new Map()
