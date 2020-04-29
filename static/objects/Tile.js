@@ -10,7 +10,7 @@ class Tile {
     constructor(x, y, isWalkable) {
         this.x = x
         this.y = y
-        this.walkable = walkable
+        this.isWalkable = isWalkable
         this.sprite = null
     }
 
