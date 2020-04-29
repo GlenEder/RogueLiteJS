@@ -73,7 +73,7 @@ class Room {
         if(tileX < 0 || tileX > this.width - 1) return false
         if(tileY < 0 || tileY > this.height - 1) return false 
 
-        return this.walkableMap[tileY][tileX]
+        return this.walkableMap[tileY][tileX].isWalkable
     }
 
 
