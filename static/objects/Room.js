@@ -17,7 +17,7 @@ class Room {
         for(var i = 0; i < height; i++) {
             var inner = []
             for(var j = 0; j < width; j++) {
-                inner.push(false)
+                inner.push(new Tile(j, i, false))
             }
             this.walkableMap.push(inner)
         }
@@ -58,25 +58,6 @@ class Room {
             sprite.x = i * this.tileSize
             this.container.addChild(sprite)
         }
-
-        // for(var i = 0; i < this.height; i++) {
-        //     for(var j = 0; j < this.width; j++) {
-
-        //         let tileType = this.getTileType(new Vec2d(j, i))
-        //         // console.log("Tile Type: " + tileType + ", x: " + j + ", y: " + i)
-
-        //         //dont draw tiles we cant walk on
-        //         if(tileType < 0) continue
-
-        //         const sprite = getSprite(this.tileset + "_" + tileType)
-        //         sprite.scale.set(this.scale)
-        //         sprite.x = j * this.tileSize * this.scale
-        //         sprite.y = i * this.tileSize * this.scale
-
-
-        //         this.container.addChild(sprite)
-        //     }
-        // }
 
     }
 
