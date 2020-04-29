@@ -14,7 +14,7 @@ window.addEventListener("load", () => {
     //load grass tile
     loadSprite("grassMap", "sprites/GrassCoveredDirt.png")
 
-    loadSheet(app, "sprites/dirt.png", 16, 16, 8, 2, "dirt", () => {
+    loadSheet(app, "sprites/rockTileset.png", 32, 32, 4, 1, "floor", () => {
         loadSheet(app, "sprites/knights.png", 16, 32, 3, 1, "knight", initGame)
     })
     
@@ -23,7 +23,7 @@ window.addEventListener("load", () => {
 function initGame() {
 
     //Create Room
-    room = new Room(8, 8, 50, "dirt")
+    room = new Room(8, 8, 50, "floor")
     room.container.x = app.screen.width / 2
     room.container.y = app.screen.height /2
     app.stage.addChild(room.container)
