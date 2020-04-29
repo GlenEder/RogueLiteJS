@@ -17,9 +17,11 @@ class Tile {
     //Set sprite for tile and rotation 
     setSprite(spriteName, spriteDir) {
         this.sprite = getSprite(spriteName)
-        this.sprite.rotation = (90 * (spriteDir - 1))
         this.sprite.x = this.x * this.sprite.width
         this.sprite.y = this.y * this.sprite.height
+        this.sprite.anchor.set(0.5)
+        this.sprite.rotation = (90 * spriteDir)
+        console.log(this.sprite.rotation)
     }
 
     //Returns sprite of tile with screen cords

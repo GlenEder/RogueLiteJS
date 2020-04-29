@@ -54,9 +54,9 @@ class Room {
     render() {
 
         for(var i = 0; i < 4; i++) {
-            const sprite = getSprite(this.tileset + "_" + i)
-            sprite.x = i * this.tileSize
-            this.container.addChild(sprite)
+            const tile = new Tile(i, 0, false)
+            tile.setSprite(this.tileset + "_" + i, i)
+            this.container.addChild(tile.render())
         }
 
     }
