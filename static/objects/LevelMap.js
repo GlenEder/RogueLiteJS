@@ -8,6 +8,8 @@ class LevelMap {
         this.numRooms = numRooms        //number of rooms level will have
         this.walkables = new Map();     //map of tiles that player can walk on 
         this.borders = new Map();
+        this.walkables.clear()
+        this.borders.clear()
 
         //tileset 
         this.tileset = "floor"
@@ -16,6 +18,7 @@ class LevelMap {
         this.container = new PIXI.Container()
         
         this.generateLevel()
+        this.generateBorders()
         this.render()
     }
 
@@ -30,17 +33,15 @@ class LevelMap {
             this.container.addChild(item.render())
         })
 
-        this.generateBorders()
-
         this.borders.forEach(item => {
-            if(item.render() !== null)
             this.container.addChild(item.render())
         })
 
         //center map
         this.container.pivot.x = this.container.width / 2
         this.container.pivot.y = this.container.height / 2
-    }
+
+    }    
 
      //creates border for walkable map 
      generateBorders() {
@@ -73,18 +74,7 @@ class LevelMap {
 
     setBorderSprite(tile, tilesAround) {
     
-        //Walls
-        if(tilesAround & parseInt("11100000", 2) === parseInt("11100000", 2)) {
-            tile.setSprite(this.tileset + "_" + WALL)
-            tile.type = WALL
-        }
-
-        
-
-
-        else {
-            console.log("Level: (ERROR) Border Tile not Implemented")
-        }
+        tile.setSprite(this.tileset + "_" + BEND)
 
     }
 
