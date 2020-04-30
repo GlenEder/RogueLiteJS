@@ -1,4 +1,8 @@
 
+const CONRNER = 0
+const WALL = 1
+const BEND = 2
+const FLOOR = 3
 
 class Tile {
 
