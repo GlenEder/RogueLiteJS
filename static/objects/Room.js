@@ -345,12 +345,7 @@ class Room {
         return toReturn
     }
 
-    //logs walkable map 
-    printWalkableMap() {
-        console.log("Room: printing room")
-        console.log(this.walkableMap)
 
-    }
 
 
 }
