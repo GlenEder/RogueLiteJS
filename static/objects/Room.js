@@ -158,12 +158,13 @@ class Room {
             //add to secleted list
             selectedTiles.set(toSetKey, toSet)
 
+            //create tile and add to walkable map
             let tile = new Tile(toSet.x, toSet.y, true, this.scale)
             tile.setSprite(this.tileset + "_" + FLOOR)
             this.walkableMap.set(toSetKey, tile)
+
+            //temp rendering
             this.container.addChild(tile.render())
-
-
 
             //get surrounding tiles that have yet to be visited 
             this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)
