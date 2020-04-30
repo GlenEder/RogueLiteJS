@@ -202,12 +202,7 @@ class Room {
 
                 //check that maps dont already have this spot
                 if(!availMap.has(key) && !selectedMap.has(key)) {
-
-                    //check for tunnels being made
-                    if(!this.createsTunnel(new Vec2d(deltX, deltY), selectedMap, availMap)) {
-                        availMap.set(key, new Vec2d(deltX, deltY))
-                        //console.log("Adding " + key)
-                    }
+                    availMap.set(key, new Vec2d(deltX, deltY))
                 }
             }
         }
