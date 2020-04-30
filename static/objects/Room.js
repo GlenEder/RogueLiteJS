@@ -186,6 +186,8 @@ class Room {
         }
 
         //this.printWalkableMap()
+
+        this.setTileSprites()
     }
 
     // returns random key from map
