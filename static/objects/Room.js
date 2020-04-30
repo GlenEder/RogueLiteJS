@@ -37,6 +37,13 @@ class Room {
     //Renders room using tile array provided
     render() {
         this.walkableMap.forEach(item => {
+            if(item.x === 0 && item.y === 0) {
+                var sprite = new PIXI.Sprite(PIXI.Texture.WHITE);
+                sprite.tint = 0xff0000; //Change with the color wanted
+                sprite.width = 32;
+                sprite.height = 32;
+                item.sprite = sprite
+            }
             this.container.addChild(item.render())
         })
         this.borderMap.forEach(item => {
@@ -293,7 +300,75 @@ class Room {
             }
         }
 
+        //check for weird diag pinch thing
+        if(this.inCubbieHole(pos)) {
+            console.log("Room: Tile at: %d, %y is in cubbie hole.", pos.x, pos.y)
+        }
         return true
+    }
+
+    inCubbieHole(pos) {
+        /*
+        0 1 2
+        3   4
+        5 6 7 
+        */
+       let tilesAround = this.walkablesAroundBitwise(pos)
+
+       let holes = [parseInt("00101001", 2), 
+                    parseInt("00101000", 2), 
+                    parseInt("00001000", 2),
+
+                    parseInt("00000111", 2),
+                    parseInt("00000110", 2),
+                    parseInt("00000010", 2),
+
+
+                    parseInt("10010100", 2),
+                    parseInt("00010100", 2),
+                    parseInt("00010000", 2),
+
+                    parseInt("11100000", 2),
+                    parseInt("01100000", 2),
+                    parseInt("01000000", 2),
+
+                ]
+        // console.log(holes)
+        // console.log(tilesAround)
+        // // console.log(holes.indexOf(tilesAround))
+        if(holes.indexOf(tilesAround) > 0) {
+            return true
+        }
+        
+    
+    }
+
+    //returns 8 bit number to use for bitwise operations 
+     /*
+        0 1 2
+        3   4
+        5 6 7 
+    */
+    walkablesAroundBitwise(pos) {
+        let power = 0
+        let toReturn = 0
+        for(var i = -1; i < 2; i++) {
+            for(var j = -1; j < 2; j++) {
+
+                if(i === 0 && j === 0) continue
+
+                let deltX = pos.x + j
+                let deltY = pos.y + i
+                //create key              
+                let key = deltX + "/" + deltY                
+                if(this.walkableMap.has(key)) {
+                    toReturn += Math.pow(2, power)
+                }
+                power++
+            }
+        }
+        //console.log(toReturn.toString(2))
+        return toReturn
     }
 
     //logs walkable map 
