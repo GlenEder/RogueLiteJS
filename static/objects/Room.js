@@ -13,7 +13,7 @@ class Room {
         
 
         //create array for tiles
-        this.walkableMap = []
+        this.walkableMap = new Map()
     
         this.generateRoom()
         this.render()
@@ -166,18 +166,20 @@ class Room {
             selectedTiles.set(toSetKey, toSet)
 
             //get surrounding tiles that have yet to be visited 
-            this.getAvailTilesAround(toSetKey, availTiles)
+            this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)
 
             //remove from avail list
             availTiles.delete(toSetKey)      
             
         }
 
-
-        
+        //Add selected tiles to walkable map array
+        for(var i = 0; i < selectedTiles.size; i++) {
+            this.walkableMap.set(selectedTiles.keys[i], selectedTiles.get(selectedTiles.keys[i]))
+        }
         
         console.log("Room: Room generated.")
-        this.setTileSprites()
+        //this.setTileSprites()
     }
 
     // returns random key from map
@@ -186,7 +188,7 @@ class Room {
         return keys[Math.floor(Math.random() * keys.length)]
     }
 
-    getAvailTilesAround(tileKey, availMap) {
+    getAvailTilesAround(tileKey, selectedMap, availMap) {
 
         //get cords of provied tile 
         let tile = availMap.get(tileKey)
@@ -205,13 +207,14 @@ class Room {
                     continue
                 }
 
-                if(!this.walkableMap[deltY][deltX].isWalkable) {
+                if(!selectedMap.has(tileKey)) {
                     //create key and add to map
                     let key = deltX + "-" + deltY
                     if(!availMap.has(key)) {
                         availMap.set(key, new Vec2d(deltX, deltY))
                     }
                 }
+
             }
         }
 
