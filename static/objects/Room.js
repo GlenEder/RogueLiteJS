@@ -162,11 +162,12 @@ class Room {
         for(var i = 0; i < this.numWalkable; i++) {
             //get random from avail list
             let toSetKey = this.getRandomKey(availTiles)
-
             let toSet = availTiles.get(toSetKey)
 
             //add random spot to selected tiles
             selectedTiles.set(toSetKey, toSet)
+
+            console.log(selectedTiles)
 
             //get surrounding tiles that have yet to be visited 
             this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)
@@ -178,7 +179,10 @@ class Room {
 
         //Add selected tiles to walkable map array
         for(var i = 0; i < selectedTiles.size; i++) {
-            this.walkableMap.set(selectedTiles.keys[i], selectedTiles.get(selectedTiles.keys[i]))
+            let key = selectedTiles.keys[i]
+            let pos = selectedTiles.get(key)
+            let tile = new Tile(pos.x, pos.y, true, this.scale)
+            this.walkableMap.set(key, tile)
         }
         
         console.log("Room: Room generated.")
@@ -193,11 +197,6 @@ class Room {
     }
 
     getAvailTilesAround(tileKey, selectedMap, availMap) {
-
-        // console.log("Avail Map:")
-        // console.log(availMap)
-        // console.log("Selected Map:")
-        // console.log(selectedMap)
 
         //get cords of provied tile 
         let tile = availMap.get(tileKey)
@@ -214,9 +213,9 @@ class Room {
 
                 //create key and add to map                
                 let key = deltX + "/" + deltY
-                if(!availMap.has(key)) {
+                if(!availMap.has(key) && !selectedMap.has(key)) {
                     availMap.set(key, new Vec2d(deltX, deltY))
-                    console.log("Adding " + key)
+                    //console.log("Adding " + key)
                 }
                 
 
