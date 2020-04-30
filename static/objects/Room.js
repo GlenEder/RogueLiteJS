@@ -131,7 +131,7 @@ class Room {
         for(var i = 0; i < this.height; i++) {
             for(var j = 0; j < this.width; j++) {
 
-                if(this.walkableMap[i][j]) {
+                if(this.walkableMap[i][j].isWalkable) {
                     if(count === randtile) {
                         let x = j * this.tileSize * this.scale
                         let y = i * this.tileSize * this.scale
