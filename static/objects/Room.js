@@ -45,14 +45,9 @@ class Room {
 
     //Renders room using tile array provided
     render() {
-        for(var i = 0; i < this.height; i++) {
-            for(var j = 0; j < this.width; j++) {
-                let tile = this.walkableMap[i][j].render()
-                if(tile !== null) {
-                    this.container.addChild(tile)
-                }
-            }
-        }
+        this.walkableMap.forEach(item => {
+            this.container.addChild(item.render())
+        })
     }
 
 
@@ -167,26 +162,23 @@ class Room {
             //add random spot to selected tiles
             selectedTiles.set(toSetKey, toSet)
 
-            console.log(selectedTiles)
-
             //get surrounding tiles that have yet to be visited 
             this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)
 
             //remove from avail list
             availTiles.delete(toSetKey)      
-            
         }
 
         //Add selected tiles to walkable map array
+        let keys = Array.from(selectedTiles.keys())
         for(var i = 0; i < selectedTiles.size; i++) {
-            let key = selectedTiles.keys[i]
+            let key = keys[i]
             let pos = selectedTiles.get(key)
             let tile = new Tile(pos.x, pos.y, true, this.scale)
             this.walkableMap.set(key, tile)
         }
         
         console.log("Room: Room generated.")
-        this.printWalkableMap()
         //this.setTileSprites()
     }
 
