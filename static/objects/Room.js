@@ -127,10 +127,9 @@ class Room {
 
     }
 
-
     //creates a random layout for the walkable map
     generateRoom() {
-        console.log("Room: Generating room")
+        //console.log("Room: Generating room")
 
         //starting tile
         let x = 0
@@ -155,6 +154,11 @@ class Room {
             let toSetKey = this.getRandomKey(availTiles)
             let toSet = availTiles.get(toSetKey)
 
+            if(this.createsTunnel(toSet, selectedTiles, availTiles)) {
+                i--
+                continue
+            }
+
             //add to secleted list
             selectedTiles.set(toSetKey, toSet)
 
@@ -167,16 +171,6 @@ class Room {
             //get surrounding tiles that have yet to be visited 
             this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)    
         }
-
-        //Add selected tiles to walkable map array
-        // let keys = Array.from(selectedTiles.keys())
-        // for(var i = 0; i < selectedTiles.size; i++) {
-        //     let key = keys[i]
-        //     let pos = selectedTiles.get(key)
-        //     let tile = new Tile(pos.x, pos.y, true, this.scale)
-        //     tile.setSprite(this.tileset + "_" + FLOOR)
-        //     this.walkableMap.set(key, tile)
-        // }
         
         console.log("Room: Room generated.")
         //this.setTileSprites()
@@ -189,6 +183,9 @@ class Room {
     }
 
     getAvailTilesAround(tileKey, selectedMap, availMap) {
+
+     
+
 
         //get cords of provied tile 
         let tile = availMap.get(tileKey)
