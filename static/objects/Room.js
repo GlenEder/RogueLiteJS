@@ -52,13 +52,12 @@ class Room {
 
     //Renders room using tile array provided
     render() {
-
-        for(var i = 0; i < 4; i++) {
-            const tile = new Tile(i, 0, false)
-            tile.setSprite(this.tileset + "_" + i, i)
-            this.container.addChild(tile.render())
+        for(var i = 0; i < this.height; i++) {
+            for(var j = 0; j < this.width; j++) {
+                let tile = this.walkableMap[i][j].render()
+                if(tile != null) this.container.addChild(t)
+            }
         }
-
     }
 
 
