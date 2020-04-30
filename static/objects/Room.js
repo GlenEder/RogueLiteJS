@@ -63,9 +63,10 @@ class Room {
             //create tile and add to walkable map
             let tilePosX = toSet.x + this.startingPos.x
             let tilePosY = toSet.y + this.startingPos.y
+            let tileKey = tilePosX + "/" + tilePosY
             let tile = new Tile(tilePosX, tilePosY, FLOOR, this.scale)
             tile.setSprite(this.tileset + "_" + FLOOR)
-            this.walkableRef.set(toSetKey, tile)
+            this.walkableRef.set(tileKey, tile)
 
             //get surrounding tiles that have yet to be visited 
             this.getAvailTilesAround(toSetKey, selectedTiles, availTiles, roomSpots)    

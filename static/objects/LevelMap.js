@@ -7,6 +7,10 @@ class LevelMap {
 
         this.numRooms = numRooms        //number of rooms level will have
         this.walkables = new Map();     //map of tiles that player can walk on 
+        this.borders = new Map();
+
+        //tileset 
+        this.tileset = "floor"
 
         //create container
         this.container = new PIXI.Container()
@@ -17,7 +21,7 @@ class LevelMap {
 
     generateLevel() {
 
-        new Room(this.walkables, new Vec2d(0, 0), 10, 8, "floor", 1)
+        new Room(this.walkables, new Vec2d(0, 0), 10, 8, this.tileset, 1)
 
     }
 
@@ -28,6 +32,11 @@ class LevelMap {
 
         this.generateBorders()
 
+        this.borders.forEach(item => {
+            if(item.render() !== null)
+            this.container.addChild(item.render())
+        })
+
         //center map
         this.container.pivot.x = this.container.width / 2
         this.container.pivot.y = this.container.height / 2
@@ -36,10 +45,7 @@ class LevelMap {
      //creates border for walkable map 
      generateBorders() {
 
-        let borderMap = new Map()
-        borderMap.clear()
-
-        this.walkableMap.forEach(item => {
+        this.walkables.forEach(item => {
             for(var i = -1; i < 2; i++) {
                 for(var j = -1; j < 2; j++) {
                     if(i === 0 && j === 0) continue
@@ -49,18 +55,15 @@ class LevelMap {
                     let key = deltX + "/" + deltY
 
                     //avoid double calculations and checking walkable tiles
-                    if(borderMap.has(key) || this.walkableMap.has(key)) continue
+                    if(this.borders.has(key) || this.walkables.has(key)) continue
 
                     //get tiles around 
                     let tilesAround = this.walkablesAround(new Vec2d(deltX, deltY))
 
                     //create tile and add to map
-                    let tile = new Tile(deltX, deltY, false, this.scale)
+                    let tile = new Tile(deltX, deltY, WALL, this.scale)
                     this.setBorderSprite(tile, tilesAround)
-                    borderMap.set(key, tile)
-
-                    //add to container
-                    this.container.addChild(tile)
+                    this.borders.set(key, tile)
 
                 }
             }
@@ -69,8 +72,19 @@ class LevelMap {
     }
 
     setBorderSprite(tile, tilesAround) {
+    
+        //Walls
+        if(tilesAround & parseInt("11100000", 2) === parseInt("11100000", 2)) {
+            tile.setSprite(this.tileset + "_" + WALL)
+            tile.type = WALL
+        }
 
         
+
+
+        else {
+            console.log("Level: (ERROR) Border Tile not Implemented")
+        }
 
     }
 
@@ -92,7 +106,7 @@ class LevelMap {
             let deltY = pos.y + i
             //create key              
             let key = deltX + "/" + deltY                
-            if(this.walkableMap.has(key)) {
+            if(this.walkables.has(key)) {
                 toReturn += Math.pow(2, power)
             }
             power++
