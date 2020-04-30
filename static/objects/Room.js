@@ -170,43 +170,43 @@ class Room {
                 tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 2)
         }
         //Bottom left corner
-        if(tilesAround[2] && !tilesAround[1] && !tilesAround[4]) {
+        else if(tilesAround[2] && !tilesAround[1] && !tilesAround[4]) {
             tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 3)
         }
         //Top right corner
-        if(tilesAround[5] && !tilesAround[3] && !tilesAround[6]) {
+        else if(tilesAround[5] && !tilesAround[3] && !tilesAround[6]) {
             tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 1)
         }
         //Top left corner 
-        if(tilesAround[7] && !tilesAround[4] && !tilesAround[6]) {
+        else if(tilesAround[7] && !tilesAround[4] && !tilesAround[6]) {
             tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 0)
         }
 
         //Walls
-        if(tilesAround[4] && !tilesAround[1] && !tilesAround[6]) {
+        else if(tilesAround[4] && !tilesAround[1] && !tilesAround[6]) {
             tile.setSpriteWithDir(this.tileset + "_" + WALL, 3)
         }
-        if(tilesAround[3] && !tilesAround[1] && !tilesAround[6]) {
+        else if(tilesAround[3] && !tilesAround[1] && !tilesAround[6]) {
             tile.setSpriteWithDir(this.tileset + "_" + WALL, 1)
         }
-        if(tilesAround[1] && !tilesAround[3] && !tilesAround[4]) {
+        else if(tilesAround[1] && !tilesAround[3] && !tilesAround[4]) {
             tile.setSpriteWithDir(this.tileset + "_" + WALL, 2)
         }
-        if(tilesAround[6] && !tilesAround[3] && !tilesAround[4]) {
+        else if(tilesAround[6] && !tilesAround[3] && !tilesAround[4]) {
             tile.setSpriteWithDir(this.tileset + "_" + WALL, 0)
         }
 
         //Bends
-        if(tilesAround[1] && tilesAround[2] && tilesAround[4]) {
+        else if(tilesAround[1] && tilesAround[4]) {
             tile.setSpriteWithDir(this.tileset + "_" + BEND, 3)
         }
-        if(tilesAround[3] && tilesAround[0] && tilesAround[1]) {
+        else if(tilesAround[3] && tilesAround[1]) {
             tile.setSpriteWithDir(this.tileset + "_" + BEND, 2)
         }
-        if(tilesAround[6] && tilesAround[5] && tilesAround[3]) {
+        else if(tilesAround[6] && tilesAround[3]) {
             tile.setSpriteWithDir(this.tileset + "_" + BEND, 1)
         }
-        if(tilesAround[6] && tilesAround[7] && tilesAround[4]) {
+        else if(tilesAround[6] && tilesAround[4]) {
             tile.setSpriteWithDir(this.tileset + "_" + BEND, 0)
         }
     }
