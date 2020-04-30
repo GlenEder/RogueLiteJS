@@ -5,7 +5,7 @@ class Room {
         this.numWalkable = numWalkable
         this.tileset = tileset
         this.tileSize = tilesize
-        this.scale = 1
+        this.scale = 2
 
         //create container
         this.container = new PIXI.Container()
@@ -17,7 +17,7 @@ class Room {
         for(var i = 0; i < height; i++) {
             var inner = []
             for(var j = 0; j < width; j++) {
-                inner.push(new Tile(j, i, false))
+                inner.push(new Tile(j, i, false, this.scale))
             }
             this.walkableMap.push(inner)
         }
@@ -37,7 +37,7 @@ class Room {
         while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
         for(var i = 0; i < this.height; i++){
             for(var j = 0; j < this.width; j++) {
-                this.walkableMap[i][j] = new Tile(j, i, false)
+                this.walkableMap[i][j] = new Tile(j, i, false, this.scale)
             }
         }
     }

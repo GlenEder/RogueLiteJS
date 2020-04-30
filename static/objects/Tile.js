@@ -6,17 +6,20 @@ class Tile {
     x -- x position of tile in walkable grid
     y -- y position of tile in walkable grid
     isWalkable -- if tile is walkable by player & npcs
+    scale -- scaling factor room is using
     */
-    constructor(x, y, isWalkable) {
+    constructor(x, y, isWalkable, scale) {
         this.x = x
         this.y = y
         this.isWalkable = isWalkable
         this.sprite = null
+        this.scale = scale
     }
 
     //Set sprite for tile and rotation 
     setSpriteWithDir(spriteName, spriteDir) {
         this.sprite = getSprite(spriteName)
+        this.sprite.scale.set(this.scale)
         this.sprite.x = this.x * this.sprite.width
         this.sprite.y = this.y * this.sprite.height
         this.sprite.anchor.set(0.5)
