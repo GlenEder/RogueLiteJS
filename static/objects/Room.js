@@ -98,7 +98,7 @@ class Room {
                 if(tilePos.y + 1 < this.height       && this.walkableMap[tilePos.y + 1][tilePos.x].isWalkable) bot = true
                 if(tilePos.y - 1 >= 0                && this.walkableMap[tilePos.y - 1][tilePos.x].isWalkable) top = true
 
-                if(top && bot && left && right)                 this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                if(top && bot && left && right)                 this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 3)
                 else if(top && bot && left && !right)           this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
                 else if(top && bot && !left && right)           this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
                 else if(top && bot && !left && !right)          this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
