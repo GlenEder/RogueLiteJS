@@ -97,23 +97,23 @@ class Room {
                 if(tilePos.y + 1 < this.height       && this.walkableMap[tilePos.y + 1][tilePos.x].isWalkable) bot = true
                 if(tilePos.y - 1 >= 0                && this.walkableMap[tilePos.y - 1][tilePos.x].isWalkable) top = true
 
-                if(top && bot && left && right) return 0
-                else if(top && bot && left && !right) return 7
-                else if(top && bot && !left && right) return 1
-                else if(top && bot && !left && !right) return 10
-                else if(top && !bot && left && right) return 8
-                else if(top && !bot && left && !right) return 5
-                else if(top && !bot && !left && right) return 6
-                else if(top && !bot && !left && !right) return 13
+                if(top && bot && left && right)                 this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(top && bot && left && !right)           this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(top && bot && !left && right)           this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(top && bot && !left && !right)          this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(top && !bot && left && right)           this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(top && !bot && left && !right)          this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(top && !bot && !left && right)          this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(top && !bot && !left && !right)         this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
 
-                else if(!top && bot && left && right) return 3
-                else if(!top && bot && left && !right) return 4
-                else if(!top && bot && !left && right) return 2
-                else if(!top && bot && !left && !right) return 12
-                else if(!top && !bot && left && right) return 9
-                else if(!top && !bot && left && !right) return 15
-                else if(!top && !bot && !left && right) return 14
-                else if(!top && !bot && !left && !right) return 11
+                else if(!top && bot && left && right)           this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(!top && bot && left && !right)          this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(!top && bot && !left && right)          this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(!top && bot && !left && !right)         this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(!top && !bot && left && right)          this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(!top && !bot && left && !right)         this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(!top && !bot && !left && right)         this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(!top && !bot && !left && !right)        this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
 
             }
         }
