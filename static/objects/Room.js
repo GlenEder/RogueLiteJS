@@ -14,9 +14,8 @@ class Room {
         //create array for tiles
         this.walkableMap = new Map()
         this.borderMap = new Map()
-        this.walkableMap.clear()
-        this.borderMap.clear()
     
+        this.reset()
         this.generateRoom()
         this.render()        
     }
@@ -26,6 +25,7 @@ class Room {
     reset() {
         while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
         this.walkableMap.clear()
+        this.borderMap.clear()
     }
 
     //creates new room using same assets 
@@ -38,6 +38,9 @@ class Room {
     //Renders room using tile array provided
     render() {
         this.walkableMap.forEach(item => {
+            this.container.addChild(item.render())
+        })
+        this.borderMap.forEach(item => {
             this.container.addChild(item.render())
         })
 
@@ -127,6 +130,7 @@ class Room {
             this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)    
         }
         
+        this.generateBorders()
         console.log("Room: Room generated.")
         //this.setTileSprites()
     }
