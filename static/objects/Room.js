@@ -147,7 +147,7 @@ class Room {
 
         //add starting location to array 
         let first = new Vec2d(x, y)
-        let key = first.x + "-" + first.y
+        let key = first.x + "/" + first.y
 
         //create maps to store locations
         let selectedTiles = new Map()
@@ -179,6 +179,7 @@ class Room {
         }
         
         console.log("Room: Room generated.")
+        this.printWalkableMap()
         //this.setTileSprites()
     }
 
@@ -189,6 +190,7 @@ class Room {
     }
 
     getAvailTilesAround(tileKey, selectedMap, availMap) {
+
 
         //get cords of provied tile 
         let tile = availMap.get(tileKey)
@@ -209,7 +211,7 @@ class Room {
 
                 if(!selectedMap.has(tileKey)) {
                     //create key and add to map
-                    let key = deltX + "-" + deltY
+                    let key = deltX + "/" + deltY
                     if(!availMap.has(key)) {
                         availMap.set(key, new Vec2d(deltX, deltY))
                     }
@@ -225,25 +227,7 @@ class Room {
     //logs walkable map 
     printWalkableMap() {
         console.log("Room: printing room")
-        
-        let output = ""
-        for(var i = 0; i < this.height; i++) {
-
-            let row = ""
-            for(var j = 0; j < this.width; j++) {
-                if(this.walkableMap[i][j].isWalkable) {
-                    row += "1 "
-                }
-                else {
-                    row += "0 "
-                }
-            }
-
-            output += row 
-            output += '\n'
-        }
-
-        console.log(output)
+        console.log(this.walkableMap)
 
     }
 
