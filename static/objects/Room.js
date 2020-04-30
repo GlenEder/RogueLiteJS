@@ -190,6 +190,12 @@ class Room {
         if(tilesAround[3] && !tilesAround[1] && !tilesAround[6]) {
             tile.setSpriteWithDir(this.tileset + "_" + WALL, 1)
         }
+        if(tilesAround[1] && !tilesAround[3] && !tilesAround[4]) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 2)
+        }
+        if(tilesAround[6] && !tilesAround[3] && !tilesAround[4]) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 0)
+        }
 
     }
 
