@@ -1,47 +1,31 @@
 class Room {
-    constructor(width, height, numWalkable, tileset) {
-        this.width = width
-        this.height = height
+    constructor(numWalkable, tileset, scaling) {
+        
         this.numWalkable = numWalkable
         this.tileset = tileset
-        this.tileSize = 16
-        this.scale = 3
+        this.scale = scaling
 
         //create container
         this.container = new PIXI.Container()
         
         
 
-        //create two dimension map
-        this.walkableMap = []
-        for(var i = 0; i < height; i++) {
-            var inner = []
-            for(var j = 0; j < width; j++) {
-                inner.push(false)
-            }
-            this.walkableMap.push(inner)
-        }
-
+        //create array for tiles
+        this.walkableMap = new Map()
+        this.borderMap = new Map()
+    
+        this.reset()
         this.generateRoom()
-        this.render()
-
-        //center tiles
-        this.container.pivot.x = this.container.width / 2
-        this.container.pivot.y = this.container.height / 2
-        
+        this.render()        
     }
 
     //removes sprites from container so new ones can be addes
     //resets walkable map to falses
     reset() {
         while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
-        for(var i = 0; i < this.height; i++){
-            for(var j = 0; j < this.width; j++) {
-                this.walkableMap[i][j] = false
-            }
-        }
+        this.walkableMap.clear()
+        this.borderMap.clear()
     }
-
 
     //creates new room using same assets 
     loadNewRoom() {
@@ -52,28 +36,14 @@ class Room {
 
     //Renders room using tile array provided
     render() {
-
-        for(var i = 0; i < this.height; i++) {
-            for(var j = 0; j < this.width; j++) {
-
-                let tileType = this.getTileType(new Vec2d(j, i))
-                // console.log("Tile Type: " + tileType + ", x: " + j + ", y: " + i)
-
-                //dont draw tiles we cant walk on
-                if(tileType < 0) continue
-
-                const sprite = getSprite(this.tileset + "_" + tileType)
-                sprite.scale.set(this.scale)
-                sprite.x = j * this.tileSize * this.scale
-                sprite.y = i * this.tileSize * this.scale
-
-
-                this.container.addChild(sprite)
-            }
-        }
+        this.walkableMap.forEach(item => {
+            this.container.addChild(item.render())
+        })
+        this.borderMap.forEach(item => {
+            if(item.render() !== null)  this.container.addChild(item.render())
+        })
 
     }
-
 
     //returns tile value given screen coords
     isWalkable(posX, posY) {
@@ -86,50 +56,8 @@ class Room {
         if(tileX < 0 || tileX > this.width - 1) return false
         if(tileY < 0 || tileY > this.height - 1) return false 
 
-        return this.walkableMap[tileY][tileX]
+        return this.walkableMap[tileY][tileX].isWalkable
     }
-
-
-    //returns tile number for sprite sheet
-    getTileType(tilePos) {
-
-        if(!this.walkableMap[tilePos.y][tilePos.x]) { return -1}
-
-        let top = false
-        let bot = false
-        let left = false
-        let right = false
-
-
-        if(tilePos.x + 1 < this.width        && this.walkableMap[tilePos.y][tilePos.x + 1]) right = true
-        if(tilePos.x - 1 >= 0                && this.walkableMap[tilePos.y][tilePos.x - 1]) left = true
-        if(tilePos.y + 1 < this.height       && this.walkableMap[tilePos.y + 1][tilePos.x]) bot = true
-        if(tilePos.y - 1 >= 0                && this.walkableMap[tilePos.y - 1][tilePos.x]) top = true
-
-        
-        if(top && bot && left && right) return 0
-        if(top && bot && left && !right) return 7
-        if(top && bot && !left && right) return 1
-        if(top && bot && !left && !right) return 10
-        if(top && !bot && left && right) return 8
-        if(top && !bot && left && !right) return 5
-        if(top && !bot && !left && right) return 6
-        if(top && !bot && !left && !right) return 13
-
-        if(!top && bot && left && right) return 3
-        if(!top && bot && left && !right) return 4
-        if(!top && bot && !left && right) return 2
-        if(!top && bot && !left && !right) return 12
-        if(!top && !bot && left && right) return 9
-        if(!top && !bot && left && !right) return 15
-        if(!top && !bot && !left && right) return 14
-        if(!top && !bot && !left && !right) return 11
-
-
-        //return something that isnt clean tile if something goes wrong 
-        return -1
-    }
-
 
     //returns vector of position of tile in screen space
     getRandomWalkableTilePos() {
@@ -140,7 +68,7 @@ class Room {
         for(var i = 0; i < this.height; i++) {
             for(var j = 0; j < this.width; j++) {
 
-                if(this.walkableMap[i][j]) {
+                if(this.walkableMap[i][j].isWalkable) {
                     if(count === randtile) {
                         let x = j * this.tileSize * this.scale
                         let y = i * this.tileSize * this.scale
@@ -156,45 +84,155 @@ class Room {
 
     }
 
-
     //creates a random layout for the walkable map
     generateRoom() {
-        console.log("Room: Generating room")
+        //console.log("Room: Generating room")
 
-        //pick random starting tile
-        let x = Math.floor(Math.random() * this.width)
-        let y = Math.floor(Math.random() * this.height)
-
-        //set starting tile to walkable
-        this.walkableMap[y][x] = true
-
-        //create array of tiles able to visit 
-        let availTiles = new Map()
+        //starting tile
+        let x = 0
+        let y = 0
     
+
         //add starting location to array 
         let first = new Vec2d(x, y)
-        let key = first.x + "-" + first.y
-        
+        let key = first.x + "/" + first.y
+
+        //create maps to store locations
+        let selectedTiles = new Map()
+        selectedTiles.clear()
+        let availTiles = new Map()
+        availTiles.clear()
+
+        //add first avail tile to map
         availTiles.set(key, first)
 
         for(var i = 0; i < this.numWalkable; i++) {
             //get random from avail list
             let toSetKey = this.getRandomKey(availTiles)
-
             let toSet = availTiles.get(toSetKey)
 
-            //set random spot
-            this.walkableMap[toSet.y][toSet.x] = true
+            if(!this.canSelectTile(toSet, selectedTiles, availTiles)) {
+                i--
+                continue
+            }
+
+            //add to secleted list
+            selectedTiles.set(toSetKey, toSet)
+
+            //create tile and add to walkable map
+            let tile = new Tile(toSet.x, toSet.y, true, this.scale)
+            tile.setSprite(this.tileset + "_" + FLOOR)
+            this.walkableMap.set(toSetKey, tile)
+
 
             //get surrounding tiles that have yet to be visited 
-            this.getAvailTilesAround(toSetKey, availTiles)
+            this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)    
+        }
+        
+        this.generateBorders()
+        console.log("Room: Room generated.")
+        //this.setTileSprites()
+    }
 
-            //remove from avail list
-            availTiles.delete(toSetKey)      
-            
+    //creates border for walkable map 
+    generateBorders() {
+
+        this.walkableMap.forEach(item => {
+            for(var i = -1; i < 2; i++) {
+                for(var j = -1; j < 2; j++) {
+                    if(i === 0 && j === 0) continue
+                    let deltX = item.x + i
+                    let deltY = item.y + j
+                    //create key              
+                    let key = deltX + "/" + deltY
+
+                    //avoid double calculations and checking walkable tiles
+                    if(this.borderMap.has(key) || this.walkableMap.has(key)) continue
+
+                    //get tiles around 
+                    let tilesAround = this.walkablesAround(new Vec2d(deltX, deltY))
+
+                    //create tile and add to map
+                    let tile = new Tile(deltX, deltY, false, this.scale)
+                    this.setBorderSprite(tile, tilesAround)
+                    this.borderMap.set(key, tile)
+
+                }
+            }
+        })
+
+    }
+
+    //Sets provided tiles sprite given the tiles around
+    setBorderSprite(tile, tilesAround) {
+        //Bottom right corner
+        if(tilesAround[0] && !tilesAround[1] && !tilesAround[3]) {
+                tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 2)
+        }
+        //Bottom left corner
+        else if(tilesAround[2] && !tilesAround[1] && !tilesAround[4]) {
+            tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 3)
+        }
+        //Top right corner
+        else if(tilesAround[5] && !tilesAround[3] && !tilesAround[6]) {
+            tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 1)
+        }
+        //Top left corner 
+        else if(tilesAround[7] && !tilesAround[4] && !tilesAround[6]) {
+            tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 0)
         }
 
-        //this.printWalkableMap()
+        //Walls
+        else if(tilesAround[4] && !tilesAround[1] && !tilesAround[6]) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 3)
+        }
+        else if(tilesAround[3] && !tilesAround[1] && !tilesAround[6]) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 1)
+        }
+        else if(tilesAround[1] && !tilesAround[3] && !tilesAround[4]) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 2)
+        }
+        else if(tilesAround[6] && !tilesAround[3] && !tilesAround[4]) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 0)
+        }
+
+        //Bends
+        else if(tilesAround[1] && tilesAround[4]) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 3)
+        }
+        else if(tilesAround[3] && tilesAround[1]) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 2)
+        }
+        else if(tilesAround[6] && tilesAround[3]) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 1)
+        }
+        else if(tilesAround[6] && tilesAround[4]) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 0)
+        }
+    }
+
+    //returns array of bools indicating tiles around 
+    /*
+        0 1 2
+        3   4
+        5 6 7 
+    */
+    walkablesAround(pos) {
+        let tiles = []
+        for(var i = -1; i < 2; i++) {
+            for(var j = -1; j < 2; j++) {
+
+                if(i === 0 && j === 0) continue
+
+                let deltX = pos.x + j
+                let deltY = pos.y + i
+                //create key              
+                let key = deltX + "/" + deltY
+                tiles.push(this.walkableMap.has(key))
+            }
+        }
+
+        return tiles
     }
 
     // returns random key from map
@@ -203,12 +241,16 @@ class Room {
         return keys[Math.floor(Math.random() * keys.length)]
     }
 
-    getAvailTilesAround(tileKey, availMap) {
+    //adds tiles that are not yet in selectedMap to avail map around tileKey
+    getAvailTilesAround(tileKey, selectedMap, availMap) {
 
         //get cords of provied tile 
         let tile = availMap.get(tileKey)
         let x = tile.x
         let y = tile.y
+
+        //remove from list now that we have needed data 
+        availMap.delete(tileKey)
 
         for(var i = -1; i < 2; i++) {
             for(var j = -1; j < 2; j++) {
@@ -218,90 +260,179 @@ class Room {
                 let deltX = x + i
                 let deltY = y + j
 
-                if(deltX < 0 || deltX > this.width - 1 || deltY < 0 || deltY > this.height - 1) {
-                    continue
-                }
+                //create key              
+                let key = deltX + "/" + deltY
 
-                if(!this.walkableMap[deltY][deltX]) {
-                    //create key and add to map
-                    let key = deltX + "-" + deltY
-                    if(!availMap.has(key)) {
-                        availMap.set(key, new Vec2d(deltX, deltY))
-                    }
+                //check that maps dont already have this spot
+                if(!availMap.has(key) && !selectedMap.has(key)) {
+                    availMap.set(key, new Vec2d(deltX, deltY))
+                }
+            }
+        }
+    }
+
+    //checks if adding tile at pos will creat tunel that doesnt work for tileset
+    canSelectTile(pos, selectedMap, availMap) {
+
+        for(var i = -1; i < 2; i++) {
+            for(var j = -1; j < 2; j++) {
+
+                if(Math.abs(i) === Math.abs(j)) continue
+            
+                let deltX = pos.x + i
+                let deltY = pos.y + j
+                let deltX2 = pos.x + (i * 2)
+                let deltY2 = pos.y + (j * 2)
+                //create key              
+                let key = deltX + "/" + deltY
+                let key2 = deltX2 + "/" + deltY2
+
+                if(selectedMap.has(key2) && availMap.has(key)) {
+                    return false
                 }
             }
         }
 
-     }
+        //check for weird diag pinch thing
+        let tilesAround = this.walkablesAroundBitwise(pos)
+        let isCorner = this.isInCorner(tilesAround)
+
+        if(this.inCubbieHole(tilesAround) || isCorner) {
+
+            //check diags for selected tiles 
+            for(var i = -1; i < 2; i++) {
+                for(var j = -1; j < 2; j++) {
+
+                    if(Math.abs(i) !== Math.abs(j)) continue
+            
+                    let deltX2 = pos.x + (i * 2)
+                    let deltY2 = pos.y + (j * 2)
+                    //create key              
+                    let key2 = deltX2 + "/" + deltY2
+
+                    if(selectedMap.has(key2)) {
+                        return false
+                    }
+
+                    //handle corner bug
+                    if(isCorner) {
+                        let textX = pos.x + i
+                        let testY = pos.y + j
+                        let otherTilesAround = this.walkablesAroundBitwise(new Vec2d(textX, testY))
+                        if(i < 0 && j < 0 && otherTilesAround & 8) {
+                            return false
+                        }
+                        else if (i > 0 && j < 0 && otherTilesAround & 4) {
+                            return false
+                        }
+                        else if (i < 0 && j > 0 && otherTilesAround & 64) {
+                            return false
+                        }
+                        else if (i > 0 && j > 0 && otherTilesAround & 16) {
+                            return false
+                        }
+                    }
+                }
+            }
+
+        }
+        return true
+    }
+
+    //Returns true if tile is in cubbie hole ie.
+    /*
+        0 0 0
+        0 * 0 
+        1 1 1
+    */
+    inCubbieHole(tilesAround) {
+
+       let holes = [parseInt("00101001", 2), 
+                    parseInt("00101000", 2), 
+                    parseInt("00001000", 2),
+
+                    parseInt("00000111", 2),
+                    parseInt("00000110", 2),
+                    parseInt("00000010", 2),
 
 
+                    parseInt("10010100", 2),
+                    parseInt("00010100", 2),
+                    parseInt("00010000", 2),
+
+                    parseInt("11100000", 2),
+                    parseInt("01100000", 2),
+                    parseInt("01000000", 2),
+
+                ]
+        // console.log(holes)
+        // console.log(tilesAround)
+        // // console.log(holes.indexOf(tilesAround))
+        if(holes.indexOf(tilesAround) > 0) {
+            return true
+        }
+        
+    }
+
+    //checks if tile is in corner 
+    isInCorner(tilesAround) {
+
+        //top left
+        if(tilesAround & 1 && tilesAround & 2 && tilesAround && 8) {
+            return true
+        } 
+        //top right 
+        if(tilesAround & 2 && tilesAround & 4 && tilesAround & 16) {
+            return true
+        }
+        //bottom left 
+        if(tilesAround & 8 && tilesAround & 32 && tilesAround & 64) {
+            return true
+        }
+        //bottom right 
+        if(tilesAround & 16 && tilesAround & 128 && tilesAround && 64) {
+            return true
+        }
+
+        return false
+
+    }
+
+
+    //returns 8 bit number to use for bitwise operations 
+     /*
+        0 1 2
+        3   4
+        5 6 7 
+    */
+    walkablesAroundBitwise(pos) {
+        let power = 0
+        let toReturn = 0
+        for(var i = -1; i < 2; i++) {
+            for(var j = -1; j < 2; j++) {
+
+                if(i === 0 && j === 0) continue
+
+                let deltX = pos.x + j
+                let deltY = pos.y + i
+                //create key              
+                let key = deltX + "/" + deltY                
+                if(this.walkableMap.has(key)) {
+                    toReturn += Math.pow(2, power)
+                }
+                power++
+            }
+        }
+        //console.log(toReturn.toString(2))
+        return toReturn
+    }
 
     //logs walkable map 
     printWalkableMap() {
         console.log("Room: printing room")
-        
-        let output = ""
-        for(var i = 0; i < this.height; i++) {
-
-            let row = ""
-            for(var j = 0; j < this.width; j++) {
-                if(this.walkableMap[i][j]) {
-                    row += "1 "
-                }
-                else {
-                    row += "0 "
-                }
-            }
-
-            output += row 
-            output += '\n'
-        }
-
-        console.log(output)
+        console.log(this.walkableMap)
 
     }
-
-    printMap(map) {
-
-        let output = ""
-        for(var i = 0; i < this.height; i++) {
-
-            let row = ""
-            for(var j = 0; j < this.width; j++) {
-
-                if(map.has(j + "-" + i)) {
-                    row += "A "
-                }
-                else if(this.walkableMap[i][j]) {
-                    row += "1 "
-                }
-                else {
-                    row += "0 "
-                }
-
-            }
-
-            output += row
-            output += "\n"
-        }
-
-
-        console.log(output)
-
-    }
-
-
-    printNumTilesWalkable() {
-        let count = 0
-        this.walkableMap.forEach(item => {
-            item.forEach(item => {
-                if(item) count++
-            })
-        })
-
-        console.log("Room: Num tiles assigned: " + count)
-    }
-
 
 
 }
