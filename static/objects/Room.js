@@ -302,8 +302,9 @@ class Room {
 
         //check for weird diag pinch thing
         let tilesAround = this.walkablesAroundBitwise(pos)
+        let isCorner = this.isInCorner(tilesAround)
 
-        if(this.inCubbieHole(tilesAround) || this.isInCorner(tilesAround)) {
+        if(this.inCubbieHole(tilesAround) || isCorner) {
 
             //check diags for selected tiles 
             for(var i = -1; i < 2; i++) {
@@ -318,6 +319,25 @@ class Room {
 
                     if(selectedMap.has(key2)) {
                         return false
+                    }
+
+                    //handle corner bug
+                    if(isCorner) {
+                        let textX = pos.x + i
+                        let testY = pos.y + j
+                        let otherTilesAround = this.walkablesAroundBitwise(new Vec2d(textX, testY))
+                        if(i < 0 && j < 0 && otherTilesAround & 8) {
+                            return false
+                        }
+                        else if (i > 0 && j < 0 && otherTilesAround & 4) {
+                            return false
+                        }
+                        else if (i < 0 && j > 0 && otherTilesAround & 64) {
+                            return false
+                        }
+                        else if (i > 0 && j > 0 && otherTilesAround & 16) {
+                            return false
+                        }
                     }
                 }
             }
