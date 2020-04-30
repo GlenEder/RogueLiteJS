@@ -166,9 +166,15 @@ class Room {
 
     //Sets provided tiles sprite given the tiles around
     setBorderSprite(tile, tilesAround) {
-       if(tilesAround[0] && !tilesAround[1] && !tilesAround[3]) {
-            tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 2)
-       }
+        //Bottom right corner
+        if(tilesAround[0] && !tilesAround[1] && !tilesAround[3]) {
+                tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 2)
+        }
+        //Bottom left corner
+        if(tilesAround[2] && !tilesAround[1] && !tilesAround[4]) {
+            tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 3)
+    }
+       
 
     }
 
