@@ -1,7 +1,6 @@
 class Room {
-    constructor(width, height, numWalkable, tileset, tilesize) {
-        this.width = width
-        this.height = height
+    constructor(numWalkable, tileset, tilesize) {
+        
         this.numWalkable = numWalkable
         this.tileset = tileset
         this.tileSize = tilesize
@@ -16,12 +15,7 @@ class Room {
         this.walkableMap = new Map()
     
         this.generateRoom()
-        this.render()
-
-        //center tiles
-        this.container.pivot.x = this.container.width / 2
-        this.container.pivot.y = this.container.height / 2
-        
+        this.render()        
     }
 
     //removes sprites from container so new ones can be addes
