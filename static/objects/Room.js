@@ -175,6 +175,7 @@ class Room {
             let key = keys[i]
             let pos = selectedTiles.get(key)
             let tile = new Tile(pos.x, pos.y, true, this.scale)
+            tile.setSprite(this.tileset + "_" + FLOOR)
             this.walkableMap.set(key, tile)
         }
         
