@@ -37,13 +37,6 @@ class Room {
     //Renders room using tile array provided
     render() {
         this.walkableMap.forEach(item => {
-            if(item.x === 0 && item.y === 0) {
-                var sprite = new PIXI.Sprite(PIXI.Texture.WHITE);
-                sprite.tint = 0xff0000; //Change with the color wanted
-                sprite.width = 32;
-                sprite.height = 32;
-                item.sprite = sprite
-            }
             this.container.addChild(item.render())
         })
         this.borderMap.forEach(item => {
