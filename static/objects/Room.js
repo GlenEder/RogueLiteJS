@@ -121,47 +121,6 @@ class Room {
     }
 
 
-    //returns tile number for sprite sheet
-    getTileType(tilePos) {
-
-        if(!this.walkableMap[tilePos.y][tilePos.x]) { return -1}
-
-        let top = false
-        let bot = false
-        let left = false
-        let right = false
-
-
-        if(tilePos.x + 1 < this.width        && this.walkableMap[tilePos.y][tilePos.x + 1]) right = true
-        if(tilePos.x - 1 >= 0                && this.walkableMap[tilePos.y][tilePos.x - 1]) left = true
-        if(tilePos.y + 1 < this.height       && this.walkableMap[tilePos.y + 1][tilePos.x]) bot = true
-        if(tilePos.y - 1 >= 0                && this.walkableMap[tilePos.y - 1][tilePos.x]) top = true
-       
-
-        
-        if(top && bot && left && right) return 0
-        if(top && bot && left && !right) return 7
-        if(top && bot && !left && right) return 1
-        if(top && bot && !left && !right) return 10
-        if(top && !bot && left && right) return 8
-        if(top && !bot && left && !right) return 5
-        if(top && !bot && !left && right) return 6
-        if(top && !bot && !left && !right) return 13
-
-        if(!top && bot && left && right) return 3
-        if(!top && bot && left && !right) return 4
-        if(!top && bot && !left && right) return 2
-        if(!top && bot && !left && !right) return 12
-        if(!top && !bot && left && right) return 9
-        if(!top && !bot && left && !right) return 15
-        if(!top && !bot && !left && right) return 14
-        if(!top && !bot && !left && !right) return 11
-
-
-        //return something that isnt clean tile if something goes wrong 
-        return -1
-    }
-
 
     //returns vector of position of tile in screen space
     getRandomWalkableTilePos() {
