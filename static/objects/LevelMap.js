@@ -7,24 +7,29 @@ class LevelMap {
 
         this.numRooms = numRooms        //number of rooms level will have
         this.walkables = new Map();     //map of tiles that player can walk on 
-        this.borders = new Map();
-        this.walkables.clear()
-        this.borders.clear()
-
-        //tileset 
+        this.borders = new Map(); 
         this.tileset = "floor"
 
         //create container
         this.container = new PIXI.Container()
+
+        //start clean which is probably unneeded 
+        this.reset()
         
         this.generateLevel()
         this.generateBorders()
         this.render()
     }
 
+    reset() {
+        this.walkables.clear()
+        this.borders.clear()
+        while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
+    }
+
     generateLevel() {
 
-        new Room(this.walkables, new Vec2d(0, 0), 10, 8, this.tileset, 1)
+        new Room(this.walkables, new Vec2d(0, 0), 4, 3, this.tileset, 1)
 
     }
 
@@ -74,7 +79,7 @@ class LevelMap {
 
     setBorderSprite(tile, tilesAround) {
     
-        tile.setSprite(this.tileset + "_" + BEND)
+        tile.setSprite(this.tileset + "_" + FLOOR)
 
     }
 
