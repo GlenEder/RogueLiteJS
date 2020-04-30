@@ -302,6 +302,11 @@ class Room {
 
         //check for weird diag pinch thing
         let tilesAround = this.walkablesAroundBitwise(pos)
+
+        if(this.isInCorner(tilesAround)) {
+            console.log("Room: Tile %d, %d is corner piece", pos.x, pos.y) 
+        }
+
         if(this.inCubbieHole(tilesAround)) {
 
             //check diags for selected tiles 
@@ -360,9 +365,27 @@ class Room {
         
     }
 
+    //checks if tile is in corner 
     isInCorner(tilesAround) {
 
-        
+        //top left
+        if(tilesAround & 1 && tilesAround & 2 && tilesAround && 8) {
+            return true
+        } 
+        //top right 
+        if(tilesAround & 2 && tilesAround & 4 && tilesAround & 16) {
+            return true
+        }
+        //bottom left 
+        if(tilesAround & 8 && tilesAround & 32 && tilesAround & 64) {
+            return true
+        }
+        //bottom right 
+        if(tilesAround & 16 && tilesAround & 128 && tilesAround && 64) {
+            return true
+        }
+
+        return false
 
     }
 
