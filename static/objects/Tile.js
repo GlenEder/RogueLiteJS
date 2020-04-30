@@ -23,6 +23,7 @@ class Tile {
     //Set sprite for tile and rotation 
     setSpriteWithDir(spriteName, spriteDir) {
         this.sprite = getSprite(spriteName)
+        this.sprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST
         this.sprite.scale.set(this.scale)
         this.sprite.x = this.x * this.sprite.width
         this.sprite.y = this.y * this.sprite.height
