@@ -23,7 +23,7 @@ window.addEventListener("load", () => {
 function initGame() {
 
     //Create Room
-    room = new Room(8, 8, 4, "floor", 32)
+    room = new Room(8, 8, 10, "floor", 32)
     room.container.x = app.screen.width / 2
     room.container.y = app.screen.height /2
     app.stage.addChild(room.container)

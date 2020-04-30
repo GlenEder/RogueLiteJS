@@ -222,47 +222,5 @@ class Room {
 
     }
 
-    printMap(map) {
-
-        let output = ""
-        for(var i = 0; i < this.height; i++) {
-
-            let row = ""
-            for(var j = 0; j < this.width; j++) {
-
-                if(map.has(j + "-" + i)) {
-                    row += "A "
-                }
-                else if(this.walkableMap[i][j].isWalkable) {
-                    row += "1 "
-                }
-                else {
-                    row += "0 "
-                }
-
-            }
-
-            output += row
-            output += "\n"
-        }
-
-
-        console.log(output)
-
-    }
-
-
-    printNumTilesWalkable() {
-        let count = 0
-        this.walkableMap.forEach(item => {
-            item.forEach(item => {
-                if(item.isWalkable) count++
-            })
-        })
-
-        console.log("Room: Num tiles assigned: " + count)
-    }
-
-
 
 }
