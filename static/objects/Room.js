@@ -37,7 +37,7 @@ class Room {
         while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
         for(var i = 0; i < this.height; i++){
             for(var j = 0; j < this.width; j++) {
-                this.walkableMap[i][j] = false
+                this.walkableMap[i][j].isWalkable = false
             }
         }
     }
