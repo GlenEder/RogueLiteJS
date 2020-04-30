@@ -41,7 +41,7 @@ class Room {
             this.container.addChild(item.render())
         })
         this.borderMap.forEach(item => {
-            this.container.addChild(item.render())
+            if(item.render() !== null)  this.container.addChild(item.render())
         })
 
     }
@@ -166,12 +166,10 @@ class Room {
 
     //Sets provided tiles sprite given the tiles around
     setBorderSprite(tile, tilesAround) {
-        if(tilesAround[6]) {
-            tile.setSprite(this.tileset + "_" + WALL)
-        }
-        else {
-            tile.setSprite(this.tileset + "_" + CONRNER)
-        }
+       if(tilesAround[0] && !tilesAround[1] && !tilesAround[3]) {
+            tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 2)
+       }
+
     }
 
     //returns array of bools indicating tiles around 
