@@ -1,22 +1,18 @@
 class Room {
-    constructor(numWalkable, tileset, scaling) {
-        
-        this.numWalkable = numWalkable
+
+    /*
+        walkables -- ref to walkables map for levelmap
+        width -- width of room 
+        height -- height of room 
+        tileset -- tileset for room to use
+        scaling -- scaling of tiles 
+    */ 
+    constructor(walkables, width, height, tileset, scaling) {
+        this.walkableRef = walkables
+        this.width = width
+        this.height = height
         this.tileset = tileset
         this.scale = scaling
-
-        //create container
-        this.container = new PIXI.Container()
-        
-        
-
-        //create array for tiles
-        this.walkableMap = new Map()
-        this.borderMap = new Map()
-    
-        this.reset()
-        this.generateRoom()
-        this.render()        
     }
 
     //removes sprites from container so new ones can be addes
