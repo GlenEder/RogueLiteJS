@@ -18,6 +18,7 @@ class Room {
 
         //TODO: make this a param to make more fancy rooms in future
         this.numWalkable = width * height
+        this.generateRoom()
     }
 
 
@@ -25,9 +26,18 @@ class Room {
     generateRoom() {
 
         //console.log("Room: Generating room")
+        let roomSpots = new Map()
+        roomSpots.clear()
+        for(var i = 0; i < this.width; i++) {
+            for(var j = 0; j < this.height; j++) {
+                let key = i + "/" + j
+                roomSpots.set(key, new Vec2d(i, j))
+            }
+        }
 
         //create starting key
-        let key = this.startingPos.x + "/" + this.startingPos.y
+        let first = this.getRandomKey(roomSpots)
+        let firstPos = roomSpots.get(first)
 
         //create maps to store locations
         let selectedTiles = new Map()
@@ -36,7 +46,7 @@ class Room {
         availTiles.clear()
 
         //add first avail tile to map
-        availTiles.set(key, first)
+        availTiles.set(first, firstPos)
 
         for(var i = 0; i < this.numWalkable; i++) {
             //get random from avail list
@@ -51,15 +61,16 @@ class Room {
             selectedTiles.set(toSetKey, toSet)
 
             //create tile and add to walkable map
-            let tile = new Tile(toSet.x, toSet.y, FLOOR, this.scale)
+            let tilePosX = toSet.x + this.startingPos.x
+            let tilePosY = toSet.y + this.startingPos.y
+            let tile = new Tile(tilePosX, tilePosY, FLOOR, this.scale)
             tile.setSprite(this.tileset + "_" + FLOOR)
             this.walkableRef.set(toSetKey, tile)
 
             //get surrounding tiles that have yet to be visited 
-            this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)    
+            this.getAvailTilesAround(toSetKey, selectedTiles, availTiles, roomSpots)    
         }
-        
-        this.generateBorders()
+  
         console.log("Room: Room generated.")
         //this.setTileSprites()
     }
@@ -149,7 +160,7 @@ class Room {
     }
 
     //adds tiles that are not yet in selectedMap to avail map around tileKey
-    getAvailTilesAround(tileKey, selectedMap, availMap) {
+    getAvailTilesAround(tileKey, selectedMap, availMap, roomMap) {
 
         //get cords of provied tile 
         let tile = availMap.get(tileKey)
@@ -171,7 +182,7 @@ class Room {
                 let key = deltX + "/" + deltY
 
                 //check that maps dont already have this spot
-                if(!availMap.has(key) && !selectedMap.has(key)) {
+                if(!availMap.has(key) && !selectedMap.has(key) && roomMap.has(key)) {
                     availMap.set(key, new Vec2d(deltX, deltY))
                 }
             }

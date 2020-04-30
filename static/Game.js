@@ -24,6 +24,8 @@ function initGame() {
 
     //Create starting level
     level = new LevelMap(1)
+    level.container.x = app.screen.width / 2
+    level.container.y = app.screen.height / 2
     app.stage.addChild(level.container)
 
     //Create plyaer
