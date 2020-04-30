@@ -93,7 +93,7 @@ function initGame() {
 
 
     app.ticker.add((delta) => {
-        player.update(delta)
+        //player.update(delta)
     })
 }
 
@@ -103,7 +103,7 @@ function goToNewLevel() {
 
     room.loadNewRoom()
     //player.spawn()
-    r//oom.container.addChild(player.sprite)
+    //oom.container.addChild(player.sprite)
 
 }
 

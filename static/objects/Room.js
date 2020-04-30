@@ -5,7 +5,7 @@ class Room {
         this.numWalkable = numWalkable
         this.tileset = tileset
         this.tileSize = tilesize
-        this.scale = 2
+        this.scale = 1
 
         //create container
         this.container = new PIXI.Container()
