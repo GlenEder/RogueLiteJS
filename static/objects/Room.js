@@ -183,6 +183,11 @@ class Room {
             tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 0)
         }
 
+        //Walls
+        if(tilesAround[4] && !tilesAround[1] && !tilesAround[6]) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 3)
+        }
+
     }
 
     //returns array of bools indicating tiles around 
