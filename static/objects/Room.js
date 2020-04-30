@@ -187,6 +187,9 @@ class Room {
         if(tilesAround[4] && !tilesAround[1] && !tilesAround[6]) {
             tile.setSpriteWithDir(this.tileset + "_" + WALL, 3)
         }
+        if(tilesAround[3] && !tilesAround[1] && !tilesAround[6]) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 1)
+        }
 
     }
 
