@@ -40,6 +40,7 @@ class Room {
         this.walkableMap.forEach(item => {
             this.container.addChild(item.render())
         })
+
     }
 
     //returns tile value given screen coords
@@ -136,18 +137,56 @@ class Room {
         this.walkableMap.forEach(item => {
             for(var i = -1; i < 2; i++) {
                 for(var j = -1; j < 2; j++) {
-                    if(Math.abs(i) === Math.abs(j)) continue
+                    if(i === 0 && j === 0) continue
                     let deltX = item.x + i
                     let deltY = item.y + j
                     //create key              
                     let key = deltX + "/" + deltY
-                    //avoid double calculations
-                    if(this.borderMap.has(key)) continue
+
+                    //avoid double calculations and checking walkable tiles
+                    if(this.borderMap.has(key) || this.walkableMap.has(key)) continue
+
+                    //get tiles around 
+                    let tilesAround = this.walkablesAround(new Vec2d(deltX, deltY))
+                    let tile = new Tile(deltX, deltY, false, this.scale)
+                    if(tilesAround[6]) {
+                        tile.setSprite(this.tileset + "_" + WALL)
+                    }
+                    else {
+                        tile.setSprite(this.tileset + "_" + CONRNER)
+                    }
+
+
+                    this.borderMap.set(key, tile)
 
                 }
             }
         })
 
+    }
+
+    //returns array of bools indicating tiles around 
+    /*
+        0 1 2
+        3   4
+        5 6 7 
+    */
+    walkablesAround(pos) {
+        let tiles = []
+        for(var i = -1; i < 2; i++) {
+            for(var j = -1; j < 2; j++) {
+
+                if(i === 0 && j === 0) continue
+
+                let deltX = pos.x + j
+                let deltY = pos.y + i
+                //create key              
+                let key = deltX + "/" + deltY
+                tiles.push(this.walkableMap.has(key))
+            }
+        }
+
+        return tiles
     }
 
     // returns random key from map
