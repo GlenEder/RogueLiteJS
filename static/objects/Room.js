@@ -28,7 +28,6 @@ class Room {
         this.walkableMap.clear()
     }
 
-
     //creates new room using same assets 
     loadNewRoom() {
         this.reset()
@@ -43,7 +42,6 @@ class Room {
         })
     }
 
-
     //returns tile value given screen coords
     isWalkable(posX, posY) {
 
@@ -57,10 +55,6 @@ class Room {
 
         return this.walkableMap[tileY][tileX].isWalkable
     }
-
-   
-
-
 
     //returns vector of position of tile in screen space
     getRandomWalkableTilePos() {
