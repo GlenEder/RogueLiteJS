@@ -141,29 +141,6 @@ class Room {
         }
     }
 
-    //returns array of bools indicating tiles around 
-    /*
-        0 1 2
-        3   4
-        5 6 7 
-    */
-    walkablesAround(pos) {
-        let tiles = []
-        for(var i = -1; i < 2; i++) {
-            for(var j = -1; j < 2; j++) {
-
-                if(i === 0 && j === 0) continue
-
-                let deltX = pos.x + j
-                let deltY = pos.y + i
-                //create key              
-                let key = deltX + "/" + deltY
-                tiles.push(this.walkableMap.has(key))
-            }
-        }
-
-        return tiles
-    }
 
     // returns random key from map
     getRandomKey(collection) {
@@ -335,7 +312,7 @@ class Room {
         3   4
         5 6 7 
     */
-    walkablesAroundBitwise(pos) {
+    walkablesAround(pos) {
         let power = 0
         let toReturn = 0
         for(var i = -1; i < 2; i++) {
