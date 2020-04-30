@@ -152,21 +152,26 @@ class Room {
 
                     //get tiles around 
                     let tilesAround = this.walkablesAround(new Vec2d(deltX, deltY))
+
+                    //create tile and add to map
                     let tile = new Tile(deltX, deltY, false, this.scale)
-                    if(tilesAround[6]) {
-                        tile.setSprite(this.tileset + "_" + WALL)
-                    }
-                    else {
-                        tile.setSprite(this.tileset + "_" + CONRNER)
-                    }
-
-
+                    this.setBorderSprite(tile, tilesAround)
                     this.borderMap.set(key, tile)
 
                 }
             }
         })
 
+    }
+
+    //Sets provided tiles sprite given the tiles around
+    setBorderSprite(tile, tilesAround) {
+        if(tilesAround[6]) {
+            tile.setSprite(this.tileset + "_" + WALL)
+        }
+        else {
+            tile.setSprite(this.tileset + "_" + CONRNER)
+        }
     }
 
     //returns array of bools indicating tiles around 
