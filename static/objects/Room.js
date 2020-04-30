@@ -301,11 +301,13 @@ class Room {
         }
 
         //check for weird diag pinch thing
-        if(this.inCubbieHole(pos)) {
-            console.log("Room: Tile at: %d, %y is in cubbie hole.", pos.x, pos.y)
+        let tilesAround = this.walkablesAroundBitwise(pos)
+        if(this.inCubbieHole(pos, tilesAround)) {
+
             //check diags for selected tiles 
             for(var i = -1; i < 2; i++) {
                 for(var j = -1; j < 2; j++) {
+                    
                     if(Math.abs(i) !== Math.abs(j)) continue
             
                     let deltX2 = pos.x + (i * 2)
@@ -329,8 +331,7 @@ class Room {
         0 * 0 
         1 1 1
     */
-    inCubbieHole(pos) {
-       let tilesAround = this.walkablesAroundBitwise(pos)
+    inCubbieHole(pos, tilesAround) {
 
        let holes = [parseInt("00101001", 2), 
                     parseInt("00101000", 2), 
