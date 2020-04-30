@@ -115,9 +115,9 @@ class Room {
                 else if(!top && bot && !left && right)          this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
                 else if(!top && bot && !left && !right)         this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
                 else if(!top && !bot && left && right)          this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
-                else if(!top && !bot && left && !right)         this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
-                else if(!top && !bot && !left && right)         this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
-                else if(!top && !bot && !left && !right)        this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
+                else if(!top && !bot && left && !right)         this.walkableMap[tilePos.y][tilePos.x].setSpriteWithDir(this.tileset + "_" + WALL, 1)
+                else if(!top && !bot && !left && right)         this.walkableMap[tilePos.y][tilePos.x].setSpriteWithDir(this.tileset + "_" + WALL, 3)
+                //else if(!top && !bot && !left && !right)        this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
 
             }
         }
