@@ -13,6 +13,9 @@ class Room {
 
         //create array for tiles
         this.walkableMap = new Map()
+        this.border = new Map()
+        this.walkableMap.clear()
+        this.border.clear()
     
         this.generateRoom()
         this.render()        
@@ -168,6 +171,11 @@ class Room {
         
         console.log("Room: Room generated.")
         //this.setTileSprites()
+    }
+
+    generateBorders() {
+
+
     }
 
     // returns random key from map
