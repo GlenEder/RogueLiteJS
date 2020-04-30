@@ -303,6 +303,22 @@ class Room {
         //check for weird diag pinch thing
         if(this.inCubbieHole(pos)) {
             console.log("Room: Tile at: %d, %y is in cubbie hole.", pos.x, pos.y)
+            //check diags for selected tiles 
+            for(var i = -1; i < 2; i++) {
+                for(var j = -1; j < 2; j++) {
+                    if(Math.abs(i) !== Math.abs(j)) continue
+            
+                    let deltX2 = pos.x + (i * 2)
+                    let deltY2 = pos.y + (j * 2)
+                    //create key              
+                    let key2 = deltX2 + "/" + deltY2
+
+                    if(selectedMap.has(key2)) {
+                        return false
+                    }
+                }
+            }
+
         }
         return true
     }
@@ -314,11 +330,6 @@ class Room {
         1 1 1
     */
     inCubbieHole(pos) {
-        /*
-        0 1 2
-        3   4
-        5 6 7 
-        */
        let tilesAround = this.walkablesAroundBitwise(pos)
 
        let holes = [parseInt("00101001", 2), 
