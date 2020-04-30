@@ -29,9 +29,9 @@ function initGame() {
     app.stage.addChild(room.container)
 
     //Create plyaer
-    player = new Player(room)
+    //player = new Player(room)
     //player.spawn()
-    room.container.addChild(player.sprite)
+    //room.container.addChild(player.sprite)
 
 
     //Event listeners for moment and what not
