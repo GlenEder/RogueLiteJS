@@ -3,9 +3,8 @@
 class LevelMap {
 
 
-    constructor(app, numRooms) {
+    constructor(numRooms) {
 
-        this.appRef = app               //refernec to pixi application
         this.numRooms = numRooms        //number of rooms level will have
         this.walkables = new Map();     //map of tiles that player can walk on 
 
@@ -27,8 +26,6 @@ class LevelMap {
             this.container.addChild(item.render())
         })
         //center map
-        this.container.x = this.appRef.screen.width / 2
-        this.container.y = this.appRef.screen.height / 2
         this.container.pivot.x = this.container.width / 2
         this.container.pivot.y = this.container.height / 2
     }
