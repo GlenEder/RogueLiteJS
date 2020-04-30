@@ -16,7 +16,7 @@ class Room {
         this.walkableMap = new Map()
     
         this.generateRoom()
-        //this.render()
+        this.render()
 
         //center tiles
         this.container.pivot.x = this.container.width / 2
@@ -36,7 +36,7 @@ class Room {
     loadNewRoom() {
         this.reset()
         this.generateRoom()
-        //this.render()
+        this.render()
     }
 
     //Renders room using tile array provided
@@ -163,14 +163,9 @@ class Room {
             tile.setSprite(this.tileset + "_" + FLOOR)
             this.walkableMap.set(toSetKey, tile)
 
-            //temp rendering
-            this.container.addChild(tile.render())
 
             //get surrounding tiles that have yet to be visited 
-            this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)
-
-            //remove from avail list
-            availTiles.delete(toSetKey)      
+            this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)    
         }
 
         //Add selected tiles to walkable map array
@@ -199,6 +194,9 @@ class Room {
         let tile = availMap.get(tileKey)
         let x = tile.x
         let y = tile.y
+
+        //remove from list now that we have needed data 
+        availMap.delete(tileKey)
 
         for(var i = -1; i < 2; i++) {
             for(var j = -1; j < 2; j++) {
