@@ -307,6 +307,12 @@ class Room {
         return true
     }
 
+    //Returns true if tile is in cubbie hole ie.
+    /*
+        0 0 0
+        0 * 0 
+        1 1 1
+    */
     inCubbieHole(pos) {
         /*
         0 1 2
