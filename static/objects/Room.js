@@ -142,7 +142,8 @@ class Room {
         console.log("Room: Generating room")
 
         //starting tile
-        let x, y = 0
+        let x = 0
+        let y = 0
     
 
         //add starting location to array 
@@ -151,8 +152,10 @@ class Room {
 
         //create maps to store locations
         let selectedTiles = new Map()
+        selectedTiles.clear()
         let availTiles = new Map()
-        
+        availTiles.clear()
+
         //add first avail tile to map
         availTiles.set(key, first)
 
@@ -191,6 +194,10 @@ class Room {
 
     getAvailTilesAround(tileKey, selectedMap, availMap) {
 
+        // console.log("Avail Map:")
+        // console.log(availMap)
+        // console.log("Selected Map:")
+        // console.log(selectedMap)
 
         //get cords of provied tile 
         let tile = availMap.get(tileKey)
@@ -205,17 +212,13 @@ class Room {
                 let deltX = x + i
                 let deltY = y + j
 
-                if(deltX < 0 || deltX > this.width - 1 || deltY < 0 || deltY > this.height - 1) {
-                    continue
+                //create key and add to map                
+                let key = deltX + "/" + deltY
+                if(!availMap.has(key)) {
+                    availMap.set(key, new Vec2d(deltX, deltY))
+                    console.log("Adding " + key)
                 }
-
-                if(!selectedMap.has(tileKey)) {
-                    //create key and add to map
-                    let key = deltX + "/" + deltY
-                    if(!availMap.has(key)) {
-                        availMap.set(key, new Vec2d(deltX, deltY))
-                    }
-                }
+                
 
             }
         }
