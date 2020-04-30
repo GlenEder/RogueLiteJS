@@ -20,7 +20,7 @@ class Tile {
         this.sprite.x = this.x * this.sprite.width
         this.sprite.y = this.y * this.sprite.height
         this.sprite.anchor.set(0.5)
-        this.sprite.rotation = (90 * spriteDir)
+        this.sprite.rotation = Math.PI * 2 * .25 * spriteDir
         console.log(this.sprite.rotation)
     }
 
