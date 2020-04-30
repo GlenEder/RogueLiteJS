@@ -1,10 +1,9 @@
 class Room {
-    constructor(numWalkable, tileset, tilesize) {
+    constructor(numWalkable, tileset, scaling) {
         
         this.numWalkable = numWalkable
         this.tileset = tileset
-        this.tileSize = tilesize
-        this.scale = 1
+        this.scale = scaling
 
         //create container
         this.container = new PIXI.Container()
@@ -197,6 +196,19 @@ class Room {
             tile.setSpriteWithDir(this.tileset + "_" + WALL, 0)
         }
 
+        //Bends
+        if(tilesAround[1] && tilesAround[2] && tilesAround[4]) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 3)
+        }
+        if(tilesAround[3] && tilesAround[0] && tilesAround[1]) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 2)
+        }
+        if(tilesAround[6] && tilesAround[5] && tilesAround[3]) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 1)
+        }
+        if(tilesAround[6] && tilesAround[7] && tilesAround[4]) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 0)
+        }
     }
 
     //returns array of bools indicating tiles around 
