@@ -111,7 +111,7 @@ class Room {
             let toSetKey = this.getRandomKey(availTiles)
             let toSet = availTiles.get(toSetKey)
 
-            if(this.createsTunnel(toSet, selectedTiles, availTiles)) {
+            if(!this.canSelectTile(toSet, selectedTiles, availTiles)) {
                 i--
                 continue
             }
@@ -272,7 +272,7 @@ class Room {
     }
 
     //checks if adding tile at pos will creat tunel that doesnt work for tileset
-    createsTunnel(pos, selectedMap, availMap) {
+    canSelectTile(pos, selectedMap, availMap) {
 
         for(var i = -1; i < 2; i++) {
             for(var j = -1; j < 2; j++) {
@@ -288,12 +288,12 @@ class Room {
                 let key2 = deltX2 + "/" + deltY2
 
                 if(selectedMap.has(key2) && availMap.has(key)) {
-                    return true
+                    return false
                 }
             }
         }
 
-        return false
+        return true
     }
 
     //logs walkable map 
