@@ -13,9 +13,9 @@ class Room {
 
         //create array for tiles
         this.walkableMap = new Map()
-        this.border = new Map()
+        this.borderMap = new Map()
         this.walkableMap.clear()
-        this.border.clear()
+        this.borderMap.clear()
     
         this.generateRoom()
         this.render()        
@@ -130,8 +130,23 @@ class Room {
         //this.setTileSprites()
     }
 
+    //creates border for walkable map 
     generateBorders() {
 
+        this.walkableMap.forEach(item => {
+            for(var i = -1; i < 2; i++) {
+                for(var j = -1; j < 2; j++) {
+                    if(Math.abs(i) === Math.abs(j)) continue
+                    let deltX = item.x + i
+                    let deltY = item.y + j
+                    //create key              
+                    let key = deltX + "/" + deltY
+                    //avoid double calculations
+                    if(this.borderMap.has(key)) continue
+
+                }
+            }
+        })
 
     }
 
