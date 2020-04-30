@@ -302,12 +302,12 @@ class Room {
 
         //check for weird diag pinch thing
         let tilesAround = this.walkablesAroundBitwise(pos)
-        if(this.inCubbieHole(pos, tilesAround)) {
+        if(this.inCubbieHole(tilesAround)) {
 
             //check diags for selected tiles 
             for(var i = -1; i < 2; i++) {
                 for(var j = -1; j < 2; j++) {
-                    
+
                     if(Math.abs(i) !== Math.abs(j)) continue
             
                     let deltX2 = pos.x + (i * 2)
@@ -331,7 +331,7 @@ class Room {
         0 * 0 
         1 1 1
     */
-    inCubbieHole(pos, tilesAround) {
+    inCubbieHole(tilesAround) {
 
        let holes = [parseInt("00101001", 2), 
                     parseInt("00101000", 2), 
@@ -358,8 +358,14 @@ class Room {
             return true
         }
         
-    
     }
+
+    isInCorner(tilesAround) {
+
+        
+
+    }
+
 
     //returns 8 bit number to use for bitwise operations 
      /*
