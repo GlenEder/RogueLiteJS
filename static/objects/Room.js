@@ -58,44 +58,7 @@ class Room {
         return this.walkableMap[tileY][tileX].isWalkable
     }
 
-    //sets tile sprites of walkable map
-    setTileSprites() {
-
-        for(var i = 0; i < this.height; i++) {
-            for(var j = 0; j < this.width; j++) {
-
-                //nonwalkable tiles are left null 
-                if(this.walkableMap[i][j].isWalkable) {
-                    this.walkableMap[i][j].setSprite(this.tileset + "_" + FLOOR)
-                    continue
-                }
-
-                // let tilePos = new Vec2d(j, i)
-                // let top = false
-                // let bot = false
-                // let left = false
-                // let right = false
-        
-                // //check tiles around
-                // if(tilePos.x + 1 < this.width        && this.walkableMap[tilePos.y][tilePos.x + 1].isWalkable) right = true
-                // if(tilePos.x - 1 >= 0                && this.walkableMap[tilePos.y][tilePos.x - 1].isWalkable) left = true
-                // if(tilePos.y + 1 < this.height       && this.walkableMap[tilePos.y + 1][tilePos.x].isWalkable) bot = true
-                // if(tilePos.y - 1 >= 0                && this.walkableMap[tilePos.y - 1][tilePos.x].isWalkable) top = true
-
-            
-                // if(top && !bot && left && !right)               this.walkableMap[tilePos.y][tilePos.x].setSpriteWithDir(this.tileset + "_" + BEND, 0)
-                // else if(top && !bot && !left && right)          this.walkableMap[tilePos.y][tilePos.x].setSpriteWithDir(this.tileset + "_" + BEND, 1)
-                // else if(top && !bot && !left && !right)         this.walkableMap[tilePos.y][tilePos.x].setSpriteWithDir(this.tileset + "_" + WALL, 2)
-                // else if(!top && bot && left && !right)          this.walkableMap[tilePos.y][tilePos.x].setSpriteWithDir(this.tileset + "_" + BEND, 0)
-                // else if(!top && bot && !left && right)          this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + BEND)
-                // else if(!top && bot && !left && !right)         this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + WALL)
-                // else if(!top && !bot && left && !right)         this.walkableMap[tilePos.y][tilePos.x].setSpriteWithDir(this.tileset + "_" + WALL, 1)
-                // else if(!top && !bot && !left && right)         this.walkableMap[tilePos.y][tilePos.x].setSpriteWithDir(this.tileset + "_" + WALL, 3)
-
-            }
-        }
-
-    }
+   
 
 
 
