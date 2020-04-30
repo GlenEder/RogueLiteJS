@@ -2,96 +2,32 @@ class Room {
 
     /*
         walkables -- ref to walkables map for levelmap
+        startpos  -- vector for starting location of room generation algorithm 
         width -- width of room 
         height -- height of room 
         tileset -- tileset for room to use
         scaling -- scaling of tiles 
     */ 
-    constructor(walkables, width, height, tileset, scaling) {
+    constructor(walkables, startpos, width, height, tileset, scaling) {
         this.walkableRef = walkables
+        this.startingPos = startpos
         this.width = width
         this.height = height
         this.tileset = tileset
         this.scale = scaling
+
+        //TODO: make this a param to make more fancy rooms in future
+        this.numWalkable = width * height
     }
 
-    //removes sprites from container so new ones can be addes
-    //resets walkable map to falses
-    reset() {
-        while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
-        this.walkableMap.clear()
-        this.borderMap.clear()
-    }
-
-    //creates new room using same assets 
-    loadNewRoom() {
-        this.reset()
-        this.generateRoom()
-        this.render()
-    }
-
-    //Renders room using tile array provided
-    render() {
-        this.walkableMap.forEach(item => {
-            this.container.addChild(item.render())
-        })
-        this.borderMap.forEach(item => {
-            if(item.render() !== null)  this.container.addChild(item.render())
-        })
-
-    }
-
-    //returns tile value given screen coords
-    isWalkable(posX, posY) {
-
-        //get pos in array
-        let tileX = Math.floor(posX / (this.tileSize * this.scale))
-        let tileY = Math.floor(posY / (this.tileSize * this.scale))
-
-        //saftey check
-        if(tileX < 0 || tileX > this.width - 1) return false
-        if(tileY < 0 || tileY > this.height - 1) return false 
-
-        return this.walkableMap[tileY][tileX].isWalkable
-    }
-
-    //returns vector of position of tile in screen space
-    getRandomWalkableTilePos() {
-
-        let randtile = Math.floor(Math.random() * this.numWalkable)
-        let count = 0
-
-        for(var i = 0; i < this.height; i++) {
-            for(var j = 0; j < this.width; j++) {
-
-                if(this.walkableMap[i][j].isWalkable) {
-                    if(count === randtile) {
-                        let x = j * this.tileSize * this.scale
-                        let y = i * this.tileSize * this.scale
-                        return new Vec2d(x, y)
-                    }
-    
-                    count++
-                }
-            }
-        }
-
-        return null
-
-    }
 
     //creates a random layout for the walkable map
     generateRoom() {
+
         //console.log("Room: Generating room")
 
-        //starting tile
-        let x = 0
-        let y = 0
-    
-
-        //add starting location to array 
-        let first = new Vec2d(x, y)
-        let key = first.x + "/" + first.y
+        //create starting key
+        let key = this.startingPos.x + "/" + this.startingPos.y
 
         //create maps to store locations
         let selectedTiles = new Map()
@@ -107,19 +43,14 @@ class Room {
             let toSetKey = this.getRandomKey(availTiles)
             let toSet = availTiles.get(toSetKey)
 
-            if(!this.canSelectTile(toSet, selectedTiles, availTiles)) {
-                i--
-                continue
-            }
 
             //add to secleted list
             selectedTiles.set(toSetKey, toSet)
 
             //create tile and add to walkable map
-            let tile = new Tile(toSet.x, toSet.y, true, this.scale)
+            let tile = new Tile(toSet.x, toSet.y, FLOOR, this.scale)
             tile.setSprite(this.tileset + "_" + FLOOR)
-            this.walkableMap.set(toSetKey, tile)
-
+            this.walkableRef.set(toSetKey, tile)
 
             //get surrounding tiles that have yet to be visited 
             this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)    
