@@ -84,7 +84,10 @@ class Room {
             for(var j = 0; j < this.width; j++) {
 
                 //nonwalkable tiles are left null 
-                if(!this.walkableMap[i][j].isWalkable) continue
+                if(this.walkableMap[i][j].isWalkable) {
+                    this.walkableMap[i][j].setSprite(this.tileset + "_" + 3)
+                    continue
+                }
 
                 let tilePos = new Vec2d(j, i)
                 let top = false
@@ -98,7 +101,7 @@ class Room {
                 if(tilePos.y + 1 < this.height       && this.walkableMap[tilePos.y + 1][tilePos.x].isWalkable) bot = true
                 if(tilePos.y - 1 >= 0                && this.walkableMap[tilePos.y - 1][tilePos.x].isWalkable) top = true
 
-                if(top && bot && left && right)                 this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 3)
+                if(top && bot && left && right)                 this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
                 else if(top && bot && left && !right)           this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
                 else if(top && bot && !left && right)           this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
                 else if(top && bot && !left && !right)          this.walkableMap[tilePos.y][tilePos.x].setSprite(this.tileset + "_" + 0)
