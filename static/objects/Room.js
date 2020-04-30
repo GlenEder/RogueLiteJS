@@ -200,18 +200,45 @@ class Room {
                 let deltX = x + i
                 let deltY = y + j
 
-                //create key and add to map                
+                //create key              
                 let key = deltX + "/" + deltY
-                if(!availMap.has(key) && !selectedMap.has(key)) {
-                    availMap.set(key, new Vec2d(deltX, deltY))
-                    //console.log("Adding " + key)
-                }
-                
 
+                //check that maps dont already have this spot
+                if(!availMap.has(key) && !selectedMap.has(key)) {
+
+                    //check for tunnels being made
+                    if(!this.createsTunnel(new Vec2d(deltX, deltY), selectedMap, availMap)) {
+                        availMap.set(key, new Vec2d(deltX, deltY))
+                        //console.log("Adding " + key)
+                    }
+                }
+            }
+        }
+    }
+
+    createsTunnel(pos, selectedMap, availMap) {
+
+        for(var i = -1; i < 2; i++) {
+            for(var j = -1; j < 2; j++) {
+
+                if(Math.abs(i) === Math.abs(j)) continue
+            
+                let deltX = pos.x + i
+                let deltY = pos.y + j
+                let deltX2 = pos.x + (i * 2)
+                let deltY2 = pos.y + (j * 2)
+                //create key              
+                let key = deltX + "/" + deltY
+                let key2 = deltX2 + "/" + deltY2
+
+                if(selectedMap.has(key2) && availMap.has(key)) {
+                    return true
+                }
             }
         }
 
-     }
+        return false
+    }
 
 
 
