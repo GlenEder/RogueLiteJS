@@ -31,8 +31,8 @@ class Room {
 
         //create maps to store locations
         let selectedTiles = new Map()
-        selectedTiles.clear()
         let availTiles = new Map()
+        selectedTiles.clear()
         availTiles.clear()
 
         //add first avail tile to map
@@ -43,6 +43,9 @@ class Room {
             let toSetKey = this.getRandomKey(availTiles)
             let toSet = availTiles.get(toSetKey)
 
+            if(this.walkableRef.has(toSetKey)) {
+                console.log("Room(ERROR): Selected Tile Already in Level")
+            }
 
             //add to secleted list
             selectedTiles.set(toSetKey, toSet)
