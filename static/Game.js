@@ -1,5 +1,5 @@
 let app;
-let room;
+let level;
 let player;
 
 window.addEventListener("load", () => {
@@ -22,11 +22,9 @@ window.addEventListener("load", () => {
 
 function initGame() {
 
-    //Create Room
-    room = new Room(40, "floor", 1)
-    room.container.x = app.screen.width / 2
-    room.container.y = app.screen.height /2
-    app.stage.addChild(room.container)
+    //Create starting level
+    level = new LevelMap(1)
+    app.stage.addChild(level.container)
 
     //Create plyaer
     //player = new Player(room)

@@ -9,13 +9,13 @@ class Tile {
     /*
     x -- x position of tile in walkable grid
     y -- y position of tile in walkable grid
-    isWalkable -- if tile is walkable by player & npcs
+    type -- type of tile (see consts above)
     scale -- scaling factor room is using
     */
-    constructor(x, y, isWalkable, scale) {
+    constructor(x, y, type, scale) {
         this.x = x
         this.y = y
-        this.isWalkable = isWalkable
+        this.type = type
         this.sprite = null
         this.scale = scale
     }
