@@ -173,7 +173,11 @@ class Room {
         //Bottom left corner
         if(tilesAround[2] && !tilesAround[1] && !tilesAround[4]) {
             tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 3)
-    }
+        }
+        //Top right corner
+        if(tilesAround[5] && !tilesAround[3] && !tilesAround[6]) {
+            tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 1)
+        }
        
 
     }
