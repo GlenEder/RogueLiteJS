@@ -16,7 +16,7 @@ class Room {
         this.walkableMap = new Map()
     
         this.generateRoom()
-        this.render()
+        //this.render()
 
         //center tiles
         this.container.pivot.x = this.container.width / 2
@@ -36,7 +36,7 @@ class Room {
     loadNewRoom() {
         this.reset()
         this.generateRoom()
-        this.render()
+        //this.render()
     }
 
     //Renders room using tile array provided
@@ -155,8 +155,15 @@ class Room {
             let toSetKey = this.getRandomKey(availTiles)
             let toSet = availTiles.get(toSetKey)
 
-            //add random spot to selected tiles
+            //add to secleted list
             selectedTiles.set(toSetKey, toSet)
+
+            let tile = new Tile(toSet.x, toSet.y, true, this.scale)
+            tile.setSprite(this.tileset + "_" + FLOOR)
+            this.walkableMap.set(toSetKey, tile)
+            this.container.addChild(tile.render())
+
+
 
             //get surrounding tiles that have yet to be visited 
             this.getAvailTilesAround(toSetKey, selectedTiles, availTiles)
@@ -166,14 +173,14 @@ class Room {
         }
 
         //Add selected tiles to walkable map array
-        let keys = Array.from(selectedTiles.keys())
-        for(var i = 0; i < selectedTiles.size; i++) {
-            let key = keys[i]
-            let pos = selectedTiles.get(key)
-            let tile = new Tile(pos.x, pos.y, true, this.scale)
-            tile.setSprite(this.tileset + "_" + FLOOR)
-            this.walkableMap.set(key, tile)
-        }
+        // let keys = Array.from(selectedTiles.keys())
+        // for(var i = 0; i < selectedTiles.size; i++) {
+        //     let key = keys[i]
+        //     let pos = selectedTiles.get(key)
+        //     let tile = new Tile(pos.x, pos.y, true, this.scale)
+        //     tile.setSprite(this.tileset + "_" + FLOOR)
+        //     this.walkableMap.set(key, tile)
+        // }
         
         console.log("Room: Room generated.")
         //this.setTileSprites()
