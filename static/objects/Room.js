@@ -12,16 +12,9 @@ class Room {
         
         
 
-        //create two dimension map
+        //create array for tiles
         this.walkableMap = []
-        for(var i = 0; i < height; i++) {
-            var inner = []
-            for(var j = 0; j < width; j++) {
-                inner.push(new Tile(j, i, false, this.scale))
-            }
-            this.walkableMap.push(inner)
-        }
-
+    
         this.generateRoom()
         this.render()
 
@@ -148,19 +141,17 @@ class Room {
     generateRoom() {
         console.log("Room: Generating room")
 
-        //pick random starting tile
-        let x = Math.floor(Math.random() * this.width)
-        let y = Math.floor(Math.random() * this.height)
-
-        //set starting tile to walkable
-        this.walkableMap[y][x].isWalkable = true
-
-        //create array of tiles able to visit 
-        let availTiles = new Map()
+        //starting tile
+        let x, y = 0
     
+
         //add starting location to array 
         let first = new Vec2d(x, y)
         let key = first.x + "-" + first.y
+
+        //create maps to store locations
+        let selectedTiles = new Map()
+        let availTiles = new Map()
         
         //add first avail tile to map
         availTiles.set(key, first)
@@ -171,8 +162,8 @@ class Room {
 
             let toSet = availTiles.get(toSetKey)
 
-            //set random spot
-            this.walkableMap[toSet.y][toSet.x].isWalkable = true
+            //add random spot to selected tiles
+            selectedTiles.set(toSetKey, toSet)
 
             //get surrounding tiles that have yet to be visited 
             this.getAvailTilesAround(toSetKey, availTiles)
@@ -182,8 +173,9 @@ class Room {
             
         }
 
-        //this.printWalkableMap()
 
+        
+        
         console.log("Room: Room generated.")
         this.setTileSprites()
     }
