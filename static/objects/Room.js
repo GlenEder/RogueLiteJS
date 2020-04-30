@@ -176,10 +176,8 @@ class Room {
         return keys[Math.floor(Math.random() * keys.length)]
     }
 
+    //adds tiles that are not yet in selectedMap to avail map around tileKey
     getAvailTilesAround(tileKey, selectedMap, availMap) {
-
-     
-
 
         //get cords of provied tile 
         let tile = availMap.get(tileKey)
@@ -208,6 +206,7 @@ class Room {
         }
     }
 
+    //checks if adding tile at pos will creat tunel that doesnt work for tileset
     createsTunnel(pos, selectedMap, availMap) {
 
         for(var i = -1; i < 2; i++) {
@@ -231,8 +230,6 @@ class Room {
 
         return false
     }
-
-
 
     //logs walkable map 
     printWalkableMap() {
