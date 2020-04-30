@@ -21,18 +21,7 @@ class LevelMap {
         this.render()
     }
 
-    reset() {
-        this.walkables.clear()
-        this.borders.clear()
-        while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
-    }
-
-    generateLevel() {
-
-        new Room(this.walkables, new Vec2d(0, 0), 4, 3, this.tileset, 1)
-
-    }
-
+    //renders map
     render() {
         this.walkables.forEach(item => {
             this.container.addChild(item.render())
@@ -46,10 +35,24 @@ class LevelMap {
         this.container.pivot.x = this.container.width / 2
         this.container.pivot.y = this.container.height / 2
 
-    }    
+    } 
 
-     //creates border for walkable map 
-     generateBorders() {
+    //Reset maps and container 
+    reset() {
+        this.walkables.clear()
+        this.borders.clear()
+        while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
+    }
+
+    //generates walkable areas for player
+    generateLevel() {
+
+        new Room(this.walkables, new Vec2d(0, 0), 4, 3, this.tileset, 1)
+
+    }
+
+    //creates border for walkable map 
+    generateBorders() {
 
         this.walkables.forEach(item => {
             for(var i = -1; i < 2; i++) {
@@ -77,6 +80,7 @@ class LevelMap {
 
     }
 
+    //Sets sprite for the given tile based on tiles around 
     setBorderSprite(tile, tilesAround) {
     
         tile.setSprite(this.tileset + "_" + FLOOR)
