@@ -91,11 +91,29 @@ class Room {
                 let left = false
                 let right = false
         
-        
-                if(tilePos.x + 1 < this.width        && this.walkableMap[tilePos.y][tilePos.x + 1]) right = true
-                if(tilePos.x - 1 >= 0                && this.walkableMap[tilePos.y][tilePos.x - 1]) left = true
-                if(tilePos.y + 1 < this.height       && this.walkableMap[tilePos.y + 1][tilePos.x]) bot = true
-                if(tilePos.y - 1 >= 0                && this.walkableMap[tilePos.y - 1][tilePos.x]) top = true
+                //check tiles around
+                if(tilePos.x + 1 < this.width        && this.walkableMap[tilePos.y][tilePos.x + 1].isWalkable) right = true
+                if(tilePos.x - 1 >= 0                && this.walkableMap[tilePos.y][tilePos.x - 1].isWalkable) left = true
+                if(tilePos.y + 1 < this.height       && this.walkableMap[tilePos.y + 1][tilePos.x].isWalkable) bot = true
+                if(tilePos.y - 1 >= 0                && this.walkableMap[tilePos.y - 1][tilePos.x].isWalkable) top = true
+
+                if(top && bot && left && right) return 0
+                else if(top && bot && left && !right) return 7
+                else if(top && bot && !left && right) return 1
+                else if(top && bot && !left && !right) return 10
+                else if(top && !bot && left && right) return 8
+                else if(top && !bot && left && !right) return 5
+                else if(top && !bot && !left && right) return 6
+                else if(top && !bot && !left && !right) return 13
+
+                else if(!top && bot && left && right) return 3
+                else if(!top && bot && left && !right) return 4
+                else if(!top && bot && !left && right) return 2
+                else if(!top && bot && !left && !right) return 12
+                else if(!top && !bot && left && right) return 9
+                else if(!top && !bot && left && !right) return 15
+                else if(!top && !bot && !left && right) return 14
+                else if(!top && !bot && !left && !right) return 11
 
             }
         }
@@ -107,7 +125,7 @@ class Room {
     getTileType(tilePos) {
 
         if(!this.walkableMap[tilePos.y][tilePos.x]) { return -1}
-        
+
         let top = false
         let bot = false
         let left = false
