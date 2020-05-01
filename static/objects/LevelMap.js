@@ -8,6 +8,7 @@ class LevelMap {
         this.numRooms = numRooms        //number of rooms level will have
         this.walkables = new Map();     //map of tiles that player can walk on 
         this.borders = new Map(); 
+        this.scale = 1
         this.tileset = "floor"
 
         //create container
@@ -19,6 +20,8 @@ class LevelMap {
         this.generateLevel()
         this.generateBorders()
         this.render()
+
+        console.log(this.borders)
     }
 
     //renders map
@@ -83,7 +86,7 @@ class LevelMap {
     //Sets sprite for the given tile based on tiles around 
     setBorderSprite(tile, tilesAround) {
     
-        tile.setSprite(this.tileset + "_" + FLOOR)
+        tile.setSprite(this.tileset + "_" + WALL)
 
     }
 
