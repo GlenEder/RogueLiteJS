@@ -46,22 +46,15 @@ class LevelMap {
 
     } 
 
-    //Reset maps and container 
-    reset() {
-        this.walkables.clear()
-        this.borders.clear()
-        while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
-    }
-
-    //Creates a hallway from a random rooms wall
-    generateHallway(distance) {
-        
-    }
-
     //generates walkable areas for player
     generateLevel() {
 
         new Room(this.walkables, new Vec2d(0, 0), 4, 3, this.tileset, 1)
+        this.generateHallway(4)
+    }
+
+    //Creates a hallway from a random rooms wall
+    generateHallway(distance) {
 
     }
 
@@ -158,7 +151,14 @@ class LevelMap {
     }
     //console.log(toReturn.toString(2))
     return toReturn
-}
+    }
+
+    //Reset maps and container 
+    reset() {
+        this.walkables.clear()
+        this.borders.clear()
+        while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
+    }
 
 
 
