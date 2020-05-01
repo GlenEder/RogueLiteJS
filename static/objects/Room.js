@@ -36,7 +36,7 @@ class Room {
         }
 
         //create starting key
-        let first = this.getRandomKey(roomSpots)
+        let first = getRandomKey(roomSpots)
         let firstPos = roomSpots.get(first)
 
         //create maps to store locations
@@ -50,7 +50,7 @@ class Room {
 
         for(var i = 0; i < this.numWalkable; i++) {
             //get random from avail list
-            let toSetKey = this.getRandomKey(availTiles)
+            let toSetKey = getRandomKey(availTiles)
             let toSet = availTiles.get(toSetKey)
 
             if(this.walkableRef.has(toSetKey)) {
@@ -78,11 +78,7 @@ class Room {
 
 
 
-    // returns random key from map
-    getRandomKey(collection) {
-        let keys = Array.from(collection.keys())
-        return keys[Math.floor(Math.random() * keys.length)]
-    }
+    
 
     //adds tiles that are not yet in selectedMap to avail map around tileKey
     getAvailTilesAround(tileKey, selectedMap, availMap, roomMap) {

@@ -53,6 +53,11 @@ class LevelMap {
         while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
     }
 
+    //Creates a hallway from a random rooms wall
+    generateHallway(distance) {
+        
+    }
+
     //generates walkable areas for player
     generateLevel() {
 
@@ -123,6 +128,8 @@ class LevelMap {
             tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 1)
         }
 
+        //TODO: Bends
+
     }
 
     //returns 8 bit number to use for bitwise operations 
@@ -131,7 +138,7 @@ class LevelMap {
         3   4
         5 6 7 
     */
-   walkablesAround(pos) {
+    walkablesAround(pos) {
     let power = 0
     let toReturn = 0
     for(var i = -1; i < 2; i++) {
