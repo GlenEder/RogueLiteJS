@@ -64,7 +64,7 @@ class Room {
             let tilePosX = toSet.x + this.startingPos.x
             let tilePosY = toSet.y + this.startingPos.y
             let tileKey = tilePosX + "/" + tilePosY
-            let tile = new Tile(tilePosX, tilePosY, FLOOR, this.scale)
+            let tile = new Tile(tilePosX, tilePosY, this.scale)
             tile.setSprite(this.tileset + "_" + FLOOR)
             this.walkableRef.set(tileKey, tile)
 

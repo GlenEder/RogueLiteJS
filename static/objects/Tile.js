@@ -12,10 +12,10 @@ class Tile {
     type -- type of tile (see consts above)
     scale -- scaling factor room is using
     */
-    constructor(x, y, type, scale) {
+    constructor(x, y, scale) {
         this.x = x
         this.y = y
-        this.type = type
+        this.isWall = false
         this.sprite = null
         this.scale = scale
     }

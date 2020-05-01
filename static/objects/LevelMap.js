@@ -1,7 +1,9 @@
-
+const WALL_BOTTOM = 64
+const WALL_TOP = 2
+const WALL_RIGHT  = 16
+const WALL_LEFT = 8
 
 class LevelMap {
-
 
     constructor(numRooms) {
 
@@ -20,8 +22,6 @@ class LevelMap {
         this.generateLevel()
         this.generateBorders()
         this.render()
-
-        console.log(this.borders)
     }
 
     //renders map
@@ -31,7 +31,9 @@ class LevelMap {
         })
 
         this.borders.forEach(item => {
-            this.container.addChild(item.render())
+            if(item.render() !== null) {
+                this.container.addChild(item.render())
+            }
         })
 
         //center map
@@ -73,10 +75,9 @@ class LevelMap {
                     let tilesAround = this.walkablesAround(new Vec2d(deltX, deltY))
 
                     //create tile and add to map
-                    let tile = new Tile(deltX, deltY, WALL, this.scale)
+                    let tile = new Tile(deltX, deltY, this.scale)
                     this.setBorderSprite(tile, tilesAround)
                     this.borders.set(key, tile)
-
                 }
             }
         })
@@ -85,8 +86,24 @@ class LevelMap {
 
     //Sets sprite for the given tile based on tiles around 
     setBorderSprite(tile, tilesAround) {
-    
-        tile.setSprite(this.tileset + "_" + WALL)
+        
+        //Walls
+        if(tilesAround & WALL_BOTTOM) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 0)
+            tile.type = WALL
+        }
+        else if (tilesAround & WALL_TOP) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 2)
+            tile.type = WALL
+        }
+        else if (tilesAround & WALL_RIGHT) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 3)
+            tile.type = WALL
+        }
+        else if (tilesAround & WALL_LEFT) {
+            tile.setSpriteWithDir(this.tileset + "_" + WALL, 1)
+            tile.type = WALL
+        }
 
     }
 
