@@ -67,13 +67,13 @@ class Room {
             let tileKey = tilePosX + "/" + tilePosY
             let tile = new Tile(tilePosX, tilePosY, this.scale)
             tile.setSprite(this.tileset + "_" + FLOOR)
+            this.roomTiles.set(tileKey, tile.pos)
             this.walkableRef.set(tileKey, tile)
 
             //get surrounding tiles that have yet to be visited 
             this.getAvailTilesAround(toSetKey, selectedTiles, availTiles, roomSpots)    
         }
-  
-        this.roomTiles = selectedTiles
+
         console.log("Room: Room generated.")
         //this.setTileSprites()
     }

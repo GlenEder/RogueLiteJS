@@ -158,6 +158,7 @@ class LevelMap {
     //returns array of edges for room 
     getRoomEdges(room) {
         room.roomTiles.forEach(item => {
+            console.log(item)
             let tilesAround = this.walkablesAround(item)
         })
     }
