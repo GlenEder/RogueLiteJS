@@ -15,6 +15,7 @@ class Tile {
     constructor(x, y, scale) {
         this.x = x
         this.y = y
+        this.pos = new Vec2d(x, y)
         this.isWall = false
         this.sprite = null
         this.scale = scale

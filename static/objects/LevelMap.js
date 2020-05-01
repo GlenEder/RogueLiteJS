@@ -13,9 +13,11 @@ class LevelMap {
 
         this.numRooms = numRooms        //number of rooms level will have
         this.walkables = new Map();     //map of tiles that player can walk on 
-        this.borders = new Map(); 
+        this.borders = new Map();       //map of border tiles
+        this.rooms = []                 //array of rooms
         this.scale = 1
         this.tileset = "floor"
+    
 
         //create container
         this.container = new PIXI.Container()
@@ -49,13 +51,13 @@ class LevelMap {
     //generates walkable areas for player
     generateLevel() {
 
-        new Room(this.walkables, new Vec2d(0, 0), 4, 3, this.tileset, 1)
+        this.rooms.push(new Room(this.walkables, new Vec2d(0, 0), 4, 3, this.tileset, 1))
         this.generateHallway(4)
     }
 
     //Creates a hallway from a random rooms wall
     generateHallway(distance) {
-
+        let possibleWalls = this.getRoomEdges(this.rooms[0])
     }
 
     //creates border for walkable map 
@@ -151,6 +153,13 @@ class LevelMap {
     }
     //console.log(toReturn.toString(2))
     return toReturn
+    }
+
+    //returns array of edges for room 
+    getRoomEdges(room) {
+        room.roomTiles.forEach(item => {
+            let tilesAround = this.walkablesAround(item)
+        })
     }
 
     //Reset maps and container 

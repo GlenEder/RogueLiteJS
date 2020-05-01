@@ -18,6 +18,7 @@ class Room {
 
         //TODO: make this a param to make more fancy rooms in future
         this.numWalkable = width * height
+        this.roomTiles = new Map()  //only contains cords, not tiles themselves
         this.generateRoom()
     }
 
@@ -72,6 +73,7 @@ class Room {
             this.getAvailTilesAround(toSetKey, selectedTiles, availTiles, roomSpots)    
         }
   
+        this.roomTiles = selectedTiles
         console.log("Room: Room generated.")
         //this.setTileSprites()
     }
