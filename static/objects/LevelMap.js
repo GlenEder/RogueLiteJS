@@ -2,6 +2,10 @@ const WALL_BOTTOM = 64
 const WALL_TOP = 2
 const WALL_RIGHT  = 16
 const WALL_LEFT = 8
+const CORNER_TR = 4
+const CORNER_TL = 1
+const CORNER_BR = 128
+const CORNER_BL = 32
 
 class LevelMap {
 
@@ -90,19 +94,33 @@ class LevelMap {
         //Walls
         if(tilesAround & WALL_BOTTOM) {
             tile.setSpriteWithDir(this.tileset + "_" + WALL, 0)
-            tile.type = WALL
+            tile.isWall = true
         }
         else if (tilesAround & WALL_TOP) {
             tile.setSpriteWithDir(this.tileset + "_" + WALL, 2)
-            tile.type = WALL
+            tile.isWall = true
         }
         else if (tilesAround & WALL_RIGHT) {
             tile.setSpriteWithDir(this.tileset + "_" + WALL, 3)
-            tile.type = WALL
+            tile.isWall = true
         }
         else if (tilesAround & WALL_LEFT) {
             tile.setSpriteWithDir(this.tileset + "_" + WALL, 1)
-            tile.type = WALL
+            tile.isWall = true
+        }
+
+        //Corners 
+        else if(tilesAround & CORNER_TR) {
+            tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 3)
+        }
+        else if(tilesAround & CORNER_TL) {
+            tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 2)
+        }
+        else if(tilesAround & CORNER_BR) {
+            tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 0)
+        }
+        else if(tilesAround & CORNER_BL) {
+            tile.setSpriteWithDir(this.tileset + "_" + CONRNER, 1)
         }
 
     }
