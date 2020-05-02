@@ -57,7 +57,8 @@ class LevelMap {
 
     //Creates a hallway from a random rooms wall
     generateHallway(distance) {
-        let possibleWalls = this.getRoomEdges(this.rooms[0])
+        let possibleStarts = this.getRoomEdges(this.rooms[0])
+        console.log(possibleStarts)
     }
 
     //creates border for walkable map 
@@ -129,11 +130,26 @@ class LevelMap {
 
     //returns array of edges for room 
     getRoomEdges(room) {
+        let edges = []
         room.roomTiles.forEach(item => {
-            console.log(item)   
             let bordersAround = missingsAround(item, this.walkables) 
-            console.log(bordersAround.toString(2))     
+            
+            //Check for walls
+            if(bordersAround & WALL_BOTTOM) {
+                edges.push(new Vec2d(item.x, item.y + 1))
+            }
+            if(bordersAround & WALL_LEFT) {
+                edges.push(new Vec2d(item.x - 1, item.y))
+            }
+            if(bordersAround & WALL_RIGHT) {
+                edges.push(new Vec2d(item.x + 1, item.y)) 
+            }
+            if(bordersAround & WALL_TOP) {
+                edges.push(new Vec2d(item.x, item.y - 1))
+            }
         })
+
+        return edges
     }
 
 
