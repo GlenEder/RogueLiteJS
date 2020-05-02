@@ -167,6 +167,11 @@ class LevelMap {
         })
     }
 
+    //Returns array of positions that are edges for the tile 
+    getTileEdges(pos) {
+        return null
+    }
+
     //Reset maps and container 
     reset() {
         this.walkables.clear()
