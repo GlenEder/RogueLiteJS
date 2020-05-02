@@ -26,25 +26,54 @@ class Hallway {
     //Generates hallway based of params of constructor
     generateHallway() {
 
-        //Add first tile 
-        let t = new Tile(this.startPos.x, this.startPos.y, this.scaling)
+        //add first tile 
+        this.addTile(this.startPos)
+    
+        let pos = this.startPos
+        for(var i = 0; i < this.distanceToGo - 1; i++) {
+
+            let spotsAvail = this.possibleMoves(pos, this.walkablesRef)
+            let newPos = spotsAvail[getRandomIndex(spotsAvail)]
+
+            //create tile 
+            this.addTile(newPos)
+            
+            //update pos
+            pos = newPos
+        }
+    }
+
+    //returns array of possible moves 
+    possibleMoves(pos, map) {
+        let missings = missingsAround(pos, map)
+        let moves = []
+        if(missings & WALL_BOTTOM) {
+            moves.push(new Vec2d(pos.x, pos.y + 1))
+        }
+        if(missings & WALL_TOP) {
+            moves.push(new Vec2d(pos.x, pos.y - 1))
+        }
+        if(missings & WALL_RIGHT) {
+            moves.push(new Vec2d(pos.x + 1, pos.y))
+        }
+        if(missings & WALL_LEFT) {
+            moves.push(new Vec2d(pos.x - 1, pos.y))
+        }
+
+        return moves
+    }
+
+    addTile(pos) {
+        //create tile
+        let t = new Tile(pos.x, pos.y, this.scaling)
         t.setSprite(this.tileset + "_" + FLOOR)
 
         //generate key and add to tiles map
-        let key = this.startPos.x + "/" + this.startPos.y
-        this.tiles.set(key, this.startPos)
+        let key = pos.x + "/" + pos.y
+        this.tiles.set(key, pos)
 
-        //add first tile to walkables map
+        //add tile to walkables map
         this.walkablesRef.set(key, t)
-
-        //pos of tile
-        let pos = this.startPos
-
-        for(var i = 0; i < this.distanceToGo; i++) {
-
-            let spotsAvail = missingsAround(pos, this.walkablesRef)
-
-        }
     }
 
 }
