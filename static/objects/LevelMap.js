@@ -76,7 +76,7 @@ class LevelMap {
                     if(this.borders.has(key) || this.walkables.has(key)) continue
 
                     //get tiles around 
-                    let tilesAround = this.walkablesAround(new Vec2d(deltX, deltY))
+                    let tilesAround = entriesAround(new Vec2d(deltX, deltY), this.walkables)
 
                     //create tile and add to map
                     let tile = new Tile(deltX, deltY, this.scale)
@@ -127,54 +127,13 @@ class LevelMap {
 
     }
 
-    //returns 8 bit number to use for bitwise operations 
-    /*
-        0 1 2
-        3   4
-        5 6 7 
-    */
-    walkablesAround(pos) {
-    let power = 0
-    let toReturn = 0
-    for(var i = -1; i < 2; i++) {
-        for(var j = -1; j < 2; j++) {
-
-            if(i === 0 && j === 0) continue
-
-            let deltX = pos.x + j
-            let deltY = pos.y + i
-            //create key              
-            let key = deltX + "/" + deltY                
-            if(this.walkables.has(key)) {
-                toReturn += Math.pow(2, power)
-            }
-            power++
-        }
-    }
-    //console.log(toReturn.toString(2))
-    return toReturn
-    }
-
     //returns array of edges for room 
     getRoomEdges(room) {
         room.roomTiles.forEach(item => {
-            console.log(item)
-            let tileEdges = this.getTileEdges(item)  
-            if(tileEdges & 16) {
-                console.log("Edge right")
-            }          
+            console.log(item)         
         })
     }
 
-    //Returns flipped bits of walkables around
-    getTileEdges(pos) {
-        let tilesAround = this.walkablesAround(pos)
-
-        //edges is reversed tilesaround 
-        let edgesAround = invert(tilesAround)
-    
-        return edgesAround
-    }
 
     //Reset maps and container 
     reset() {
