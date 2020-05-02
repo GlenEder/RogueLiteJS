@@ -24,10 +24,22 @@ class Hallway {
     generateHallway() {
 
         //Add first tile 
-        
+        let t = new Tile(this.startPos.x, this.startPos.y, this.scaling)
+        t.setSprite(this.tileset + "_" + FLOOR)
+
+        //generate key and add to tiles map
+        let key = this.startPos.x + "/" + this.startPos.y
+        this.tiles.set(key, this.startPos)
+
+        //add first tile to walkables map
+        this.walkablesRef.set(key, t)
+
+        //pos of tile
+        let pos = this.startPos
+
         for(var i = 0; i < this.distanceToGo; i++) {
 
-            
+            let spotsAvail = missingsAround(pos, this.walkablesRef)
 
         }
     }
