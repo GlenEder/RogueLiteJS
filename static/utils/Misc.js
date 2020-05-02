@@ -71,6 +71,11 @@ function entriesAround(pos, map) {
 }
 
 
+//returns random index of provided array
+function getRandomIndex(array) {
+    return Math.floor(Math.random() * array.length)
+}
+
 
 
 //Inverts bits of number provided
