@@ -18,6 +18,9 @@ class Hallway {
 
         //map containing pos of tiles for this hallway 
         this.tiles = new Map()
+
+        //generate the hallway bae bee
+        this.generateHallway()
     }
 
     //Generates hallway based of params of constructor
