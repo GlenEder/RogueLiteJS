@@ -58,7 +58,6 @@ class LevelMap {
     //Creates a hallway from a random rooms wall
     generateHallway(distance) {
         let possibleWalls = this.getRoomEdges(this.rooms[0])
-        console.log(possibleWalls)
     }
 
     //creates border for walkable map 
@@ -159,17 +158,22 @@ class LevelMap {
     //returns array of edges for room 
     getRoomEdges(room) {
         room.roomTiles.forEach(item => {
-            let tilesAround = this.walkablesAround(item)
-            //TODO: check if its a an edge
             console.log(item)
-            console.log(tilesAround.toString(2))
-            
+            let tileEdges = this.getTileEdges(item)  
+            if(tileEdges & 16) {
+                console.log("Edge right")
+            }          
         })
     }
 
-    //Returns array of positions that are edges for the tile 
+    //Returns flipped bits of walkables around
     getTileEdges(pos) {
-        return null
+        let tilesAround = this.walkablesAround(pos)
+
+        //edges is reversed tilesaround 
+        let edgesAround = invert(tilesAround)
+    
+        return edgesAround
     }
 
     //Reset maps and container 
