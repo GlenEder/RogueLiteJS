@@ -42,6 +42,36 @@ function entriesAround(pos, map) {
     return toReturn
 }
 
+//returns 8 bit number to use for bitwise operations checking provided map for missings
+    /*
+        0 1 2
+        3   4
+        5 6 7 
+    */
+   function missingsAround(pos, map) {
+    let power = 0
+    let toReturn = 0
+    for(var i = -1; i < 2; i++) {
+        for(var j = -1; j < 2; j++) {
+
+            if(i === 0 && j === 0) continue
+
+            let deltX = pos.x + j
+            let deltY = pos.y + i
+            //create key              
+            let key = deltX + "/" + deltY                
+            if(!map.has(key)) {
+                toReturn += Math.pow(2, power)
+            }
+            power++
+        }
+    }
+
+    return toReturn
+}
+
+
+
 
 //Inverts bits of number provided
 //https://stackoverflow.com/questions/42450510/invert-unsigned-arbitrary-binary-bits-in-javascript

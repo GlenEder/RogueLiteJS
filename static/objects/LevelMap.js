@@ -26,6 +26,7 @@ class LevelMap {
         this.reset()
         
         this.generateLevel()
+        this.generateBorders()
         this.render()
     }
 
@@ -51,7 +52,6 @@ class LevelMap {
     generateLevel() {
 
         this.rooms.push(new Room(this.walkables, new Vec2d(0, 0), 4, 3, this.tileset, 1))
-        this.generateBorders()
         this.generateHallway(4)
     }
 
@@ -131,7 +131,7 @@ class LevelMap {
     getRoomEdges(room) {
         room.roomTiles.forEach(item => {
             console.log(item)   
-            let bordersAround = entriesAround(item, this.borders) 
+            let bordersAround = missingsAround(item, this.walkables) 
             console.log(bordersAround.toString(2))     
         })
     }
