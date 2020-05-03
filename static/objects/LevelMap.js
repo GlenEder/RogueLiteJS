@@ -6,10 +6,7 @@ const CORNER_TR = 4
 const CORNER_TL = 1
 const CORNER_BR = 128
 const CORNER_BL = 32
-const BEND_TR = 151
-const BEND_TL = 43
-const BEND_BR = 0
-const BEND_BL = 233
+
 
 class LevelMap {
 
@@ -131,8 +128,22 @@ class LevelMap {
         }
 
         //TODO: Bends
-        
-
+        //top right 
+        if((tilesAround & WALL_RIGHT) && (tilesAround & WALL_TOP) && (tilesAround & CORNER_TR)) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 3)
+        }
+        //top left
+        else if((tilesAround & WALL_LEFT) && (tilesAround & WALL_TOP) && (tilesAround & CORNER_TL)) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 2)
+        }
+        //bottom right
+        else if((tilesAround & WALL_RIGHT) && (tilesAround & WALL_BOTTOM) && (tilesAround & CORNER_BR)) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 0)
+        }
+        //bottom left
+        else if((tilesAround & WALL_LEFT) && (tilesAround & WALL_BOTTOM) && (tilesAround & CORNER_BL)) {
+            tile.setSpriteWithDir(this.tileset + "_" + BEND, 1)
+        }
     }
 
     //returns array of edges for room 
