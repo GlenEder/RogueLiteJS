@@ -50,7 +50,7 @@ class Hallway {
 
             //create tile 
             this.addTile(newPos)
-            console.log("adding tile at %d, %d", newPos.x, newPos.y)
+            // console.log("adding tile at %d, %d", newPos.x, newPos.y)
             
             //update pos
             lastPos = pos

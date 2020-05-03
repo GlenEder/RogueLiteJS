@@ -6,6 +6,10 @@ const CORNER_TR = 4
 const CORNER_TL = 1
 const CORNER_BR = 128
 const CORNER_BL = 32
+const BEND_TR = 151
+const BEND_TL = 43
+const BEND_BR = 0
+const BEND_BL = 233
 
 class LevelMap {
 
@@ -52,7 +56,7 @@ class LevelMap {
     generateLevel() {
 
         this.rooms.push(new Room(this.walkables, new Vec2d(0, 0), 4, 3, this.tileset, 1))
-        this.generateHallway(4)
+        this.generateHallway(8)
     }
 
     //Creates a hallway from a random rooms wall
@@ -127,6 +131,7 @@ class LevelMap {
         }
 
         //TODO: Bends
+        
 
     }
 
