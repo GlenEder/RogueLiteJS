@@ -34,6 +34,13 @@ class Hallway {
         let turnPossilbe = CAN_NOT_TURN
         for(var i = 0; i < this.distanceToGo - 1; i++) {
 
+            //Set turn possible
+            if(turnPossilbe === CAN_NOT_TURN) {
+                if(Math.random() > 0.5) turnPossilbe = CAN_TURN
+            }
+            else {
+                turnPossilbe = CAN_NOT_TURN
+            }
             let spotsAvail = this.possibleMoves(pos, this.walkablesRef, turnPossilbe)
             let newPos = spotsAvail[getRandomIndex(spotsAvail)]
 
