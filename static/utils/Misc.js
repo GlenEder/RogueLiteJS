@@ -13,6 +13,29 @@ function getRandomKey(collection) {
     return keys[Math.floor(Math.random() * keys.length)]
 }
 
+//returns the number of entries around pos in map
+function numberAround(pos, map) {
+
+    let count = 0
+
+    for(var i = -1; i < 2; i++) {
+        for(var j = -1; j < 2; j++) {
+
+            if(i === 0 && j === 0) continue
+
+            let deltX = pos.x + j
+            let deltY = pos.y + i
+            //create key              
+            let key = deltX + "/" + deltY                
+            if(map.has(key)) {
+                count++
+            }
+        }
+    }
+
+    return count
+
+}
 
 //returns 8 bit number to use for bitwise operations checking provided map for entries
     /*

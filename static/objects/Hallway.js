@@ -48,6 +48,7 @@ class Hallway {
         let missings = missingsAround(pos, map)
         let moves = []
         if(missings & WALL_BOTTOM) {
+            let move = new Vec2d(pos.x, pos.y + 1)
             moves.push(new Vec2d(pos.x, pos.y + 1))
         }
         if(missings & WALL_TOP) {
