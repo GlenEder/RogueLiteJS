@@ -1,4 +1,5 @@
-
+const CAN_TURN = 3
+const CAN_NOT_TURN = 2
 
 class Hallway {
 
@@ -30,9 +31,10 @@ class Hallway {
         this.addTile(this.startPos)
     
         let pos = this.startPos
+        let turnPossilbe = CAN_NOT_TURN
         for(var i = 0; i < this.distanceToGo - 1; i++) {
 
-            let spotsAvail = this.possibleMoves(pos, this.walkablesRef)
+            let spotsAvail = this.possibleMoves(pos, this.walkablesRef, turnPossilbe)
             let newPos = spotsAvail[getRandomIndex(spotsAvail)]
 
             //create tile 
@@ -44,21 +46,32 @@ class Hallway {
     }
 
     //returns array of possible moves 
-    possibleMoves(pos, map) {
+    possibleMoves(pos, map, numAroundAllowed) {
         let missings = missingsAround(pos, map)
         let moves = []
         if(missings & WALL_BOTTOM) {
             let move = new Vec2d(pos.x, pos.y + 1)
-            moves.push(new Vec2d(pos.x, pos.y + 1))
+            if(numberAround(move, this.walkablesRef) < numAroundAllowed) {
+                moves.push(move)
+            }
         }
         if(missings & WALL_TOP) {
-            moves.push(new Vec2d(pos.x, pos.y - 1))
+            let move = new Vec2d(pos.x, pos.y - 1)
+            if(numberAround(move, this.walkablesRef) < numAroundAllowed) {
+                moves.push(move)
+            }
         }
         if(missings & WALL_RIGHT) {
-            moves.push(new Vec2d(pos.x + 1, pos.y))
+            let move = new Vec2d(pos.x + 1, pos.y)
+            if(numberAround(move, this.walkablesRef) < numAroundAllowed) {
+                moves.push(move)
+            }
         }
         if(missings & WALL_LEFT) {
-            moves.push(new Vec2d(pos.x - 1, pos.y))
+            let move = new Vec2d(pos.x - 1, pos.y)
+            if(numberAround(move, this.walkablesRef) < numAroundAllowed) {
+                moves.push(move)
+            }
         }
 
         return moves
