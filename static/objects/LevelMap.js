@@ -58,7 +58,9 @@ class LevelMap {
     //Creates a hallway from a random rooms wall
     generateHallway(distance) {
         let possibleStarts = this.getRoomEdges(this.rooms[0])
-        new Hallway(this.walkables, possibleStarts[getRandomIndex(possibleStarts)], distance, this.tileset, this.scale)
+        let hallwayStart = possibleStarts[getRandomIndex(possibleStarts)]
+        let dir = this.getDirOfEdge(hallwayStart)
+        new Hallway(this.walkables, hallwayStart, dir, distance, this.tileset, this.scale)
     }
 
     //creates border for walkable map 
@@ -152,6 +154,22 @@ class LevelMap {
         return edges
     }
 
+    //returns dir that tile came from
+    getDirOfEdge(pos) {
+        let tilesAround = entriesAround(pos, this.walkables)
+        if(tilesAround & WALL_TOP) {
+            return DOWN
+        }
+        if(tilesAround & WALL_BOTTOM) {
+            return UP
+        }
+        if(tilesAround & WALL_LEFT) {
+            return RIGHT
+        }
+        if(tilesAround & WALL_RIGHT) {
+            return LEFT
+        }
+    }
 
     //Reset maps and container 
     reset() {
