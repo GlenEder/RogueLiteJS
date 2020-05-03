@@ -48,6 +48,8 @@ class Hallway {
             let spotsAvail = this.possibleMoves(pos, this.walkablesRef, turnPossilbe)
             let newPos = spotsAvail[getRandomIndex(spotsAvail)]
 
+            if(newPos === undefined) break
+
             //create tile 
             this.addTile(newPos)
             // console.log("adding tile at %d, %d", newPos.x, newPos.y)

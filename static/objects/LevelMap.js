@@ -53,7 +53,7 @@ class LevelMap {
     generateLevel() {
 
         this.rooms.push(new Room(this.walkables, new Vec2d(0, 0), 4, 3, this.tileset, 1))
-        this.generateHallway(8)
+        this.generateHallway(6)
     }
 
     //Creates a hallway from a random rooms wall
