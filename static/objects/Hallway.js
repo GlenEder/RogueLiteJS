@@ -1,5 +1,9 @@
 const CAN_TURN = 3
 const CAN_NOT_TURN = 2
+const UP = 0
+const DOWN = 1
+const RIGHT = 2
+const LEFT = 3
 
 class Hallway {
 
@@ -31,6 +35,8 @@ class Hallway {
         this.addTile(this.startPos)
     
         let pos = this.startPos
+        let lastPos = pos
+        let dir = UP           //keep track of dir hallway is going for turn 
         let turnPossilbe = CAN_NOT_TURN
         for(var i = 0; i < this.distanceToGo - 1; i++) {
 
