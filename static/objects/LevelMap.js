@@ -61,7 +61,8 @@ class LevelMap {
         let possibleStarts = this.getRoomEdges(this.rooms[0])
         let hallwayStart = possibleStarts[getRandomIndex(possibleStarts)]
         let dir = this.getDirOfEdge(hallwayStart)
-        new Hallway(this.walkables, hallwayStart, dir, distance, this.tileset, this.scale)
+        let hall = new Hallway(this.walkables, hallwayStart, dir, distance, this.tileset, this.scale)
+        console.log(hall.lastTilePos)
     }
 
     //creates border for walkable map 

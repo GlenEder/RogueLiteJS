@@ -25,6 +25,7 @@ class Hallway {
 
         //map containing pos of tiles for this hallway 
         this.tiles = new Map()
+        this.lastTilePos = null
 
         //generate the hallway bae bee
         this.generateHallway()
@@ -71,9 +72,10 @@ class Hallway {
                     turnPossilbe = CAN_TURN
                 }
             }
-            
-            
         }
+
+        //Save last tile position for generating room 
+        this.lastTilePos = pos
     }
 
     //returns array of possible moves 
