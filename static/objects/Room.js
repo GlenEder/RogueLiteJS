@@ -32,12 +32,15 @@ class Room {
         roomSpots.clear()
 
         //Handle dir of room 
-        
+        let xDir = (this.direction === LEFT) ? -1 : 1
+        let yDir = (this.direction === UP) ? -1 : 1
 
         for(var i = 0; i < this.width; i++) {
             for(var j = 0; j < this.height; j++) {
-                let key = i + "/" + j
-                roomSpots.set(key, new Vec2d(i, j))
+                let x = i * xDir
+                let y = j * yDir
+                let key = x + "/" + y
+                roomSpots.set(key, new Vec2d(x, y))
             }
         }
 

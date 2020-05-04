@@ -54,13 +54,16 @@ class LevelMap {
     generateLevel() {
 
         let nextRoomStart = new Vec2d(0, 0)
+        let roomDir = RIGHT
         for(var i = 0; i < this.numRooms - 1; i++) {
-            this.rooms.push(new Room(this.walkables, nextRoomStart, 4, 3, this.tileset, 1))
-            nextRoomStart = this.generateHallway(6)
+            this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, 4, 3, this.tileset, 1))
+            let data = this.generateHallway(6)
+            nextRoomStart = data.pos
+            roomDir = data.direction
         }
 
         //add last room
-        this.rooms.push(new Room(this.walkables, nextRoomStart, 4, 3, this.tileset, 1))
+        this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, 4, 3, this.tileset, 1))
 
     }
 
@@ -72,7 +75,7 @@ class LevelMap {
         let dir = this.getDirOfEdge(hallwayStart)
         let hall = new Hallway(this.walkables, hallwayStart, dir, distance, this.tileset, this.scale)
         this.hallways.push(hall)
-        return hall.lastTilePos
+        return {pos: hall.lastTilePos, direction: dir}
     }
 
     //creates border for walkable map 
