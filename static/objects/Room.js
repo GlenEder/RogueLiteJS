@@ -36,6 +36,9 @@ class Room {
         let yDir = (this.direction === UP) ? -1 : 1
 
         //validate room 
+        if(!this.roomAreaIsAvailable(xDir, yDir, this.startingPos)) {
+            console.log("Room(ERROR): room overlaps exisiting tiles")
+        }
 
         for(var i = 0; i < this.width; i++) {
             for(var j = 0; j < this.height; j++) {
