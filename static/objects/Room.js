@@ -35,7 +35,7 @@ class Room {
         let xDir = (this.direction === LEFT) ? -1 : 1
         let yDir = (this.direction === UP) ? -1 : 1
 
-
+        //validate room 
 
         for(var i = 0; i < this.width; i++) {
             for(var j = 0; j < this.height; j++) {
@@ -136,6 +136,22 @@ class Room {
                 }
             }
         }
+    }
+
+    roomAreaIsAvailable(xDir, yDir, startPos) {
+
+        //check corners 
+        let topLeft = new Vec2d(startPos.x, startPos.y + (this.height * yDir))
+        let topRight = new Vec2d(startPos.x + (this.width * xDir), startPos.y + (this.height * yDir))
+        let bottomRight = new Vec2d(startPos.x + (this.width * xDir), startPos.y)
+        if(this.walkableRef.has(generateKey(topLeft)) ||
+            this.walkableRef.has(generateKey(topRight)) ||
+            this.walkableRef.has(generateKey(bottomRight))) 
+        {
+            return false
+        }
+
+        return true
     }
   
 
