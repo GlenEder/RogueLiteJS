@@ -16,6 +16,7 @@ class LevelMap {
         this.walkables = new Map();     //map of tiles that player can walk on 
         this.borders = new Map();       //map of border tiles
         this.rooms = []                 //array of rooms
+        this.hallways = []              //array of hallways
         this.scale = 1
         this.tileset = "floor"
     
