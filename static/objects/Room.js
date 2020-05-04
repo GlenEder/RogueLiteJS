@@ -62,8 +62,9 @@ class Room {
             let toSetKey = getRandomKey(availTiles)
             let toSet = availTiles.get(toSetKey)
 
-            if(this.walkableRef.has(toSetKey)) {
-                console.log("Room(ERROR): Selected Tile Already in Level")
+            if(toSet === undefined || toSet === null) {
+                console.log("Room(ERROR): toSet is null")
+                continue
             }
 
             //add to secleted list
@@ -76,6 +77,12 @@ class Room {
             let tile = new Tile(tilePosX, tilePosY, this.scale)
             tile.setSprite(this.tileset + "_" + FLOOR)
             this.roomTiles.set(tileKey, tile.pos)
+            
+            //log if tile is written again
+            if(this.walkableRef.has(tileKey)) {
+                console.log("Room(ERROR): Selected Tile Already in Level")
+            }
+
             this.walkableRef.set(tileKey, tile)
 
             //get surrounding tiles that have yet to be visited 
