@@ -35,6 +35,8 @@ class Room {
         let xDir = (this.direction === LEFT) ? -1 : 1
         let yDir = (this.direction === UP) ? -1 : 1
 
+
+
         for(var i = 0; i < this.width; i++) {
             for(var j = 0; j < this.height; j++) {
                 let x = i * xDir
@@ -135,135 +137,6 @@ class Room {
             }
         }
     }
-
-    //checks if adding tile at pos will creat tunel that doesnt work for tileset
-    canSelectTile(pos, selectedMap, availMap) {
-
-        for(var i = -1; i < 2; i++) {
-            for(var j = -1; j < 2; j++) {
-
-                if(Math.abs(i) === Math.abs(j)) continue
-            
-                let deltX = pos.x + i
-                let deltY = pos.y + j
-                let deltX2 = pos.x + (i * 2)
-                let deltY2 = pos.y + (j * 2)
-                //create key              
-                let key = deltX + "/" + deltY
-                let key2 = deltX2 + "/" + deltY2
-
-                if(selectedMap.has(key2) && availMap.has(key)) {
-                    return false
-                }
-            }
-        }
-
-        //check for weird diag pinch thing
-        let tilesAround = this.walkablesAroundBitwise(pos)
-        let isCorner = this.isInCorner(tilesAround)
-
-        if(this.inCubbieHole(tilesAround) || isCorner) {
-
-            //check diags for selected tiles 
-            for(var i = -1; i < 2; i++) {
-                for(var j = -1; j < 2; j++) {
-
-                    if(Math.abs(i) !== Math.abs(j)) continue
-            
-                    let deltX2 = pos.x + (i * 2)
-                    let deltY2 = pos.y + (j * 2)
-                    //create key              
-                    let key2 = deltX2 + "/" + deltY2
-
-                    if(selectedMap.has(key2)) {
-                        return false
-                    }
-
-                    //handle corner bug
-                    if(isCorner) {
-                        let textX = pos.x + i
-                        let testY = pos.y + j
-                        let otherTilesAround = this.walkablesAroundBitwise(new Vec2d(textX, testY))
-                        if(i < 0 && j < 0 && otherTilesAround & 8) {
-                            return false
-                        }
-                        else if (i > 0 && j < 0 && otherTilesAround & 4) {
-                            return false
-                        }
-                        else if (i < 0 && j > 0 && otherTilesAround & 64) {
-                            return false
-                        }
-                        else if (i > 0 && j > 0 && otherTilesAround & 16) {
-                            return false
-                        }
-                    }
-                }
-            }
-
-        }
-        return true
-    }
-
-    //Returns true if tile is in cubbie hole ie.
-    /*
-        0 0 0
-        0 * 0 
-        1 1 1
-    */
-    inCubbieHole(tilesAround) {
-
-       let holes = [parseInt("00101001", 2), 
-                    parseInt("00101000", 2), 
-                    parseInt("00001000", 2),
-
-                    parseInt("00000111", 2),
-                    parseInt("00000110", 2),
-                    parseInt("00000010", 2),
-
-
-                    parseInt("10010100", 2),
-                    parseInt("00010100", 2),
-                    parseInt("00010000", 2),
-
-                    parseInt("11100000", 2),
-                    parseInt("01100000", 2),
-                    parseInt("01000000", 2),
-
-                ]
-        // console.log(holes)
-        // console.log(tilesAround)
-        // // console.log(holes.indexOf(tilesAround))
-        if(holes.indexOf(tilesAround) > 0) {
-            return true
-        }
-        
-    }
-
-    //checks if tile is in corner 
-    isInCorner(tilesAround) {
-
-        //top left
-        if(tilesAround & 1 && tilesAround & 2 && tilesAround && 8) {
-            return true
-        } 
-        //top right 
-        if(tilesAround & 2 && tilesAround & 4 && tilesAround & 16) {
-            return true
-        }
-        //bottom left 
-        if(tilesAround & 8 && tilesAround & 32 && tilesAround & 64) {
-            return true
-        }
-        //bottom right 
-        if(tilesAround & 16 && tilesAround & 128 && tilesAround && 64) {
-            return true
-        }
-
-        return false
-
-    }
-
-
   
 
 
