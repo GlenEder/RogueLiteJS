@@ -53,10 +53,15 @@ class LevelMap {
     //generates walkable areas for player
     generateLevel() {
 
-        this.rooms.push(new Room(this.walkables, new Vec2d(0, 0), 4, 3, this.tileset, 1))
-        let nextStart = this.generateHallway(6)
-        console.log(nextStart)
-        this.rooms.push(new Room(this.walkables, nextStart, 3, 5, this.tileset, 1))
+        let nextRoomStart = new Vec2d(0, 0)
+        for(var i = 0; i < this.numRooms - 1; i++) {
+            this.rooms.push(new Room(this.walkables, nextRoomStart, 4, 3, this.tileset, 1))
+            nextRoomStart = this.generateHallway(3)
+        }
+
+        //add last room
+        this.rooms.push(new Room(this.walkables, nextRoomStart, 4, 3, this.tileset, 1))
+
     }
 
     //Creates a hallway from a random rooms wall
