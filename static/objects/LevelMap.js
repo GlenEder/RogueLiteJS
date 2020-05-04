@@ -56,6 +56,7 @@ class LevelMap {
         this.rooms.push(new Room(this.walkables, new Vec2d(0, 0), 4, 3, this.tileset, 1))
         let nextStart = this.generateHallway(6)
         console.log(nextStart)
+        this.rooms.push(new Room(this.walkables, nextStart, 3, 5, this.tileset, 1))
     }
 
     //Creates a hallway from a random rooms wall
