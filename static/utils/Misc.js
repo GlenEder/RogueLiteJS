@@ -99,7 +99,10 @@ function getRandomIndex(array) {
     return Math.floor(Math.random() * array.length)
 }
 
-
+//Generates key for map given vector
+function generateKey(pos) {
+    return pos.x + "/" + pos.y
+}
 
 //Inverts bits of number provided
 //https://stackoverflow.com/questions/42450510/invert-unsigned-arbitrary-binary-bits-in-javascript
