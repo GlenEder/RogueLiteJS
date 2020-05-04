@@ -56,7 +56,7 @@ class LevelMap {
         let nextRoomStart = new Vec2d(0, 0)
         for(var i = 0; i < this.numRooms - 1; i++) {
             this.rooms.push(new Room(this.walkables, nextRoomStart, 4, 3, this.tileset, 1))
-            nextRoomStart = this.generateHallway(3)
+            nextRoomStart = this.generateHallway(6)
         }
 
         //add last room

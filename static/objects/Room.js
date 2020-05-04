@@ -83,12 +83,14 @@ class Room {
     
 
     //adds tiles that are not yet in selectedMap to avail map around tileKey
-    getAvailTilesAround(tileKey, selectedMap, availMap, roomMap) {
+    getAvailTilesAround(tileKey, worldKey, selectedMap, availMap, roomMap) {
 
         //get cords of provied tile 
         let tile = availMap.get(tileKey)
         let x = tile.x
         let y = tile.y
+
+    
 
         //remove from list now that we have needed data 
         availMap.delete(tileKey)

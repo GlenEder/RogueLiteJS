@@ -28,7 +28,37 @@ class Hallway {
         this.lastTilePos = null
 
         //generate the hallway bae bee
-        this.generateHallway()
+        this.generateStraightHallway()
+    }
+
+    //generates straight hallway for testing
+    generateStraightHallway() {
+        let pos = this.startPos
+
+        //set deltax or deltay
+        let deltaX = 0
+        let deltaY = 0
+        switch(this.startingDir) {
+            case (UP):
+                deltaY = -1
+                break
+            case (DOWN): 
+                deltaY = 1
+                break
+            case (RIGHT):
+                deltaX = 1
+                break
+            case (LEFT):
+                deltaX = -1
+                break
+        }
+
+        for(var i = 0; i < this.distanceToGo; i++) {
+            this.addTile(pos)
+            pos = new Vec2d(pos.x + deltaX, pos.y + deltaY)
+        }
+
+        this.lastTilePos = pos
     }
 
     //Generates hallway based of params of constructor
