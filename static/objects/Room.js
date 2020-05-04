@@ -8,9 +8,10 @@ class Room {
         tileset -- tileset for room to use
         scaling -- scaling of tiles 
     */ 
-    constructor(walkables, startpos, width, height, tileset, scaling) {
+    constructor(walkables, startpos, direction, width, height, tileset, scaling) {
         this.walkableRef = walkables
         this.startingPos = startpos
+        this.direction = direction
         this.width = width
         this.height = height
         this.tileset = tileset
@@ -29,6 +30,10 @@ class Room {
         //console.log("Room: Generating room")
         let roomSpots = new Map()
         roomSpots.clear()
+
+        //Handle dir of room 
+        
+
         for(var i = 0; i < this.width; i++) {
             for(var j = 0; j < this.height; j++) {
                 let key = i + "/" + j
@@ -71,7 +76,7 @@ class Room {
             this.walkableRef.set(tileKey, tile)
 
             //get surrounding tiles that have yet to be visited 
-            this.getAvailTilesAround(toSetKey, selectedTiles, availTiles, roomSpots)    
+            this.getAvailTilesAround(toSetKey, tileKey, selectedTiles, availTiles, roomSpots)    
         }
 
         console.log("Room: Room generated.")
@@ -90,7 +95,10 @@ class Room {
         let x = tile.x
         let y = tile.y
 
-    
+        //get cords of world tile
+        let worldTile = this.walkableRef.get(worldKey)
+        let worldX = worldTile.x
+        let worldY = worldTile.y
 
         //remove from list now that we have needed data 
         availMap.delete(tileKey)
@@ -103,11 +111,15 @@ class Room {
                 let deltX = x + i
                 let deltY = y + j
 
-                //create key              
+                let deltaX2 = worldX + i
+                let deltaY2 = worldY + j
+
+                //create keys              
                 let key = deltX + "/" + deltY
+                let wKey = deltaX2 + "/" + deltaY2 
 
                 //check that maps dont already have this spot
-                if(!availMap.has(key) && !selectedMap.has(key) && roomMap.has(key)) {
+                if(!availMap.has(key) && !selectedMap.has(key) && !this.walkableRef.has(wKey) && roomMap.has(key)) {
                     availMap.set(key, new Vec2d(deltX, deltY))
                 }
             }
