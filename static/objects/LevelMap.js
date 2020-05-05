@@ -222,6 +222,10 @@ class LevelMap {
          let xDir = (startingDir === LEFT) ? -1 : 1
          let yDir = (startingDir === UP) ? -1 : 1
          
+        //adjust room width and height for calculations 
+        roomHeight--
+        roomWidth--
+
          //check corners 
          let topLeft = new Vec2d(startPos.x, startPos.y + (roomHeight * yDir))
          let topRight = new Vec2d(startPos.x + (roomWidth * xDir), startPos.y + (roomHeight * yDir))
