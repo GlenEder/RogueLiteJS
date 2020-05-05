@@ -60,6 +60,10 @@ class LevelMap {
             let data = this.generateHallway(3)
             nextRoomStart = data.pos
             roomDir = data.direction
+
+            if(this.roomSpaceIsAvailAble(nextRoomStart, roomDir, 4, 3)) {
+                console.log("Space for room not available.")
+            }
         }
 
         //add last room
@@ -208,6 +212,24 @@ class LevelMap {
         while(this.container.children[0]) {this.container.removeChild(this.container.children[0])}
     }
 
+    roomSpaceIsAvailAble(startPos, startingDir, roomWidth, roomHeight) {
+         //Handle dir of room 
+         let xDir = (startingDir === LEFT) ? -1 : 1
+         let yDir = (startingDir === UP) ? -1 : 1
+         
+         //check corners 
+         let topLeft = new Vec2d(startPos.x, startPos.y + (roomHeight * yDir))
+         let topRight = new Vec2d(startPos.x + (roomWidth * xDir), startPos.y + (roomHeight * yDir))
+         let bottomRight = new Vec2d(startPos.x + (roomWidth * xDir), startPos.y)
+         if(this.walkables.has(generateKey(topLeft)) ||
+             this.walkables.has(generateKey(topRight)) ||
+             this.walkables.has(generateKey(bottomRight))) 
+         {
+             return false
+         }
+ 
+         return true
+    }
 
 
 }
