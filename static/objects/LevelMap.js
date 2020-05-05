@@ -60,7 +60,7 @@ class LevelMap {
         let canMakeRoom = true
         for(var i = 0; i < this.numRooms - 1; i++) {
             
-            if(!canMakeRoom) continue
+            if(!canMakeRoom) break
 
             this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
             let data = this.generateHallway(3)
@@ -77,7 +77,9 @@ class LevelMap {
         }
 
         //add last room
-        this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
+        if(canMakeRoom) {
+            this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
+        } 
 
     }
 
