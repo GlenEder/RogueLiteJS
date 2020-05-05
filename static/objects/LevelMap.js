@@ -55,19 +55,24 @@ class LevelMap {
 
         let nextRoomStart = new Vec2d(0, 0)
         let roomDir = RIGHT
+        let roomWidth = 4
+        let roomHeight = 3
         for(var i = 0; i < this.numRooms - 1; i++) {
-            this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, 4, 3, this.tileset, 1))
+        
+            this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
             let data = this.generateHallway(3)
             nextRoomStart = data.pos
             roomDir = data.direction
 
-            if(this.roomSpaceIsAvailAble(nextRoomStart, roomDir, 4, 3)) {
+            //check that next rooms have space
+            if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
                 console.log("Space for room not available.")
             }
+            
         }
 
         //add last room
-        this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, 4, 3, this.tileset, 1))
+        this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
 
     }
 
