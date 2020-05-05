@@ -59,27 +59,29 @@ class LevelMap {
         let roomHeight = 3
         let canMakeRoom = true
         for(var i = 0; i < this.numRooms - 1; i++) {
-            
-            if(!canMakeRoom) break
 
-            this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
-            let data = this.generateHallway(3)
-            nextRoomStart = data.pos
-            roomDir = data.direction
-
-            //check that next rooms have space
-            if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
+             //check that next rooms have space
+             if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
                 console.log("Space for room not available.")
                 canMakeRoom = false
                 this.removeLastHallway()
             }
-            
+            else {
+                this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
+                let data = this.generateHallway(3)
+                nextRoomStart = data.pos
+                roomDir = data.direction
+            }
+        
         }
 
         //add last room
         if(canMakeRoom) {
             this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
         } 
+        else {
+            this.removeLastHallway()
+        }
 
     }
 
@@ -98,9 +100,12 @@ class LevelMap {
     removeLastHallway() {
 
         let hallwayToDelete = this.hallways.pop()
-        hallwayToDelete.tiles.forEach(item => {
-            this.walkables.delete(generateKey(item))
-        })
+        if(hallwayToDelete !== null || hallwayToDelete !== undefined) {
+            hallwayToDelete.tiles.forEach(item => {
+                this.walkables.delete(generateKey(item))
+            })
+        }
+       
 
     }
 
