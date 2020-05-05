@@ -71,6 +71,7 @@ class LevelMap {
             if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
                 console.log("Space for room not available.")
                 canMakeRoom = false
+                this.removeLastHallway()
             }
             
         }
