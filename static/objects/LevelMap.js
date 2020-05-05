@@ -255,7 +255,8 @@ class LevelMap {
          let bottomRight = new Vec2d(startPos.x + (roomWidth * xDir), startPos.y)
          if(this.walkables.has(generateKey(topLeft)) ||
              this.walkables.has(generateKey(topRight)) ||
-             this.walkables.has(generateKey(bottomRight))) 
+             this.walkables.has(generateKey(bottomRight)) ||
+             this.walkables.has(generateKey(startPos))) 
          {
              return false
          }
