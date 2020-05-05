@@ -57,8 +57,11 @@ class LevelMap {
         let roomDir = RIGHT
         let roomWidth = 4
         let roomHeight = 3
+        let canMakeRoom = true
         for(var i = 0; i < this.numRooms - 1; i++) {
-        
+            
+            if(!canMakeRoom) continue
+
             this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
             let data = this.generateHallway(3)
             nextRoomStart = data.pos
@@ -67,6 +70,7 @@ class LevelMap {
             //check that next rooms have space
             if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
                 console.log("Space for room not available.")
+                canMakeRoom = false
             }
             
         }
@@ -86,6 +90,7 @@ class LevelMap {
         this.hallways.push(hall)
         return {pos: hall.lastTilePos, direction: dir}
     }
+
 
     //creates border for walkable map 
     generateBorders() {
