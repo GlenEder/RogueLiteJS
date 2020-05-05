@@ -91,6 +91,16 @@ class LevelMap {
         return {pos: hall.lastTilePos, direction: dir}
     }
 
+    //Removes tiles from walkables of last generated hallway 
+    removeLastHallway() {
+
+        let hallwayToDelete = this.hallways.pop()
+        hallwayToDelete.tiles.forEach(item => {
+            this.walkables.delete(generateKey(item))
+        })
+
+    }
+
 
     //creates border for walkable map 
     generateBorders() {
