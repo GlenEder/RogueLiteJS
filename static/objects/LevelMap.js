@@ -35,7 +35,9 @@ class LevelMap {
     //renders map
     render() {
         this.walkables.forEach(item => {
-            this.container.addChild(item.render())
+            if(item.render() !== null) {
+                this.container.addChild(item.render())
+            }
         })
 
         this.borders.forEach(item => {
@@ -65,7 +67,7 @@ class LevelMap {
              if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
                 console.log("Space for room not available.")
                 canMakeRoom = false
-                this.removeLastHallway()
+                //this.removeLastHallway()
             }
             else {
                 this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
@@ -78,10 +80,11 @@ class LevelMap {
 
         //add last room
         if(canMakeRoom) {
+            console.log("Making last room")
             this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
         } 
         else {
-            this.removeLastHallway()
+            //this.removeLastHallway()
         }
 
     }
@@ -101,7 +104,7 @@ class LevelMap {
     removeLastHallway() {
 
         let hallwayToDelete = this.hallways.pop()
-        if(hallwayToDelete !== null || hallwayToDelete !== undefined) {
+        if(hallwayToDelete !== null && hallwayToDelete !== undefined) {
             hallwayToDelete.tiles.forEach(item => {
                 this.walkables.delete(generateKey(item))
             })
@@ -243,25 +246,38 @@ class LevelMap {
 
     roomSpaceIsAvailAble(startPos, startingDir, roomWidth, roomHeight) {
          //Handle dir of room 
-         let xDir = (startingDir === LEFT) ? -1 : 1
-         let yDir = (startingDir === UP) ? -1 : 1
+        let xDir = (startingDir === LEFT) ? -1 : 1
+        let yDir = (startingDir === UP) ? -1 : 1
          
         //adjust room width and height for calculations 
         roomHeight--
         roomWidth--
 
          //check corners 
-         let topLeft = new Vec2d(startPos.x, startPos.y + (roomHeight * yDir))
-         let topRight = new Vec2d(startPos.x + (roomWidth * xDir), startPos.y + (roomHeight * yDir))
-         let bottomRight = new Vec2d(startPos.x + (roomWidth * xDir), startPos.y)
-         if(this.walkables.has(generateKey(topLeft)) ||
-             this.walkables.has(generateKey(topRight)) ||
-             this.walkables.has(generateKey(bottomRight)) ||
-             this.walkables.has(generateKey(startPos))) 
-         {
-             return false
-         }
+        //  let topLeft = new Vec2d(startPos.x, startPos.y + (roomHeight * yDir))
+        //  let topRight = new Vec2d(startPos.x + (roomWidth * xDir), startPos.y + (roomHeight * yDir))
+        //  let bottomRight = new Vec2d(startPos.x + (roomWidth * xDir), startPos.y)
+        //  if(this.walkables.has(generateKey(topLeft)) ||
+        //      this.walkables.has(generateKey(topRight)) ||
+        //      this.walkables.has(generateKey(bottomRight)) ||
+        //      this.walkables.has(generateKey(startPos))) 
+        //  {
+        //      return false
+        //  }
  
+        for(var i = 0; i < roomHeight; i++) {
+            for(var j = 0; j < roomWidth; j++) {
+                let xPos = (j * xDir) + startPos.x
+                let yPos = (i * yDir) + startPos.y
+                let key = generateKey(new Vec2d(xPos, yPos))
+                if(this.walkables.has(key)) {
+                    console.log("xdir: %d, ydir: %d", xDir, yDir)
+                    console.log(key)
+                    return false
+                }
+            }
+        }
+
          return true
     }
 
