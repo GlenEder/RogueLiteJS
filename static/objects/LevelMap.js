@@ -57,6 +57,7 @@ class LevelMap {
         let roomDir = RIGHT
         let roomWidth = 4
         let roomHeight = 3
+        let hallwayLen = 3
         let canMakeRoom = true
         for(var i = 0; i < this.numRooms - 1; i++) {
 
@@ -68,7 +69,7 @@ class LevelMap {
             }
             else {
                 this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
-                let data = this.generateHallway(3)
+                let data = this.generateHallway(hallwayLen)
                 nextRoomStart = data.pos
                 roomDir = data.direction
             }
