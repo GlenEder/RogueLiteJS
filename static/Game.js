@@ -33,30 +33,30 @@ function initGame() {
     //player.spawn()
     //room.container.addChild(player.sprite)
 
-
+//
     //Event listeners for moment and what not
     document.addEventListener("keydown", (event) => {
 
         switch(event.keyCode) {
             //d
             case 68:
-                player.setMoving(0, true)
+                //player.setMoving(0, true)
                 break
             //a
             case 65:
-                player.setMoving(1, true)
+                //player.setMoving(1, true)
                 break
             //w
             case 87:
-                player.setMoving(2, true)
+                //player.setMoving(2, true)
                 break
             //s
             case 83:
-                player.setMoving(3, true)
+                //player.setMoving(3, true)
                 break
             //space bar
             case 32:
-                goToNewLevel()
+                //goToNewLevel()
                 break
             default:
                 console.log(event.keyCode)
@@ -69,19 +69,19 @@ function initGame() {
         switch(event.keyCode) {
             //d
             case 68:
-                player.setMoving(0, false)
+                //player.setMoving(0, false)
                 break
             //a
             case 65:
-                player.setMoving(1, false)
+                //player.setMoving(1, false)
                 break
             //w
             case 87:
-                player.setMoving(2, false)
+                //player.setMoving(2, false)
                 break
             //s
             case 83:
-                player.setMoving(3, false)
+                //player.setMoving(3, false)
                 break
         }
 
