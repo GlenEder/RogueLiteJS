@@ -41,18 +41,22 @@ function initGame() {
             //d
             case 68:
                 //player.setMoving(0, true)
+                moveContainer(LEFT)
                 break
             //a
             case 65:
                 //player.setMoving(1, true)
+                moveContainer(RIGHT)
                 break
             //w
             case 87:
                 //player.setMoving(2, true)
+                moveContainer(DOWN)
                 break
             //s
             case 83:
                 //player.setMoving(3, true)
+                moveContainer(UP)
                 break
             //space bar
             case 32:
@@ -105,5 +109,25 @@ function goToNewLevel() {
     //player.spawn()
     //oom.container.addChild(player.sprite)
 
+}
+
+//move container
+function moveContainer(direction) {
+    let moveSpeed = 3
+     //Handle dir  
+     switch(direction){
+        case UP:
+            level.container.y -= moveSpeed
+            break
+        case DOWN:
+            level.container.y += moveSpeed
+            break
+        case RIGHT:
+            level.container.x += moveSpeed
+            break
+        case LEFT:
+            level.container.x -= moveSpeed
+            break
+     }
 }
 
