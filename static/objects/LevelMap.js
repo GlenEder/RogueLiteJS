@@ -67,6 +67,10 @@ class LevelMap {
         //create starting room
         this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, roomScale))
         possibleHallwayStarts = this.getAllRoomEdges()
+        let edgeToTry = possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)]
+        console.log(edgeToTry);
+        
+        this.generateHallway(hallwayLen, possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)])
 
         // for(var i = 1; i < this.numRooms; i++) {
 
@@ -93,11 +97,9 @@ class LevelMap {
 
     //Creates a hallway from a random rooms wall
     //Returns hallways last tile position 
-    generateHallway(distance) {
-        let possibleStarts = this.getRoomEdges(this.rooms[0])
-        let hallwayStart = possibleStarts[getRandomIndex(possibleStarts)]
-        let dir = this.getDirOfEdge(hallwayStart)
-        let hall = new Hallway(this.walkables, hallwayStart, dir, distance, this.tileset, this.scale)
+    generateHallway(distance, startingPos) {
+        let dir = this.getDirOfEdge(startingPos)
+        let hall = new Hallway(this.walkables, startingPos, dir, distance, this.tileset, this.scale)
         this.hallways.push(hall)
         return {pos: hall.lastTilePos, direction: dir}
     }
@@ -202,7 +204,10 @@ class LevelMap {
     getAllRoomEdges() {
         let edges = []
         this.rooms.forEach(item => {
-            edges.push(this.getRoomEdges(item))
+            let roomEdges = this.getRoomEdges(item)
+            roomEdges.forEach(inner => {
+                edges.push(inner)
+            })
         })
 
         return edges
