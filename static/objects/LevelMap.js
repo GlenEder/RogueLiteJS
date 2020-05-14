@@ -60,8 +60,7 @@ class LevelMap {
         let roomWidth = 4
         let roomHeight = 3
         let roomScale = 1
-        let hallwayLen = 3
-        let removedHallway = false
+        let hallwayLen = 4
         let possibleHallwayStarts = []
 
         //create starting room
