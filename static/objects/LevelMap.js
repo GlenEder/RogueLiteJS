@@ -57,11 +57,16 @@ class LevelMap {
 
         let nextRoomStart = new Vec2d(0, 0)
         let roomDir = RIGHT
-        let roomWidth = 4
-        let roomHeight = 3
+        let minRoomWidth = 4
+        let minRoomHeight = 3
+        let maxRoomWidht = 8
+        let maxRoomHeight = 6
         let roomScale = 1
         let hallwayLen = 4
         let possibleHallwayStarts = []
+
+        let roomWidth = Math.floor(Math.random() * (maxRoomWidht - minRoomWidth)) + minRoomWidth
+        let roomHeight = Math.floor(Math.random() * (maxRoomHeight - minRoomHeight)) + minRoomHeight
 
         //create starting room
         this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, roomScale))
@@ -80,6 +85,8 @@ class LevelMap {
             //update room data
             nextRoomStart = nextRoomData.pos
             roomDir = nextRoomData.direction
+            roomWidth = Math.floor(Math.random() * (maxRoomWidht - minRoomWidth)) + minRoomWidth
+            roomHeight = Math.floor(Math.random() * (maxRoomHeight - minRoomHeight)) + minRoomHeight
 
             //check that next rooms have space
             if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
