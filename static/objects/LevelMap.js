@@ -292,26 +292,13 @@ class LevelMap {
         roomHeight--
         roomWidth--
 
-         //check corners 
-        //  let topLeft = new Vec2d(startPos.x, startPos.y + (roomHeight * yDir))
-        //  let topRight = new Vec2d(startPos.x + (roomWidth * xDir), startPos.y + (roomHeight * yDir))
-        //  let bottomRight = new Vec2d(startPos.x + (roomWidth * xDir), startPos.y)
-        //  if(this.walkables.has(generateKey(topLeft)) ||
-        //      this.walkables.has(generateKey(topRight)) ||
-        //      this.walkables.has(generateKey(bottomRight)) ||
-        //      this.walkables.has(generateKey(startPos))) 
-        //  {
-        //      return false
-        //  }
- 
+    
         for(var i = 0; i < roomHeight; i++) {
             for(var j = 0; j < roomWidth; j++) {
                 let xPos = (j * xDir) + startPos.x
                 let yPos = (i * yDir) + startPos.y
                 let key = generateKey(new Vec2d(xPos, yPos))
                 if(this.walkables.has(key)) {
-                    console.log("xdir: %d, ydir: %d", xDir, yDir)
-                    console.log(key)
                     return false
                 }
             }
