@@ -66,11 +66,17 @@ class LevelMap {
 
         //create starting room
         this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, roomScale))
+
+        //get all hallway starting positions avail
         possibleHallwayStarts = this.getAllRoomEdges()
-        let edgeToTry = possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)]
-        console.log(edgeToTry);
-        
+
+        //pick random avail start
+        let edgeToTry = possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)]    
+
+        //generate hallway 
         this.generateHallway(hallwayLen, possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)])
+
+        
 
         // for(var i = 1; i < this.numRooms; i++) {
 
