@@ -74,31 +74,47 @@ class LevelMap {
         let edgeToTry = possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)]    
 
         //generate hallway 
-        this.generateHallway(hallwayLen, possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)])
+        let nextRoomData = this.generateHallway(hallwayLen, possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)])
 
+        //update room data
+        nextRoomStart = nextRoomData.pos
+        roomDir = nextRoomData.direction
+
+        for(var i = 1; i < this.numRooms; i++) {
+
+            //check that next rooms have space
+            if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
+                //remove last hallway and starting position of that hallway
+                this.removeLastHallway()
+                let spot = possibleHallwayStarts.indexOf(edgeToTry)
+                possibleHallwayStarts.splice(spot, 1)
+
+                //reset room counter 
+                i--
+            }
+            else {
+                //create room 
+                this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, roomScale))
+
+                //get all hallway starting positions avail
+                possibleHallwayStarts = this.getAllRoomEdges()
+
+                //pick random avail start
+                let edgeToTry = possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)]    
+
+                //generate hallway 
+                let nextRoomData = this.generateHallway(hallwayLen, possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)])
+
+                //update room data
+                nextRoomStart = nextRoomData.pos
+                roomDir = nextRoomData.direction
+            }
         
 
-        // for(var i = 1; i < this.numRooms; i++) {
+        }
 
-        //      //check that next rooms have space
-        //      if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
-        //         console.log("Space for room not available.")
-        //         this.removeLastHallway()
-        //         removedHallway = true
-        //     }
-        //     else {
-        //         this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
-        //         let data = this.generateHallway(hallwayLen)
-        //         nextRoomStart = data.pos
-        //         roomDir = data.direction
-        //         removedHallway = false
-        //     }
-        
-        // }
-
-        // if(!removedHallway) {
-        //     this.removeLastHallway()
-        // }
+        //remove last hallway 
+        this.removeLastHallway()
     }
 
     //Creates a hallway from a random rooms wall
