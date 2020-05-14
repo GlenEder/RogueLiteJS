@@ -76,11 +76,11 @@ class LevelMap {
         //generate hallway 
         let nextRoomData = this.generateHallway(hallwayLen, possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)])
 
-        //update room data
-        nextRoomStart = nextRoomData.pos
-        roomDir = nextRoomData.direction
-
         for(var i = 1; i < this.numRooms; i++) {
+
+            //update room data
+            nextRoomStart = nextRoomData.pos
+            roomDir = nextRoomData.direction
 
             //check that next rooms have space
             if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
@@ -91,6 +91,10 @@ class LevelMap {
 
                 //reset room counter 
                 i--
+
+                //generate new hallway 
+                edgeToTry = possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)]    
+                nextRoomData = this.generateHallway(hallwayLen, possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)])
             }
             else {
                 //create room 
@@ -104,10 +108,6 @@ class LevelMap {
 
                 //generate hallway 
                 let nextRoomData = this.generateHallway(hallwayLen, possibleHallwayStarts[getRandomIndex(possibleHallwayStarts)])
-
-                //update room data
-                nextRoomStart = nextRoomData.pos
-                roomDir = nextRoomData.direction
             }
         
 
