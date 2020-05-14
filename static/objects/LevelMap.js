@@ -59,9 +59,15 @@ class LevelMap {
         let roomDir = RIGHT
         let roomWidth = 4
         let roomHeight = 3
+        let roomScale = 1
         let hallwayLen = 3
         let removedHallway = false
-        for(var i = 0; i < this.numRooms; i++) {
+        let possibleHallwayStarts = []
+
+        //create starting room
+        this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, roomScale))
+
+        for(var i = 1; i < this.numRooms; i++) {
 
              //check that next rooms have space
              if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
