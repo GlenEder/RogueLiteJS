@@ -60,25 +60,28 @@ class LevelMap {
         let roomWidth = 4
         let roomHeight = 3
         let hallwayLen = 3
-        let canMakeRoom = true
+        let removedHallway = false
         for(var i = 0; i < this.numRooms; i++) {
 
              //check that next rooms have space
              if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
                 console.log("Space for room not available.")
-                canMakeRoom = false
                 this.removeLastHallway()
+                removedHallway = true
             }
             else {
                 this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
                 let data = this.generateHallway(hallwayLen)
                 nextRoomStart = data.pos
                 roomDir = data.direction
+                removedHallway = false
             }
         
         }
 
-        this.removeLastHallway()
+        if(!removedHallway) {
+            this.removeLastHallway()
+        }
     }
 
     //Creates a hallway from a random rooms wall
