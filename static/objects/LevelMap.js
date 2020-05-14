@@ -66,6 +66,7 @@ class LevelMap {
 
         //create starting room
         this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, roomScale))
+        possibleHallwayStarts = this.getAllRoomEdges()
 
         for(var i = 1; i < this.numRooms; i++) {
 
@@ -195,6 +196,16 @@ class LevelMap {
         else if((tilesAround & WALL_LEFT) && (tilesAround & WALL_BOTTOM) && (tilesAround & CORNER_BL)) {
             tile.setSpriteWithDir(this.tileset + "_" + BEND, 1)
         }
+    }
+
+    //returns array of all edges of all rooms 
+    getAllRoomEdges() {
+        let edges = []
+        this.rooms.forEach(item => {
+            edges.push(this.getRoomEdges(item))
+        })
+
+        return edges
     }
 
     //returns array of edges for room 
