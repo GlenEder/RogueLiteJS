@@ -68,27 +68,27 @@ class LevelMap {
         this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, roomScale))
         possibleHallwayStarts = this.getAllRoomEdges()
 
-        for(var i = 1; i < this.numRooms; i++) {
+        // for(var i = 1; i < this.numRooms; i++) {
 
-             //check that next rooms have space
-             if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
-                console.log("Space for room not available.")
-                this.removeLastHallway()
-                removedHallway = true
-            }
-            else {
-                this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
-                let data = this.generateHallway(hallwayLen)
-                nextRoomStart = data.pos
-                roomDir = data.direction
-                removedHallway = false
-            }
+        //      //check that next rooms have space
+        //      if(!this.roomSpaceIsAvailAble(nextRoomStart, roomDir, roomWidth, roomHeight)) {
+        //         console.log("Space for room not available.")
+        //         this.removeLastHallway()
+        //         removedHallway = true
+        //     }
+        //     else {
+        //         this.rooms.push(new Room(this.walkables, nextRoomStart, roomDir, roomWidth, roomHeight, this.tileset, 1))
+        //         let data = this.generateHallway(hallwayLen)
+        //         nextRoomStart = data.pos
+        //         roomDir = data.direction
+        //         removedHallway = false
+        //     }
         
-        }
+        // }
 
-        if(!removedHallway) {
-            this.removeLastHallway()
-        }
+        // if(!removedHallway) {
+        //     this.removeLastHallway()
+        // }
     }
 
     //Creates a hallway from a random rooms wall
